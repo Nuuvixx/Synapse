@@ -222,6 +222,14 @@ class TabManager {
       tab.url = url2;
       this.notifyTabUpdate(tab);
     });
+    view.webContents.setWindowOpenHandler(({ url: url2 }) => {
+      this.createTab(url2);
+      return { action: "deny" };
+    });
+    view.webContents.on("will-navigate", (_event, url2) => {
+      tab.url = url2;
+      this.notifyTabUpdate(tab);
+    });
     this.tabs.set(id, tab);
     this.switchTab(id);
     return this.tabToInfo(tab);
