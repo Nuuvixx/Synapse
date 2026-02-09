@@ -2,11 +2,11 @@
  * BrowserPanel Component
  * 
  * Combines AddressBar and BrowserViewport into a complete browser experience.
- * This panel can be toggled alongside the graph view.
+ * Features Chrome-like rounded tabs for a modern feel.
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layers, LayoutGrid, PanelRightClose } from 'lucide-react';
+import { LayoutGrid, X, Plus } from 'lucide-react';
 import { AddressBar } from './AddressBar';
 import { BrowserViewport } from './BrowserViewport';
 import { useTabManager } from '@/hooks/useTabManager';
@@ -16,10 +16,16 @@ import { cn } from '@/lib/utils';
 interface BrowserPanelProps {
     isOpen: boolean;
     fullscreen?: boolean;
-    onToggleFullscreen?: () => void;
+    onToggleGraph?: () => void;
+    showGraph?: boolean;
 }
 
-export function BrowserPanel({ isOpen, fullscreen = false, onToggleFullscreen }: BrowserPanelProps) {
+export function BrowserPanel({
+    isOpen,
+    fullscreen = false,
+    onToggleGraph,
+    showGraph = false
+}: BrowserPanelProps) {
     const {
         tabs,
         activeTab,
@@ -34,32 +40,29 @@ export function BrowserPanel({ isOpen, fullscreen = false, onToggleFullscreen }:
     // Use tab-node sync for creating tabs with graph nodes
     const { createTabWithNode, closeTabAndNode } = useTabNodeSync();
 
-    // Track navigation capabilities - for now always enabled
-    // In a real implementation, we'd query webContents.canGoBack/Forward
+    // Navigation capabilities
     const canGoBack = true;
     const canGoForward = true;
 
-    // Handle navigation - creates tab with node if none exists
+    // Handle navigation
     const handleNavigate = async (url: string) => {
         if (activeTab) {
             await navigate(url);
         } else {
-            // Create tab with associated graph node
             await createTabWithNode(url);
         }
     };
 
-    // Handle new tab creation with node
+    // Handle new tab creation
     const handleCreateTab = async (url: string) => {
         await createTabWithNode(url);
     };
 
-    // Handle tab close with node update
+    // Handle tab close
     const handleCloseTab = async (tabId: string) => {
         await closeTabAndNode(tabId);
     };
 
-    // Determine panel width based on fullscreen state
     const panelWidth = fullscreen ? '100%' : '50%';
 
     return (
@@ -75,58 +78,87 @@ export function BrowserPanel({ isOpen, fullscreen = false, onToggleFullscreen }:
                         !fullscreen && "border-l border-slate-800"
                     )}
                 >
-                    {/* Tab Bar */}
-                    <div className="h-9 flex items-center gap-1 px-2 bg-slate-900 border-b border-slate-800 overflow-x-auto">
-                        {/* Graph Toggle Button (in fullscreen mode) */}
-                        {fullscreen && onToggleFullscreen && (
+                    {/* Tab Bar - Chrome-like styling */}
+                    <div className="h-10 flex items-center gap-1 px-2 bg-slate-850 border-b border-slate-800">
+                        {/* Graph View Toggle Button */}
+                        {onToggleGraph && (
                             <button
-                                onClick={onToggleFullscreen}
-                                className="p-1.5 mr-2 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 rounded-md transition-colors"
-                                title="Show Graph View"
+                                onClick={onToggleGraph}
+                                className={cn(
+                                    "p-2 mr-1 rounded-lg transition-all duration-200",
+                                    "hover:bg-slate-700/70",
+                                    showGraph
+                                        ? "text-emerald-400 bg-emerald-500/10"
+                                        : "text-slate-400 hover:text-slate-200"
+                                )}
+                                title={showGraph ? "Hide Graph View (Alt+V)" : "Show Graph View (Alt+V)"}
                             >
-                                <LayoutGrid size={16} />
+                                <LayoutGrid size={18} />
                             </button>
                         )}
 
-                        {tabs.map(tab => (
-                            <button
-                                key={tab.id}
-                                onClick={() => switchTab(tab.id)}
-                                className={cn(
-                                    "flex items-center gap-2 px-3 py-1.5 rounded-md text-xs max-w-[160px] truncate transition-colors",
-                                    tab.isActive
-                                        ? "bg-slate-700 text-white"
-                                        : "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
-                                )}
-                            >
-                                {tab.favicon && (
-                                    <img
-                                        src={tab.favicon}
-                                        alt=""
-                                        className="w-3.5 h-3.5 rounded"
-                                        onError={(e) => e.currentTarget.style.display = 'none'}
-                                    />
-                                )}
-                                <span className="truncate">{tab.title || 'New Tab'}</span>
+                        {/* Tab List - Chrome-like rounded tabs */}
+                        <div className="flex items-end gap-0.5 flex-1 overflow-x-auto min-h-[36px]">
+                            {tabs.map(tab => (
                                 <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleCloseTab(tab.id);
-                                    }}
-                                    className="ml-auto p-0.5 hover:bg-slate-600 rounded opacity-50 hover:opacity-100"
+                                    key={tab.id}
+                                    onClick={() => switchTab(tab.id)}
+                                    className={cn(
+                                        "group flex items-center gap-2 px-3 py-2 min-w-[120px] max-w-[200px] transition-all duration-200",
+                                        "rounded-t-lg", // Chrome-like rounded top corners
+                                        tab.isActive
+                                            ? "bg-slate-800 text-white border-t border-l border-r border-slate-700"
+                                            : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
+                                    )}
                                 >
-                                    ×
-                                </button>
-                            </button>
-                        ))}
+                                    {/* Favicon */}
+                                    {tab.favicon ? (
+                                        <img
+                                            src={tab.favicon}
+                                            alt=""
+                                            className="w-4 h-4 rounded flex-shrink-0"
+                                            onError={(e) => e.currentTarget.style.display = 'none'}
+                                        />
+                                    ) : (
+                                        <div className="w-4 h-4 rounded bg-slate-600 flex-shrink-0" />
+                                    )}
 
-                        {/* New Tab Button */}
+                                    {/* Title */}
+                                    <span className="text-xs truncate flex-1 text-left">
+                                        {tab.title || 'New Tab'}
+                                    </span>
+
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleCloseTab(tab.id);
+                                        }}
+                                        className={cn(
+                                            "p-0.5 rounded-full transition-all duration-200",
+                                            "opacity-0 group-hover:opacity-100",
+                                            "hover:bg-slate-600"
+                                        )}
+                                    >
+                                        <X size={14} />
+                                    </button>
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* New Tab Button - Circular with hover effect */}
                         <button
                             onClick={() => handleCreateTab('https://www.google.com')}
-                            className="p-1.5 hover:bg-slate-800 text-slate-500 hover:text-slate-300 rounded-md transition-colors"
+                            className={cn(
+                                "p-2 rounded-full transition-all duration-200",
+                                "text-slate-400 hover:text-slate-200",
+                                "hover:bg-slate-700/70",
+                                "border border-transparent hover:border-slate-600",
+                                "focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50"
+                            )}
                             title="New Tab"
                         >
-                            +
+                            <Plus size={18} />
                         </button>
                     </div>
 
@@ -151,34 +183,5 @@ export function BrowserPanel({ isOpen, fullscreen = false, onToggleFullscreen }:
                 </motion.div>
             )}
         </AnimatePresence>
-    );
-}
-
-/**
- * Toggle button for browser panel
- */
-export function BrowserPanelToggle({
-    isOpen,
-    onToggle
-}: {
-    isOpen: boolean;
-    onToggle: () => void;
-}) {
-    return (
-        <button
-            onClick={onToggle}
-            className={cn(
-                "fixed bottom-4 right-4 z-40 p-3 rounded-full shadow-lg transition-all",
-                "bg-gradient-to-br from-cyan-500 to-purple-600 text-white",
-                "hover:shadow-xl hover:scale-105"
-            )}
-            title={isOpen ? "Close Browser" : "Open Browser"}
-        >
-            {isOpen ? (
-                <PanelRightClose size={20} />
-            ) : (
-                <Layers size={20} />
-            )}
-        </button>
     );
 }
