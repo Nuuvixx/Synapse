@@ -46,11 +46,24 @@ const nodeTypes: NodeTypes = {
       selectNode(nodeData.id);
     };
 
-    const handleDoubleClick = () => {
+    const handleDoubleClick = async () => {
       if (nodeData.status === 'closed') {
         reopenNode(nodeData.id);
       } else {
         focusNode(nodeData.id);
+        // Switch to associated browser tab if available
+        if (window.api?.tab) {
+          // Get tab associations and switch if tab exists for this node
+          const { getTabNodeAssociations } = await import('@/hooks/useTabNodeSync');
+          const associations = getTabNodeAssociations();
+          // Find tabId for this nodeId
+          for (const [tabId, nodeId] of associations.entries()) {
+            if (nodeId === nodeData.id) {
+              await window.api.tab.switchTab(tabId);
+              break;
+            }
+          }
+        }
       }
     };
 
@@ -64,6 +77,7 @@ const nodeTypes: NodeTypes = {
     );
   }
 };
+
 
 // Convert graph data to React Flow format with optional position override
 const convertToFlowNodes = (

@@ -10,6 +10,7 @@ import { Layers, PanelRightClose } from 'lucide-react';
 import { AddressBar } from './AddressBar';
 import { BrowserViewport } from './BrowserViewport';
 import { useTabManager } from '@/hooks/useTabManager';
+import { useTabNodeSync } from '@/hooks/useTabNodeSync';
 import { cn } from '@/lib/utils';
 
 interface BrowserPanelProps {
@@ -21,27 +22,39 @@ export function BrowserPanel({ isOpen }: BrowserPanelProps) {
         tabs,
         activeTab,
         isLoading,
-        createTab,
         switchTab,
-        closeTab,
         navigate,
         goBack,
         goForward,
         reload
     } = useTabManager();
 
+    // Use tab-node sync for creating tabs with graph nodes
+    const { createTabWithNode, closeTabAndNode } = useTabNodeSync();
+
     // Track navigation capabilities - for now always enabled
     // In a real implementation, we'd query webContents.canGoBack/Forward
     const canGoBack = true;
     const canGoForward = true;
 
-    // Handle navigation
+    // Handle navigation - creates tab with node if none exists
     const handleNavigate = async (url: string) => {
         if (activeTab) {
             await navigate(url);
         } else {
-            await createTab(url);
+            // Create tab with associated graph node
+            await createTabWithNode(url);
         }
+    };
+
+    // Handle new tab creation with node
+    const handleCreateTab = async (url: string) => {
+        await createTabWithNode(url);
+    };
+
+    // Handle tab close with node update
+    const handleCloseTab = async (tabId: string) => {
+        await closeTabAndNode(tabId);
     };
 
     return (
@@ -79,7 +92,7 @@ export function BrowserPanel({ isOpen }: BrowserPanelProps) {
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        closeTab(tab.id);
+                                        handleCloseTab(tab.id);
                                     }}
                                     className="ml-auto p-0.5 hover:bg-slate-600 rounded opacity-50 hover:opacity-100"
                                 >
@@ -90,7 +103,7 @@ export function BrowserPanel({ isOpen }: BrowserPanelProps) {
 
                         {/* New Tab Button */}
                         <button
-                            onClick={() => createTab('https://www.google.com')}
+                            onClick={() => handleCreateTab('https://www.google.com')}
                             className="p-1.5 hover:bg-slate-800 text-slate-500 hover:text-slate-300 rounded-md transition-colors"
                             title="New Tab"
                         >
@@ -113,7 +126,7 @@ export function BrowserPanel({ isOpen }: BrowserPanelProps) {
                     {/* Browser Viewport */}
                     <BrowserViewport
                         activeTab={activeTab}
-                        onCreateTab={createTab}
+                        onCreateTab={handleCreateTab}
                         isLoading={isLoading}
                     />
                 </motion.div>

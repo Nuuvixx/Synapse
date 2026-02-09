@@ -77,7 +77,29 @@ const electronAPI = {
     }
   }
 };
-const api = {};
+const tabApi = {
+  // Tab lifecycle
+  createTab: (url, nodeId) => ipcRenderer.invoke("tab:create", url, nodeId),
+  switchTab: (tabId) => ipcRenderer.invoke("tab:switch", tabId),
+  closeTab: (tabId) => ipcRenderer.invoke("tab:close", tabId),
+  navigateTab: (tabId, url) => ipcRenderer.invoke("tab:navigate", tabId, url),
+  // Navigation controls
+  goBack: (tabId) => ipcRenderer.invoke("tab:goBack", tabId),
+  goForward: (tabId) => ipcRenderer.invoke("tab:goForward", tabId),
+  reload: (tabId) => ipcRenderer.invoke("tab:reload", tabId),
+  // Tab queries
+  getAllTabs: () => ipcRenderer.invoke("tab:getAll"),
+  getActiveTab: () => ipcRenderer.invoke("tab:getActive"),
+  // Event listeners
+  onTabUpdated: (callback) => {
+    const listener = (_event, tabInfo) => callback(tabInfo);
+    ipcRenderer.on("tab:updated", listener);
+    return () => ipcRenderer.removeListener("tab:updated", listener);
+  }
+};
+const api = {
+  tab: tabApi
+};
 if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld("electron", electronAPI);
