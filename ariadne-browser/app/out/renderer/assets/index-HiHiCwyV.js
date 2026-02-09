@@ -28845,12 +28845,19 @@ const __iconNode$l = [
 ];
 const Image = createLucideIcon("image", __iconNode$l);
 const __iconNode$k = [
+  ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
+  ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
+];
+const LayoutGrid = createLucideIcon("layout-grid", __iconNode$k);
+const __iconNode$j = [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
 ];
-const Link2 = createLucideIcon("link-2", __iconNode$k);
-const __iconNode$j = [
+const Link2 = createLucideIcon("link-2", __iconNode$j);
+const __iconNode$i = [
   [
     "path",
     {
@@ -28861,27 +28868,22 @@ const __iconNode$j = [
   ["path", { d: "M15 5.764v15", key: "1pn4in" }],
   ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$j);
-const __iconNode$i = [
+const Map$1 = createLucideIcon("map", __iconNode$i);
+const __iconNode$h = [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3", key: "1dcmit" }],
   ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
   ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
   ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
 ];
-const Maximize = createLucideIcon("maximize", __iconNode$i);
-const __iconNode$h = [
+const Maximize = createLucideIcon("maximize", __iconNode$h);
+const __iconNode$g = [
   ["path", { d: "M4 5h16", key: "1tepv9" }],
   ["path", { d: "M4 12h16", key: "1lakjw" }],
   ["path", { d: "M4 19h16", key: "1djgab" }]
 ];
-const Menu = createLucideIcon("menu", __iconNode$h);
-const __iconNode$g = [["path", { d: "M5 12h14", key: "1ays0h" }]];
-const Minus = createLucideIcon("minus", __iconNode$g);
-const __iconNode$f = [
-  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-  ["path", { d: "M15 3v18", key: "14nvp0" }]
-];
-const PanelRight = createLucideIcon("panel-right", __iconNode$f);
+const Menu = createLucideIcon("menu", __iconNode$g);
+const __iconNode$f = [["path", { d: "M5 12h14", key: "1ays0h" }]];
+const Minus = createLucideIcon("minus", __iconNode$f);
 const __iconNode$e = [
   ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1", key: "kaeet6" }],
   ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
@@ -35614,12 +35616,16 @@ function BrowserViewport({
     const updateBounds = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        setBounds({
+        const newBounds = {
           x: Math.round(rect.x),
           y: Math.round(rect.y),
           width: Math.round(rect.width),
           height: Math.round(rect.height)
-        });
+        };
+        setBounds(newBounds);
+        if (window.api?.tab) {
+          window.electron?.ipcRenderer.send("browser:viewport-bounds", newBounds);
+        }
       }
     };
     updateBounds();
@@ -36078,7 +36084,12 @@ const useTabNodeSync$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   getTabNodeAssociations,
   useTabNodeSync
 }, Symbol.toStringTag, { value: "Module" }));
-function BrowserPanel({ isOpen }) {
+function BrowserPanel({
+  isOpen,
+  fullscreen = false,
+  onToggleGraph,
+  showGraph = false
+}) {
   const {
     tabs,
     activeTab,
@@ -36105,35 +36116,54 @@ function BrowserPanel({ isOpen }) {
   const handleCloseTab = async (tabId) => {
     await closeTabAndNode(tabId);
   };
+  const panelWidth = fullscreen ? "100%" : "50%";
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
     {
       initial: { width: 0, opacity: 0 },
-      animate: { width: "50%", opacity: 1 },
+      animate: { width: panelWidth, opacity: 1 },
       exit: { width: 0, opacity: 0 },
       transition: { type: "spring", damping: 25, stiffness: 300 },
-      className: "h-full flex flex-col bg-slate-900 border-l border-slate-800 overflow-hidden",
+      className: cn(
+        "h-full flex flex-col bg-slate-900 overflow-hidden",
+        !fullscreen && "border-l border-slate-800"
+      ),
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-9 flex items-center gap-1 px-2 bg-slate-900 border-b border-slate-800 overflow-x-auto", children: [
-          tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-10 flex items-center gap-1 px-2 bg-slate-850 border-b border-slate-800", children: [
+          onToggleGraph && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: onToggleGraph,
+              className: cn(
+                "p-2 mr-1 rounded-lg transition-all duration-200",
+                "hover:bg-slate-700/70",
+                showGraph ? "text-emerald-400 bg-emerald-500/10" : "text-slate-400 hover:text-slate-200"
+              ),
+              title: showGraph ? "Hide Graph View (Alt+V)" : "Show Graph View (Alt+V)",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(LayoutGrid, { size: 18 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end gap-0.5 flex-1 overflow-x-auto min-h-[36px]", children: tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
             "button",
             {
               onClick: () => switchTab(tab.id),
               className: cn(
-                "flex items-center gap-2 px-3 py-1.5 rounded-md text-xs max-w-[160px] truncate transition-colors",
-                tab.isActive ? "bg-slate-700 text-white" : "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                "group flex items-center gap-2 px-3 py-2 min-w-[120px] max-w-[200px] transition-all duration-200",
+                "rounded-t-lg",
+                // Chrome-like rounded top corners
+                tab.isActive ? "bg-slate-800 text-white border-t border-l border-r border-slate-700" : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
               ),
               children: [
-                tab.favicon && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                tab.favicon ? /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "img",
                   {
                     src: tab.favicon,
                     alt: "",
-                    className: "w-3.5 h-3.5 rounded",
+                    className: "w-4 h-4 rounded flex-shrink-0",
                     onError: (e) => e.currentTarget.style.display = "none"
                   }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "truncate", children: tab.title || "New Tab" }),
+                ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-4 h-4 rounded bg-slate-600 flex-shrink-0" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs truncate flex-1 text-left", children: tab.title || "New Tab" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "button",
                   {
@@ -36141,21 +36171,31 @@ function BrowserPanel({ isOpen }) {
                       e.stopPropagation();
                       handleCloseTab(tab.id);
                     },
-                    className: "ml-auto p-0.5 hover:bg-slate-600 rounded opacity-50 hover:opacity-100",
-                    children: "×"
+                    className: cn(
+                      "p-0.5 rounded-full transition-all duration-200",
+                      "opacity-0 group-hover:opacity-100",
+                      "hover:bg-slate-600"
+                    ),
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
                   }
                 )
               ]
             },
             tab.id
-          )),
+          )) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
             {
               onClick: () => handleCreateTab("https://www.google.com"),
-              className: "p-1.5 hover:bg-slate-800 text-slate-500 hover:text-slate-300 rounded-md transition-colors",
+              className: cn(
+                "p-2 rounded-full transition-all duration-200",
+                "text-slate-400 hover:text-slate-200",
+                "hover:bg-slate-700/70",
+                "border border-transparent hover:border-slate-600",
+                "focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50"
+              ),
               title: "New Tab",
-              children: "+"
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 18 })
             }
           )
         ] }),
@@ -36186,18 +36226,18 @@ function BrowserPanel({ isOpen }) {
 }
 function App() {
   const [sidebarOpen, setSidebarOpen] = reactExports.useState(false);
-  const [browserOpen, setBrowserOpen] = reactExports.useState(false);
+  const [showGraph, setShowGraph] = reactExports.useState(false);
   const [isExtension, setIsExtension] = reactExports.useState(false);
   reactExports.useEffect(() => {
     setIsExtension(isExtensionMode());
   }, []);
   reactExports.useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.altKey && e.key === "g") {
+      if (e.altKey && e.key === "g" && showGraph) {
         setSidebarOpen((prev) => !prev);
       }
-      if (e.altKey && e.key === "b") {
-        setBrowserOpen((prev) => !prev);
+      if (e.altKey && e.key === "v") {
+        setShowGraph((prev) => !prev);
       }
       if (e.key === "Escape") {
         setSidebarOpen(false);
@@ -36205,47 +36245,41 @@ function App() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [showGraph]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-screen w-screen bg-slate-950 text-slate-200 overflow-hidden flex flex-col", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(TitleBar, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 relative flex overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ReactFlowProvider, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, { isOpen: sidebarOpen, onClose: () => setSidebarOpen(false) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 relative flex flex-col", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.button,
-          {
-            initial: { opacity: 0, scale: 0.8 },
-            animate: { opacity: sidebarOpen ? 0 : 1, scale: 1 },
-            className: cn(
-              "absolute top-4 left-4 z-30 p-2 rounded-lg transition-all",
-              "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
-              "hover:bg-slate-700 hover:border-slate-600",
-              "text-slate-400 hover:text-slate-200"
-            ),
-            onClick: () => setSidebarOpen(true),
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { className: "w-5 h-5" })
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.button,
-          {
-            initial: { opacity: 0, scale: 0.8 },
-            animate: { opacity: 1, scale: 1 },
-            className: cn(
-              "absolute top-4 right-4 z-30 p-2 rounded-lg transition-all",
-              "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
-              "hover:bg-slate-700 hover:border-slate-600",
-              browserOpen ? "text-cyan-400 border-cyan-500/50" : "text-slate-400 hover:text-slate-200"
-            ),
-            onClick: () => setBrowserOpen(!browserOpen),
-            title: "Toggle Browser (Alt+B)",
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(PanelRight, { className: "w-5 h-5" })
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 relative bg-slate-950", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GraphCanvas, {}) })
+      showGraph && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, { isOpen: sidebarOpen, onClose: () => setSidebarOpen(false) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 relative flex flex-col", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.button,
+            {
+              initial: { opacity: 0, scale: 0.8 },
+              animate: { opacity: sidebarOpen ? 0 : 1, scale: 1 },
+              className: cn(
+                "absolute top-4 left-4 z-30 p-2 rounded-lg transition-all",
+                "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
+                "hover:bg-slate-700 hover:border-slate-600",
+                "text-slate-400 hover:text-slate-200"
+              ),
+              onClick: () => setSidebarOpen(true),
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { className: "w-5 h-5" })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 relative bg-slate-950", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GraphCanvas, {}) })
+        ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserPanel, { isOpen: browserOpen }),
-      !isExtension && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-4 left-4 z-50 pointer-events-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 text-xs text-amber-500 backdrop-blur-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Demo Mode" }) }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        BrowserPanel,
+        {
+          isOpen: true,
+          fullscreen: !showGraph,
+          onToggleGraph: () => setShowGraph(!showGraph),
+          showGraph
+        }
+      ),
+      !isExtension && showGraph && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-4 left-4 z-50 pointer-events-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 text-xs text-amber-500 backdrop-blur-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Demo Mode" }) }) })
     ] }) })
   ] });
 }
