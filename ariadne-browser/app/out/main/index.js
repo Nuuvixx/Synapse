@@ -100,19 +100,29 @@ const optimizer = {
 const icon = join(import.meta.dirname, "../../resources/icon.png");
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 900,
+    width: 900,
+    height: 670,
     show: false,
     frame: false,
-    // Frameless for custom UI
+    // Frameless window
     autoHideMenuBar: true,
+    titleBarStyle: "hidden",
+    // Inset traffic lights on macOS
     ...process.platform === "linux" ? { icon } : {},
     webPreferences: {
-      preload: join(__dirname, "../preload/index.js"),
-      sandbox: false,
-      contextIsolation: true
+      preload: join(__dirname, "../preload/index.mjs"),
+      sandbox: false
     }
   });
+  ipcMain.on("window-minimize", () => mainWindow.minimize());
+  ipcMain.on("window-maximize", () => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.unmaximize();
+    } else {
+      mainWindow.maximize();
+    }
+  });
+  ipcMain.on("window-close", () => mainWindow.close());
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });

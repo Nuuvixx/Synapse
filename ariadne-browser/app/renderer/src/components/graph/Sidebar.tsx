@@ -30,7 +30,7 @@ type TabType = 'sessions' | 'trees' | 'settings';
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const [activeTab, setActiveTab] = useState<TabType>('sessions');
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -43,13 +43,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             onClick={onClose}
             className="fixed inset-0 bg-black/50 z-40"
           />
-          
+
           {/* Sidebar */}
           <motion.div
             initial={{ x: -320 }}
             animate={{ x: 0 }}
             exit={{ x: -320 }}
-            className="fixed left-0 top-0 bottom-0 w-80 bg-slate-900 border-r border-slate-800 z-50 flex flex-col"
+            className="fixed left-0 top-8 bottom-0 w-80 bg-slate-900 border-r border-slate-800 z-50 flex flex-col"
           >
             {/* Header */}
             <div className="p-4 border-b border-slate-800">
@@ -62,7 +62,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   <p className="text-xs text-slate-500">Spatial Web Browser</p>
                 </div>
               </div>
-              
+
               {/* Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
@@ -75,7 +75,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 />
               </div>
             </div>
-            
+
             {/* Tabs */}
             <div className="flex border-b border-slate-800">
               <TabButton
@@ -97,7 +97,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 label="Settings"
               />
             </div>
-            
+
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-4">
               {activeTab === 'sessions' && <SessionsTab searchQuery={searchQuery} />}
@@ -143,27 +143,27 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
   const switchSession = useGraphStore(state => state.switchSession);
   const createSession = useGraphStore(state => state.createSession);
   const deleteSession = useGraphStore(state => state.deleteSession);
-  
+
   const [expandedSession, setExpandedSession] = useState<string | null>(null);
-  
+
   const filteredSessions = sessions.filter(s =>
     s.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  
+
   const handleCreateSession = () => {
     const name = prompt('Enter session name:');
     if (name) {
       createSession(name);
     }
   };
-  
+
   const formatTime = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric'
     });
   };
-  
+
   return (
     <div className="space-y-2">
       <button
@@ -173,7 +173,7 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
         <Plus className="w-4 h-4" />
         New Session
       </button>
-      
+
       {filteredSessions.map(session => (
         <div
           key={session.id}
@@ -198,7 +198,7 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
               )}
               <span className="text-sm text-slate-200">{session.name}</span>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <span className="text-xs text-slate-500">{formatTime(session.updatedAt)}</span>
               {session.id === currentSessionId && (
@@ -206,7 +206,7 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
               )}
             </div>
           </div>
-          
+
           {expandedSession === session.id && (
             <div className="px-3 pb-3 border-t border-slate-700/50 pt-2">
               <div className="grid grid-cols-2 gap-2 text-xs text-slate-500 mb-3">
@@ -217,7 +217,7 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
                   <span className="text-slate-400">{session.edgeCount}</span> links
                 </div>
               </div>
-              
+
               <div className="flex gap-2">
                 <button
                   onClick={() => switchSession(session.id)}
@@ -249,18 +249,18 @@ function TreesTab({ searchQuery }: { searchQuery: string }) {
   const savedTrees = useGraphStore(state => state.savedTrees);
   const loadTree = useGraphStore(state => state.loadTree);
   const deleteTree = useGraphStore(state => state.deleteTree);
-  
+
   const filteredTrees = savedTrees.filter(t =>
     t.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  
+
   const formatTime = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric'
     });
   };
-  
+
   return (
     <div className="space-y-2">
       {filteredTrees.length === 0 ? (
@@ -281,7 +281,7 @@ function TreesTab({ searchQuery }: { searchQuery: string }) {
                 {tree.nodeCount} pages • {formatTime(tree.createdAt)}
               </p>
             </div>
-            
+
             <div className="flex gap-1">
               <button
                 onClick={() => loadTree(tree.id)}
@@ -315,51 +315,51 @@ function SettingsTab() {
   const showThumbnails = useGraphStore(state => state.showThumbnails);
   const showFavicons = useGraphStore(state => state.showFavicons);
   const clusterByDomain = useGraphStore(state => state.clusterByDomain);
-  
+
   const setDimClosedNodes = useGraphStore(state => state.setDimClosedNodes);
   const setShowThumbnails = useGraphStore(state => state.setShowThumbnails);
   const setShowFavicons = useGraphStore(state => state.setShowFavicons);
   const setClusterByDomain = useGraphStore(state => state.setClusterByDomain);
-  
+
   return (
     <div className="space-y-4">
       <div className="space-y-3">
         <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider">
           View Options
         </h3>
-        
+
         <ToggleSetting
           label="Dim closed tabs"
           checked={dimClosedNodes}
           onChange={setDimClosedNodes}
         />
-        
+
         <ToggleSetting
           label="Show thumbnails"
           checked={showThumbnails}
           onChange={setShowThumbnails}
         />
-        
+
         <ToggleSetting
           label="Show favicons"
           checked={showFavicons}
           onChange={setShowFavicons}
         />
-        
+
         <ToggleSetting
           label="Cluster by domain"
           checked={clusterByDomain}
           onChange={setClusterByDomain}
         />
       </div>
-      
+
       <div className="h-px bg-slate-800" />
-      
+
       <div className="space-y-3">
         <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider">
           Keyboard Shortcuts
         </h3>
-        
+
         <div className="space-y-2 text-sm">
           <div className="flex justify-between text-slate-400">
             <span>Open graph</span>

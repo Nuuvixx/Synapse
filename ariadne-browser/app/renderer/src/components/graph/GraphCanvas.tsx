@@ -318,7 +318,7 @@ export function GraphCanvas() {
   const isLoading = !hasInitialized && storeNodes.length === 0;
 
   return (
-    <div ref={canvasRef} className="w-full h-screen bg-slate-950 relative overflow-hidden">
+    <div ref={canvasRef} className="w-full h-full bg-slate-950 relative overflow-hidden">
       {/* Loading overlay */}
       <AnimatePresence>
         {isLoading && (
@@ -386,7 +386,7 @@ export function GraphCanvas() {
         )}
 
         {/* Toolbar Panel */}
-        <Panel position="top-left" className="m-4">
+        <Panel position="top-left" className="m-4 mt-8">
           <GraphToolbar
             onFitView={() => fitView({ padding: 0.3, duration: 300 })}
             onResetView={() => setViewport({ x: 0, y: 0, zoom: 1 })}
@@ -400,7 +400,7 @@ export function GraphCanvas() {
         </Panel>
 
         {/* Stats Panel */}
-        <Panel position="top-right" className="m-4">
+        <Panel position="top-right" className="m-4 mt-8">
           <div className="bg-slate-800/90 backdrop-blur-sm border border-slate-700 rounded-xl p-4">
             <h3 className="text-slate-400 text-xs uppercase tracking-wider mb-3">Session Stats</h3>
             <div className="grid grid-cols-2 gap-4">

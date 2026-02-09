@@ -7,18 +7,29 @@ import icon from '../../resources/icon.png?asset'
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 1400,
-        height: 900,
+        width: 900,
+        height: 670,
         show: false,
-        frame: false, // Frameless for custom UI
+        frame: false, // Frameless window
         autoHideMenuBar: true,
+        titleBarStyle: 'hidden', // Inset traffic lights on macOS
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
-            preload: join(__dirname, '../preload/index.js'),
-            sandbox: false,
-            contextIsolation: true
+            preload: join(__dirname, '../preload/index.mjs'),
+            sandbox: false
         }
     })
+
+    // Window Controls IPC
+    ipcMain.on('window-minimize', () => mainWindow.minimize())
+    ipcMain.on('window-maximize', () => {
+        if (mainWindow.isMaximized()) {
+            mainWindow.unmaximize()
+        } else {
+            mainWindow.maximize()
+        }
+    })
+    ipcMain.on('window-close', () => mainWindow.close())
 
     mainWindow.on('ready-to-show', () => {
         mainWindow.show()
