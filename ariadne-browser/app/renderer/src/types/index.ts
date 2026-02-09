@@ -119,3 +119,44 @@ export interface GraphStats {
   totalSessions: number;
   savedTrees: number;
 }
+
+// Tab Info from TabManager
+export interface TabInfo {
+  id: string;
+  nodeId: string | null;
+  url: string;
+  title: string;
+  favicon: string | null;
+  isActive: boolean;
+}
+
+// Tab API exposed via preload
+export interface TabApi {
+  createTab: (url: string, nodeId?: string) => Promise<TabInfo>;
+  switchTab: (tabId: string) => Promise<TabInfo | null>;
+  closeTab: (tabId: string) => Promise<boolean>;
+  navigateTab: (tabId: string, url: string) => Promise<boolean>;
+  goBack: (tabId: string) => Promise<boolean>;
+  goForward: (tabId: string) => Promise<boolean>;
+  reload: (tabId: string) => Promise<boolean>;
+  getAllTabs: () => Promise<TabInfo[]>;
+  getActiveTab: () => Promise<TabInfo | null>;
+  onTabUpdated: (callback: (tabInfo: TabInfo) => void) => () => void;
+}
+
+// Global window.api declaration
+declare global {
+  interface Window {
+    api: {
+      tab: TabApi;
+    };
+    electron: {
+      ipcRenderer: {
+        send: (channel: string, ...args: unknown[]) => void;
+        invoke: (channel: string, ...args: unknown[]) => Promise<unknown>;
+        on: (channel: string, listener: (...args: unknown[]) => void) => void;
+      };
+    };
+  }
+}
+
