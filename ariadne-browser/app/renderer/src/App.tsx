@@ -2,15 +2,17 @@
 import { useState, useEffect } from 'react';
 import { ReactFlowProvider } from '@xyflow/react';
 import { motion } from 'framer-motion';
-import { Menu } from 'lucide-react';
+import { Menu, PanelRight } from 'lucide-react';
 import { GraphCanvas } from '@/components/graph/GraphCanvas';
 import { Sidebar } from '@/components/graph/Sidebar';
 import { TitleBar } from '@/components/TitleBar';
+import { BrowserPanel } from '@/components/browser';
 import { isExtensionMode } from '@/store/demoData';
 import { cn } from '@/lib/utils';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [browserOpen, setBrowserOpen] = useState(false);
   const [isExtension, setIsExtension] = useState(false);
 
   useEffect(() => {
@@ -19,9 +21,15 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Toggle sidebar with Alt+G
       if (e.altKey && e.key === 'g') {
         setSidebarOpen(prev => !prev);
       }
+      // Toggle browser with Alt+B
+      if (e.altKey && e.key === 'b') {
+        setBrowserOpen(prev => !prev);
+      }
+      // Close overlays with Escape
       if (e.key === 'Escape') {
         setSidebarOpen(false);
       }
@@ -42,29 +50,51 @@ function App() {
           {/* Sidebar (Overlay) */}
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-          {/* Hamburger Menu (Visible when sidebar closed) */}
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: sidebarOpen ? 0 : 1, scale: 1 }}
-            className={cn(
-              "absolute top-4 left-4 z-30 p-2 rounded-lg transition-all",
-              "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
-              "hover:bg-slate-700 hover:border-slate-600",
-              "text-slate-400 hover:text-slate-200"
-            )}
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="w-5 h-5" />
-          </motion.button>
+          {/* Graph Canvas & Toolbar */}
+          <div className="flex-1 relative flex flex-col">
+            {/* Hamburger Menu (Visible when sidebar closed) */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: sidebarOpen ? 0 : 1, scale: 1 }}
+              className={cn(
+                "absolute top-4 left-4 z-30 p-2 rounded-lg transition-all",
+                "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
+                "hover:bg-slate-700 hover:border-slate-600",
+                "text-slate-400 hover:text-slate-200"
+              )}
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="w-5 h-5" />
+            </motion.button>
 
-          {/* Graph Canvas */}
-          <main className="flex-1 relative bg-slate-950">
-            <GraphCanvas />
-          </main>
+            {/* Browser Toggle Button */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className={cn(
+                "absolute top-4 right-4 z-30 p-2 rounded-lg transition-all",
+                "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
+                "hover:bg-slate-700 hover:border-slate-600",
+                browserOpen ? "text-cyan-400 border-cyan-500/50" : "text-slate-400 hover:text-slate-200"
+              )}
+              onClick={() => setBrowserOpen(!browserOpen)}
+              title="Toggle Browser (Alt+B)"
+            >
+              <PanelRight className="w-5 h-5" />
+            </motion.button>
+
+            {/* Graph Canvas */}
+            <main className="flex-1 relative bg-slate-950">
+              <GraphCanvas />
+            </main>
+          </div>
+
+          {/* Browser Panel (Side-by-side) */}
+          <BrowserPanel isOpen={browserOpen} />
 
           {/* Demo Mode Warning */}
           {!isExtension && (
-            <div className="absolute bottom-4 right-4 z-50 pointer-events-none">
+            <div className="absolute bottom-4 left-4 z-50 pointer-events-none">
               <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 text-xs text-amber-500 backdrop-blur-md">
                 <p>Demo Mode</p>
               </div>
@@ -77,3 +107,4 @@ function App() {
 }
 
 export default App;
+
