@@ -231,6 +231,7 @@ class TabManager {
       this.notifyTabUpdate(tab);
     });
     this.tabs.set(id, tab);
+    this.notifyTabCreated(tab);
     this.switchTab(id);
     return this.tabToInfo(tab);
   }
@@ -246,12 +247,14 @@ class TabManager {
       if (currentTab) {
         currentTab.isActive = false;
         this.mainWindow.contentView.removeChildView(currentTab.view);
+        this.notifyTabUpdate(currentTab);
       }
     }
     tab.isActive = true;
     this.activeTabId = tabId;
     this.mainWindow.contentView.addChildView(tab.view);
     this.resizeActiveView();
+    this.notifyTabUpdate(tab);
     return this.tabToInfo(tab);
   }
   /**
@@ -271,6 +274,7 @@ class TabManager {
     }
     tab.view.webContents.close();
     this.tabs.delete(tabId);
+    this.notifyTabRemoved(tabId);
     return true;
   }
   /**
@@ -335,6 +339,20 @@ class TabManager {
   notifyTabUpdate(tab) {
     if (!this.mainWindow) return;
     this.mainWindow.webContents.send("tab:updated", this.tabToInfo(tab));
+  }
+  /**
+   * Notify renderer of tab creation
+   */
+  notifyTabCreated(tab) {
+    if (!this.mainWindow) return;
+    this.mainWindow.webContents.send("tab:created", this.tabToInfo(tab));
+  }
+  /**
+   * Notify renderer of tab removal
+   */
+  notifyTabRemoved(tabId) {
+    if (!this.mainWindow) return;
+    this.mainWindow.webContents.send("tab:removed", tabId);
   }
 }
 function createWindow() {

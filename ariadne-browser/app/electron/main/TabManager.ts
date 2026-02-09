@@ -200,6 +200,9 @@ export class TabManager {
 
         this.tabs.set(id, tab);
 
+        // Notify renderer
+        this.notifyTabCreated(tab);
+
         // Switch to the new tab
         this.switchTab(id);
 
@@ -221,6 +224,7 @@ export class TabManager {
             if (currentTab) {
                 currentTab.isActive = false;
                 this.mainWindow.contentView.removeChildView(currentTab.view);
+                this.notifyTabUpdate(currentTab);
             }
         }
 
@@ -229,6 +233,8 @@ export class TabManager {
         this.activeTabId = tabId;
         this.mainWindow.contentView.addChildView(tab.view);
         this.resizeActiveView();
+
+        this.notifyTabUpdate(tab);
 
         return this.tabToInfo(tab);
     }
@@ -257,6 +263,8 @@ export class TabManager {
         // Destroy the view
         tab.view.webContents.close();
         this.tabs.delete(tabId);
+
+        this.notifyTabRemoved(tabId);
 
         return true;
     }
@@ -333,5 +341,21 @@ export class TabManager {
     private notifyTabUpdate(tab: Tab): void {
         if (!this.mainWindow) return;
         this.mainWindow.webContents.send('tab:updated', this.tabToInfo(tab));
+    }
+
+    /**
+     * Notify renderer of tab creation
+     */
+    private notifyTabCreated(tab: Tab): void {
+        if (!this.mainWindow) return;
+        this.mainWindow.webContents.send('tab:created', this.tabToInfo(tab));
+    }
+
+    /**
+     * Notify renderer of tab removal
+     */
+    private notifyTabRemoved(tabId: string): void {
+        if (!this.mainWindow) return;
+        this.mainWindow.webContents.send('tab:removed', tabId);
     }
 }

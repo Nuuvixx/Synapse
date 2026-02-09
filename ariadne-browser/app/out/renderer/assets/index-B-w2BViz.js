@@ -35779,7 +35779,7 @@ function useTabManager() {
       }
     };
     loadTabs();
-    const unsubscribe = window.api.tab.onTabUpdated((updatedTab) => {
+    const unsubUpdate = window.api.tab.onTabUpdated((updatedTab) => {
       setState((prev) => {
         const tabs = prev.tabs.map(
           (t) => t.id === updatedTab.id ? updatedTab : t
@@ -35787,12 +35787,35 @@ function useTabManager() {
         if (!tabs.find((t) => t.id === updatedTab.id)) {
           tabs.push(updatedTab);
         }
-        const activeTab = prev.activeTab?.id === updatedTab.id ? updatedTab : prev.activeTab;
+        let activeTab = prev.activeTab;
+        if (updatedTab.isActive) {
+          activeTab = updatedTab;
+        } else if (prev.activeTab?.id === updatedTab.id && !updatedTab.isActive) ;
+        else if (prev.activeTab?.id === updatedTab.id) {
+          activeTab = updatedTab;
+        }
+        return { ...prev, tabs, activeTab };
+      });
+    });
+    const unsubCreate = window.api.tab.onTabCreated((newTab) => {
+      setState((prev) => ({
+        ...prev,
+        tabs: [...prev.tabs, newTab],
+        // If new tab is active (default), set it
+        activeTab: newTab.isActive ? newTab : prev.activeTab
+      }));
+    });
+    const unsubRemove = window.api.tab.onTabRemoved((tabId) => {
+      setState((prev) => {
+        const tabs = prev.tabs.filter((t) => t.id !== tabId);
+        const activeTab = prev.activeTab?.id === tabId ? null : prev.activeTab;
         return { ...prev, tabs, activeTab };
       });
     });
     return () => {
-      unsubscribe?.();
+      unsubUpdate?.();
+      unsubCreate?.();
+      unsubRemove?.();
     };
   }, []);
   const createTab = reactExports.useCallback(async (url, nodeId) => {
@@ -35800,12 +35823,7 @@ function useTabManager() {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
     try {
       const newTab = await window.api.tab.createTab(url, nodeId);
-      setState((prev) => ({
-        ...prev,
-        tabs: [...prev.tabs, newTab],
-        activeTab: newTab,
-        isLoading: false
-      }));
+      setState((prev) => ({ ...prev, isLoading: false }));
       return newTab;
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to create tab";
@@ -35817,11 +35835,7 @@ function useTabManager() {
     if (!window.api?.tab) return false;
     try {
       const tab = await window.api.tab.switchTab(tabId);
-      if (tab) {
-        setState((prev) => ({ ...prev, activeTab: tab }));
-        return true;
-      }
-      return false;
+      return !!tab;
     } catch (err) {
       console.error("Failed to switch tab:", err);
       return false;
@@ -35831,13 +35845,6 @@ function useTabManager() {
     if (!window.api?.tab) return false;
     try {
       const success = await window.api.tab.closeTab(tabId);
-      if (success) {
-        setState((prev) => ({
-          ...prev,
-          tabs: prev.tabs.filter((t) => t.id !== tabId),
-          activeTab: prev.activeTab?.id === tabId ? null : prev.activeTab
-        }));
-      }
       return success;
     } catch (err) {
       console.error("Failed to close tab:", err);

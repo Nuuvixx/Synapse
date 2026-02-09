@@ -33,6 +33,16 @@ const tabApi = {
         const listener = (_event: Electron.IpcRendererEvent, tabInfo: unknown) => callback(tabInfo)
         ipcRenderer.on('tab:updated', listener)
         return () => ipcRenderer.removeListener('tab:updated', listener)
+    },
+    onTabCreated: (callback: (tabInfo: unknown) => void) => {
+        const listener = (_event: Electron.IpcRendererEvent, tabInfo: unknown) => callback(tabInfo)
+        ipcRenderer.on('tab:created', listener)
+        return () => ipcRenderer.removeListener('tab:created', listener)
+    },
+    onTabRemoved: (callback: (tabId: string) => void) => {
+        const listener = (_event: Electron.IpcRendererEvent, tabId: string) => callback(tabId)
+        ipcRenderer.on('tab:removed', listener)
+        return () => ipcRenderer.removeListener('tab:removed', listener)
     }
 }
 

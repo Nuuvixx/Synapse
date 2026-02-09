@@ -95,6 +95,16 @@ const tabApi = {
     const listener = (_event, tabInfo) => callback(tabInfo);
     ipcRenderer.on("tab:updated", listener);
     return () => ipcRenderer.removeListener("tab:updated", listener);
+  },
+  onTabCreated: (callback) => {
+    const listener = (_event, tabInfo) => callback(tabInfo);
+    ipcRenderer.on("tab:created", listener);
+    return () => ipcRenderer.removeListener("tab:created", listener);
+  },
+  onTabRemoved: (callback) => {
+    const listener = (_event, tabId) => callback(tabId);
+    ipcRenderer.on("tab:removed", listener);
+    return () => ipcRenderer.removeListener("tab:removed", listener);
   }
 };
 const api = {

@@ -51,29 +51,63 @@ export function useTabManager() {
         loadTabs();
 
         // Listen for tab updates
-        const unsubscribe = window.api.tab.onTabUpdated((updatedTab) => {
+        const unsubUpdate = window.api.tab.onTabUpdated((updatedTab) => {
             setState(prev => {
                 // Update in tabs array
                 const tabs = prev.tabs.map(t =>
                     t.id === updatedTab.id ? updatedTab : t
                 );
 
-                // If not in array, add it
+                // If not in array, add it (fallback)
                 if (!tabs.find(t => t.id === updatedTab.id)) {
                     tabs.push(updatedTab);
                 }
 
-                // Update active tab if it's the one that changed
-                const activeTab = prev.activeTab?.id === updatedTab.id
-                    ? updatedTab
-                    : prev.activeTab;
+                // Handle active tab state
+                let activeTab = prev.activeTab;
+
+                // If this tab became active, set it as active
+                if (updatedTab.isActive) {
+                    activeTab = updatedTab;
+                }
+                // If this tab became inactive and was the active one, check if we need to clear it
+                // (though usually another tab will become active immediately)
+                else if (prev.activeTab?.id === updatedTab.id && !updatedTab.isActive) {
+                    // Don't clear immediately, wait for new active tab
+                }
+                // If just an update to the active tab (title/url)
+                else if (prev.activeTab?.id === updatedTab.id) {
+                    activeTab = updatedTab;
+                }
 
                 return { ...prev, tabs, activeTab };
             });
         });
 
+        // Listen for tab creation
+        const unsubCreate = window.api.tab.onTabCreated((newTab) => {
+            setState(prev => ({
+                ...prev,
+                tabs: [...prev.tabs, newTab],
+                // If new tab is active (default), set it
+                activeTab: newTab.isActive ? newTab : prev.activeTab
+            }));
+        });
+
+        // Listen for tab removal
+        const unsubRemove = window.api.tab.onTabRemoved((tabId) => {
+            setState(prev => {
+                const tabs = prev.tabs.filter(t => t.id !== tabId);
+                // If active tab was removed, clear it (a switch event should follow if another tab exists)
+                const activeTab = prev.activeTab?.id === tabId ? null : prev.activeTab;
+                return { ...prev, tabs, activeTab };
+            });
+        });
+
         return () => {
-            unsubscribe?.();
+            unsubUpdate?.();
+            unsubCreate?.();
+            unsubRemove?.();
         };
     }, []);
 
@@ -85,12 +119,8 @@ export function useTabManager() {
 
         try {
             const newTab = await window.api.tab.createTab(url, nodeId);
-            setState(prev => ({
-                ...prev,
-                tabs: [...prev.tabs, newTab],
-                activeTab: newTab,
-                isLoading: false
-            }));
+            // State update will happen via onTabCreated event
+            setState(prev => ({ ...prev, isLoading: false }));
             return newTab;
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to create tab';
@@ -105,11 +135,8 @@ export function useTabManager() {
 
         try {
             const tab = await window.api.tab.switchTab(tabId);
-            if (tab) {
-                setState(prev => ({ ...prev, activeTab: tab }));
-                return true;
-            }
-            return false;
+            // State update via onTabUpdated event
+            return !!tab;
         } catch (err) {
             console.error('Failed to switch tab:', err);
             return false;
@@ -122,13 +149,7 @@ export function useTabManager() {
 
         try {
             const success = await window.api.tab.closeTab(tabId);
-            if (success) {
-                setState(prev => ({
-                    ...prev,
-                    tabs: prev.tabs.filter(t => t.id !== tabId),
-                    activeTab: prev.activeTab?.id === tabId ? null : prev.activeTab
-                }));
-            }
+            // State update via onTabRemoved event
             return success;
         } catch (err) {
             console.error('Failed to close tab:', err);

@@ -142,6 +142,8 @@ export interface TabApi {
   getAllTabs: () => Promise<TabInfo[]>;
   getActiveTab: () => Promise<TabInfo | null>;
   onTabUpdated: (callback: (tabInfo: TabInfo) => void) => () => void;
+  onTabCreated: (callback: (tabInfo: TabInfo) => void) => () => void;
+  onTabRemoved: (callback: (tabId: string) => void) => () => void;
 }
 
 // Global window.api declaration
