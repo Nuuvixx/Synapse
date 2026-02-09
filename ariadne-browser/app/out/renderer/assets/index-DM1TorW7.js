@@ -28723,54 +28723,64 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$B = [
+const __iconNode$D = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$B);
-const __iconNode$A = [
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$D);
+const __iconNode$C = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$A);
-const __iconNode$z = [
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$C);
+const __iconNode$B = [
+  [
+    "path",
+    {
+      d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20",
+      key: "k3hazp"
+    }
+  ]
+];
+const Book = createLucideIcon("book", __iconNode$B);
+const __iconNode$A = [
   ["path", { d: "m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z", key: "1fy3hk" }]
 ];
-const Bookmark = createLucideIcon("bookmark", __iconNode$z);
-const __iconNode$y = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$y);
-const __iconNode$x = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$x);
-const __iconNode$w = [
+const Bookmark = createLucideIcon("bookmark", __iconNode$A);
+const __iconNode$z = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$z);
+const __iconNode$y = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$y);
+const __iconNode$x = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$w);
-const __iconNode$v = [
+const Clock = createLucideIcon("clock", __iconNode$x);
+const __iconNode$w = [
   ["path", { d: "M12 15V3", key: "m9g1x1" }],
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
 ];
-const Download = createLucideIcon("download", __iconNode$v);
-const __iconNode$u = [
+const Download = createLucideIcon("download", __iconNode$w);
+const __iconNode$v = [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "12", cy: "5", r: "1", key: "gxeob9" }],
   ["circle", { cx: "12", cy: "19", r: "1", key: "lyex9k" }]
 ];
-const EllipsisVertical = createLucideIcon("ellipsis-vertical", __iconNode$u);
-const __iconNode$t = [
+const EllipsisVertical = createLucideIcon("ellipsis-vertical", __iconNode$v);
+const __iconNode$u = [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
   ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }]
 ];
-const Ellipsis = createLucideIcon("ellipsis", __iconNode$t);
-const __iconNode$s = [
+const Ellipsis = createLucideIcon("ellipsis", __iconNode$u);
+const __iconNode$t = [
   ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
   ["path", { d: "M10 14 21 3", key: "gplh6r" }],
   ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
 ];
-const ExternalLink = createLucideIcon("external-link", __iconNode$s);
-const __iconNode$r = [
+const ExternalLink = createLucideIcon("external-link", __iconNode$t);
+const __iconNode$s = [
   [
     "path",
     {
@@ -28788,8 +28798,8 @@ const __iconNode$r = [
   ],
   ["path", { d: "m2 2 20 20", key: "1ooewy" }]
 ];
-const EyeOff = createLucideIcon("eye-off", __iconNode$r);
-const __iconNode$q = [
+const EyeOff = createLucideIcon("eye-off", __iconNode$s);
+const __iconNode$r = [
   [
     "path",
     {
@@ -28799,8 +28809,8 @@ const __iconNode$q = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Eye = createLucideIcon("eye", __iconNode$q);
-const __iconNode$p = [
+const Eye = createLucideIcon("eye", __iconNode$r);
+const __iconNode$q = [
   [
     "path",
     {
@@ -28818,46 +28828,46 @@ const __iconNode$p = [
   ["path", { d: "M3 5a2 2 0 0 0 2 2h3", key: "f2jnh7" }],
   ["path", { d: "M3 3v13a2 2 0 0 0 2 2h3", key: "k8epm1" }]
 ];
-const FolderTree = createLucideIcon("folder-tree", __iconNode$p);
-const __iconNode$o = [
+const FolderTree = createLucideIcon("folder-tree", __iconNode$q);
+const __iconNode$p = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
   ["path", { d: "M2 12h20", key: "9i4pu4" }]
 ];
-const Globe = createLucideIcon("globe", __iconNode$o);
-const __iconNode$n = [
+const Globe = createLucideIcon("globe", __iconNode$p);
+const __iconNode$o = [
   ["line", { x1: "4", x2: "20", y1: "9", y2: "9", key: "4lhtct" }],
   ["line", { x1: "4", x2: "20", y1: "15", y2: "15", key: "vyu0kd" }],
   ["line", { x1: "10", x2: "8", y1: "3", y2: "21", key: "1ggp8o" }],
   ["line", { x1: "16", x2: "14", y1: "3", y2: "21", key: "weycgp" }]
 ];
-const Hash = createLucideIcon("hash", __iconNode$n);
-const __iconNode$m = [
+const Hash = createLucideIcon("hash", __iconNode$o);
+const __iconNode$n = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }],
   ["path", { d: "M12 7v5l4 2", key: "1fdv2h" }]
 ];
-const History = createLucideIcon("history", __iconNode$m);
-const __iconNode$l = [
+const History = createLucideIcon("history", __iconNode$n);
+const __iconNode$m = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
   ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }],
   ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }]
 ];
-const Image = createLucideIcon("image", __iconNode$l);
-const __iconNode$k = [
+const Image = createLucideIcon("image", __iconNode$m);
+const __iconNode$l = [
   ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
   ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
   ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
   ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
 ];
-const LayoutGrid = createLucideIcon("layout-grid", __iconNode$k);
-const __iconNode$j = [
+const LayoutGrid = createLucideIcon("layout-grid", __iconNode$l);
+const __iconNode$k = [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
 ];
-const Link2 = createLucideIcon("link-2", __iconNode$j);
-const __iconNode$i = [
+const Link2 = createLucideIcon("link-2", __iconNode$k);
+const __iconNode$j = [
   [
     "path",
     {
@@ -28868,28 +28878,28 @@ const __iconNode$i = [
   ["path", { d: "M15 5.764v15", key: "1pn4in" }],
   ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$i);
-const __iconNode$h = [
+const Map$1 = createLucideIcon("map", __iconNode$j);
+const __iconNode$i = [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3", key: "1dcmit" }],
   ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
   ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
   ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
 ];
-const Maximize = createLucideIcon("maximize", __iconNode$h);
-const __iconNode$g = [
+const Maximize = createLucideIcon("maximize", __iconNode$i);
+const __iconNode$h = [
   ["path", { d: "M4 5h16", key: "1tepv9" }],
   ["path", { d: "M4 12h16", key: "1lakjw" }],
   ["path", { d: "M4 19h16", key: "1djgab" }]
 ];
-const Menu = createLucideIcon("menu", __iconNode$g);
-const __iconNode$f = [["path", { d: "M5 12h14", key: "1ays0h" }]];
-const Minus = createLucideIcon("minus", __iconNode$f);
-const __iconNode$e = [
+const Menu = createLucideIcon("menu", __iconNode$h);
+const __iconNode$g = [["path", { d: "M5 12h14", key: "1ays0h" }]];
+const Minus = createLucideIcon("minus", __iconNode$g);
+const __iconNode$f = [
   ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1", key: "kaeet6" }],
   ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
 ];
-const Pause = createLucideIcon("pause", __iconNode$e);
-const __iconNode$d = [
+const Pause = createLucideIcon("pause", __iconNode$f);
+const __iconNode$e = [
   [
     "path",
     {
@@ -28898,28 +28908,28 @@ const __iconNode$d = [
     }
   ]
 ];
-const Play = createLucideIcon("play", __iconNode$d);
-const __iconNode$c = [
+const Play = createLucideIcon("play", __iconNode$e);
+const __iconNode$d = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-const Plus = createLucideIcon("plus", __iconNode$c);
-const __iconNode$b = [
+const Plus = createLucideIcon("plus", __iconNode$d);
+const __iconNode$c = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$b);
-const __iconNode$a = [
+const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$c);
+const __iconNode$b = [
   ["path", { d: "M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8", key: "1p45f6" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }]
 ];
-const RotateCw = createLucideIcon("rotate-cw", __iconNode$a);
-const __iconNode$9 = [
+const RotateCw = createLucideIcon("rotate-cw", __iconNode$b);
+const __iconNode$a = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const Search = createLucideIcon("search", __iconNode$9);
-const __iconNode$8 = [
+const Search = createLucideIcon("search", __iconNode$a);
+const __iconNode$9 = [
   [
     "path",
     {
@@ -28929,8 +28939,8 @@ const __iconNode$8 = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Settings = createLucideIcon("settings", __iconNode$8);
-const __iconNode$7 = [
+const Settings = createLucideIcon("settings", __iconNode$9);
+const __iconNode$8 = [
   [
     "path",
     {
@@ -28939,8 +28949,8 @@ const __iconNode$7 = [
     }
   ]
 ];
-const Shield = createLucideIcon("shield", __iconNode$7);
-const __iconNode$6 = [
+const Shield = createLucideIcon("shield", __iconNode$8);
+const __iconNode$7 = [
   [
     "path",
     {
@@ -28950,8 +28960,8 @@ const __iconNode$6 = [
   ],
   ["path", { d: "M3 20V4", key: "1ptbpl" }]
 ];
-const SkipBack = createLucideIcon("skip-back", __iconNode$6);
-const __iconNode$5 = [
+const SkipBack = createLucideIcon("skip-back", __iconNode$7);
+const __iconNode$6 = [
   ["path", { d: "M21 4v16", key: "7j8fe9" }],
   [
     "path",
@@ -28961,11 +28971,21 @@ const __iconNode$5 = [
     }
   ]
 ];
-const SkipForward = createLucideIcon("skip-forward", __iconNode$5);
-const __iconNode$4 = [
+const SkipForward = createLucideIcon("skip-forward", __iconNode$6);
+const __iconNode$5 = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
 ];
-const Square = createLucideIcon("square", __iconNode$4);
+const Square = createLucideIcon("square", __iconNode$5);
+const __iconNode$4 = [
+  [
+    "path",
+    {
+      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
+      key: "r04s7s"
+    }
+  ]
+];
+const Star = createLucideIcon("star", __iconNode$4);
 const __iconNode$3 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
@@ -35452,6 +35472,7 @@ function AddressBar({
 }) {
   const [inputValue, setInputValue] = reactExports.useState("");
   const [isFocused, setIsFocused] = reactExports.useState(false);
+  const [isBookmarked, setIsBookmarked] = reactExports.useState(false);
   const inputRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
     if (activeTab && !isFocused) {
@@ -35580,7 +35601,21 @@ function AddressBar({
           className: "p-0.5 hover:bg-slate-600 rounded transition-colors",
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 12, className: "text-slate-400" })
         }
-      ) })
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          onClick: () => setIsBookmarked(!isBookmarked),
+          className: cn(
+            "p-1 rounded-full transition-colors mr-1",
+            "hover:bg-slate-700",
+            isBookmarked ? "text-yellow-400" : "text-slate-400 hover:text-slate-200"
+          ),
+          title: isBookmarked ? "Edit Bookmark" : "Bookmark this tab",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { size: 14, fill: isBookmarked ? "currentColor" : "none" })
+        }
+      )
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeTab && /* @__PURE__ */ jsxRuntimeExports.jsxs(
       motion.div,
@@ -36150,16 +36185,19 @@ function BrowserPanel({
               children: /* @__PURE__ */ jsxRuntimeExports.jsx(LayoutGrid, { size: 18 })
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end gap-0.5 flex-1 overflow-x-auto min-h-[36px]", children: tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end flex-1 overflow-x-auto min-h-[40px] px-1 no-scrollbar", children: tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
             "button",
             {
               onClick: () => switchTab(tab.id),
               className: cn(
-                "group flex items-center gap-2 px-3 py-2 min-w-[120px] max-w-[200px] transition-all duration-200",
-                "rounded-t-lg",
-                // Chrome-like rounded top corners
-                tab.isActive ? "bg-slate-800 text-white border-t border-l border-r border-slate-700" : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
+                "group relative flex items-center gap-2 px-3 py-2.5 transition-all duration-200",
+                "rounded-t-xl mx-0.5",
+                // More rounded top corners
+                "flex-1 min-w-[30px] max-w-[240px]",
+                // Better sizing behavior
+                tab.isActive ? "bg-slate-900 text-white shadow-sm z-10" : "bg-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
               ),
+              title: tab.title,
               children: [
                 tab.favicon ? /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "img",
@@ -36170,41 +36208,57 @@ function BrowserPanel({
                     onError: (e) => e.currentTarget.style.display = "none"
                   }
                 ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-4 h-4 rounded bg-slate-600 flex-shrink-0" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs truncate flex-1 text-left", children: tab.title || "New Tab" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: cn(
+                  "text-xs truncate text-left transition-opacity",
+                  // Hide title if tab gets too small, unless hovered
+                  "flex-1"
+                ), children: tab.title || "New Tab" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "button",
+                  "span",
                   {
                     onClick: (e) => {
                       e.stopPropagation();
                       handleCloseTab(tab.id);
                     },
                     className: cn(
-                      "p-0.5 rounded-full transition-all duration-200",
-                      "opacity-0 group-hover:opacity-100",
-                      "hover:bg-slate-600"
+                      "p-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all cursor-pointer",
+                      "hover:bg-slate-700 hover:text-white text-slate-400",
+                      // Always show close button on active tab if space permits
+                      tab.isActive && "opacity-100"
                     ),
                     children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
                   }
-                )
+                ),
+                !tab.isActive && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-0 top-2 bottom-2 w-[1px] bg-slate-700/50 group-hover:hidden" })
               ]
             },
             tab.id
           )) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: () => handleCreateTab("https://www.google.com"),
-              className: cn(
-                "p-2 rounded-full transition-all duration-200",
-                "text-slate-400 hover:text-slate-200",
-                "hover:bg-slate-700/70",
-                "border border-transparent hover:border-slate-600",
-                "focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50"
-              ),
-              title: "New Tab",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 18 })
-            }
-          )
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 px-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                className: cn(
+                  "p-2 rounded-lg transition-all duration-200",
+                  "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
+                ),
+                title: "Bookmarks",
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Book, { size: 18 })
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: () => handleCreateTab("https://www.google.com"),
+                className: cn(
+                  "p-2 rounded-full transition-all duration-200",
+                  "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
+                ),
+                title: "New Tab",
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 20 })
+              }
+            )
+          ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AddressBar,

@@ -6,7 +6,7 @@
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutGrid, X, Plus } from 'lucide-react';
+import { LayoutGrid, X, Plus, Book } from 'lucide-react';
 import { AddressBar } from './AddressBar';
 import { BrowserViewport } from './BrowserViewport';
 import { useTabManager } from '@/hooks/useTabManager';
@@ -98,18 +98,20 @@ export function BrowserPanel({
                         )}
 
                         {/* Tab List - Chrome-like rounded tabs */}
-                        <div className="flex items-end gap-0.5 flex-1 overflow-x-auto min-h-[36px]">
+                        <div className="flex items-end flex-1 overflow-x-auto min-h-[40px] px-1 no-scrollbar">
                             {tabs.map(tab => (
                                 <button
                                     key={tab.id}
                                     onClick={() => switchTab(tab.id)}
                                     className={cn(
-                                        "group flex items-center gap-2 px-3 py-2 min-w-[120px] max-w-[200px] transition-all duration-200",
-                                        "rounded-t-lg", // Chrome-like rounded top corners
+                                        "group relative flex items-center gap-2 px-3 py-2.5 transition-all duration-200",
+                                        "rounded-t-xl mx-0.5", // More rounded top corners
+                                        "flex-1 min-w-[30px] max-w-[240px]", // Better sizing behavior
                                         tab.isActive
-                                            ? "bg-slate-800 text-white border-t border-l border-r border-slate-700"
-                                            : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
+                                            ? "bg-slate-900 text-white shadow-sm z-10" // Active: matches address bar, z-index up
+                                            : "bg-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
                                     )}
+                                    title={tab.title}
                                 >
                                     {/* Favicon */}
                                     {tab.favicon ? (
@@ -124,42 +126,63 @@ export function BrowserPanel({
                                     )}
 
                                     {/* Title */}
-                                    <span className="text-xs truncate flex-1 text-left">
+                                    <span className={cn(
+                                        "text-xs truncate text-left transition-opacity",
+                                        // Hide title if tab gets too small, unless hovered
+                                        "flex-1"
+                                    )}>
                                         {tab.title || 'New Tab'}
                                     </span>
 
                                     {/* Close Button */}
-                                    <button
+                                    <span
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             handleCloseTab(tab.id);
                                         }}
                                         className={cn(
-                                            "p-0.5 rounded-full transition-all duration-200",
-                                            "opacity-0 group-hover:opacity-100",
-                                            "hover:bg-slate-600"
+                                            "p-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all cursor-pointer",
+                                            "hover:bg-slate-700 hover:text-white text-slate-400",
+                                            // Always show close button on active tab if space permits
+                                            tab.isActive && "opacity-100"
                                         )}
                                     >
                                         <X size={14} />
-                                    </button>
+                                    </span>
+
+                                    {/* Separator for inactive tabs (visual polish) */}
+                                    {!tab.isActive && (
+                                        <div className="absolute right-0 top-2 bottom-2 w-[1px] bg-slate-700/50 group-hover:hidden" />
+                                    )}
                                 </button>
                             ))}
                         </div>
 
-                        {/* New Tab Button - Circular with hover effect */}
-                        <button
-                            onClick={() => handleCreateTab('https://www.google.com')}
-                            className={cn(
-                                "p-2 rounded-full transition-all duration-200",
-                                "text-slate-400 hover:text-slate-200",
-                                "hover:bg-slate-700/70",
-                                "border border-transparent hover:border-slate-600",
-                                "focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50"
-                            )}
-                            title="New Tab"
-                        >
-                            <Plus size={18} />
-                        </button>
+                        {/* Controls Group */}
+                        <div className="flex items-center gap-1 px-2">
+                            {/* Bookmarks Button */}
+                            <button
+                                className={cn(
+                                    "p-2 rounded-lg transition-all duration-200",
+                                    "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
+                                )}
+                                title="Bookmarks"
+                            >
+                                <Book size={18} />
+                            </button>
+
+                            {/* New Tab Button */}
+                            <button
+                                onClick={() => handleCreateTab('https://www.google.com')}
+                                className={cn(
+                                    "p-2 rounded-full transition-all duration-200",
+                                    "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
+                                )}
+                                title="New Tab"
+                            >
+                                <Plus size={20} />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Address Bar */}

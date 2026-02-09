@@ -11,7 +11,8 @@ import {
     RotateCw,
     Shield,
     Search,
-    X
+    X,
+    Star
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -40,6 +41,7 @@ export function AddressBar({
 }: AddressBarProps) {
     const [inputValue, setInputValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     // Sync input with active tab URL
@@ -202,6 +204,19 @@ export function AddressBar({
                             </motion.button>
                         )}
                     </AnimatePresence>
+                    {/* Bookmark Button */}
+                    <button
+                        type="button"
+                        onClick={() => setIsBookmarked(!isBookmarked)}
+                        className={cn(
+                            "p-1 rounded-full transition-colors mr-1",
+                            "hover:bg-slate-700",
+                            isBookmarked ? "text-yellow-400" : "text-slate-400 hover:text-slate-200"
+                        )}
+                        title={isBookmarked ? "Edit Bookmark" : "Bookmark this tab"}
+                    >
+                        <Star size={14} fill={isBookmarked ? "currentColor" : "none"} />
+                    </button>
                 </div>
             </form>
 
