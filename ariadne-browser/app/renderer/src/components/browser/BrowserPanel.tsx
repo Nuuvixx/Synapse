@@ -6,7 +6,7 @@
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layers, PanelRightClose } from 'lucide-react';
+import { Layers, LayoutGrid, PanelRightClose } from 'lucide-react';
 import { AddressBar } from './AddressBar';
 import { BrowserViewport } from './BrowserViewport';
 import { useTabManager } from '@/hooks/useTabManager';
@@ -15,9 +15,11 @@ import { cn } from '@/lib/utils';
 
 interface BrowserPanelProps {
     isOpen: boolean;
+    fullscreen?: boolean;
+    onToggleFullscreen?: () => void;
 }
 
-export function BrowserPanel({ isOpen }: BrowserPanelProps) {
+export function BrowserPanel({ isOpen, fullscreen = false, onToggleFullscreen }: BrowserPanelProps) {
     const {
         tabs,
         activeTab,
@@ -57,18 +59,35 @@ export function BrowserPanel({ isOpen }: BrowserPanelProps) {
         await closeTabAndNode(tabId);
     };
 
+    // Determine panel width based on fullscreen state
+    const panelWidth = fullscreen ? '100%' : '50%';
+
     return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
                     initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: '50%', opacity: 1 }}
+                    animate={{ width: panelWidth, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                    className="h-full flex flex-col bg-slate-900 border-l border-slate-800 overflow-hidden"
+                    className={cn(
+                        "h-full flex flex-col bg-slate-900 overflow-hidden",
+                        !fullscreen && "border-l border-slate-800"
+                    )}
                 >
                     {/* Tab Bar */}
                     <div className="h-9 flex items-center gap-1 px-2 bg-slate-900 border-b border-slate-800 overflow-x-auto">
+                        {/* Graph Toggle Button (in fullscreen mode) */}
+                        {fullscreen && onToggleFullscreen && (
+                            <button
+                                onClick={onToggleFullscreen}
+                                className="p-1.5 mr-2 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 rounded-md transition-colors"
+                                title="Show Graph View"
+                            >
+                                <LayoutGrid size={16} />
+                            </button>
+                        )}
+
                         {tabs.map(tab => (
                             <button
                                 key={tab.id}

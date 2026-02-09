@@ -33,12 +33,18 @@ export function BrowserViewport({
         const updateBounds = () => {
             if (containerRef.current) {
                 const rect = containerRef.current.getBoundingClientRect();
-                setBounds({
+                const newBounds = {
                     x: Math.round(rect.x),
                     y: Math.round(rect.y),
                     width: Math.round(rect.width),
                     height: Math.round(rect.height)
-                });
+                };
+                setBounds(newBounds);
+
+                // Notify main process of viewport bounds for WebContentsView positioning
+                if (window.api?.tab) {
+                    window.electron?.ipcRenderer.send('browser:viewport-bounds', newBounds);
+                }
             }
         };
 

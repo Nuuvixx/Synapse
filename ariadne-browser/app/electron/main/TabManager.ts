@@ -34,6 +34,7 @@ export class TabManager {
     private tabs: Map<string, Tab> = new Map();
     private activeTabId: string | null = null;
     private mainWindow: BrowserWindow | null = null;
+    private viewportBounds: { x: number; y: number; width: number; height: number } | null = null;
 
     private constructor() { }
 
@@ -108,6 +109,12 @@ export class TabManager {
             }
             return false;
         });
+
+        // Listen for viewport bounds updates from renderer
+        ipcMain.on('browser:viewport-bounds', (_event, bounds) => {
+            this.viewportBounds = bounds;
+            this.resizeActiveView();
+        });
     }
 
     /**
@@ -117,6 +124,8 @@ export class TabManager {
         if (!this.mainWindow) return;
 
         this.mainWindow.on('resize', () => {
+            // Viewport bounds will be updated by the renderer via IPC
+            // Just trigger a resize to use the latest bounds
             this.resizeActiveView();
         });
     }
@@ -170,6 +179,21 @@ export class TabManager {
         });
 
         view.webContents.on('did-navigate-in-page', (_event, url) => {
+            tab.url = url;
+            this.notifyTabUpdate(tab);
+        });
+
+        // Intercept link clicks that try to open new windows
+        // This keeps all navigation inside Ariadne instead of opening external browser
+        view.webContents.setWindowOpenHandler(({ url }) => {
+            // Create a new tab for the URL instead of opening external browser
+            this.createTab(url);
+            return { action: 'deny' };
+        });
+
+        // Handle middle-click and ctrl+click on links
+        view.webContents.on('will-navigate', (_event, url) => {
+            // Allow navigation in the same tab
             tab.url = url;
             this.notifyTabUpdate(tab);
         });
@@ -250,7 +274,7 @@ export class TabManager {
     }
 
     /**
-     * Resize the active view to fit the window
+     * Resize the active view to fit the viewport bounds
      */
     private resizeActiveView(): void {
         if (!this.mainWindow || !this.activeTabId) return;
@@ -258,13 +282,19 @@ export class TabManager {
         const tab = this.tabs.get(this.activeTabId);
         if (!tab) return;
 
-        const bounds = this.mainWindow.getBounds();
-        tab.view.setBounds({
-            x: 0,
-            y: TITLE_BAR_HEIGHT,
-            width: bounds.width,
-            height: bounds.height - TITLE_BAR_HEIGHT
-        });
+        // Use viewport bounds if available, otherwise fallback to full window
+        if (this.viewportBounds) {
+            tab.view.setBounds(this.viewportBounds);
+        } else {
+            // Fallback: use full window bounds minus title bar
+            const bounds = this.mainWindow.getBounds();
+            tab.view.setBounds({
+                x: 0,
+                y: TITLE_BAR_HEIGHT,
+                width: bounds.width,
+                height: bounds.height - TITLE_BAR_HEIGHT
+            });
+        }
     }
 
     /**

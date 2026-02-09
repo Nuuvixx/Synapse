@@ -105,6 +105,7 @@ class TabManager {
     this.tabs = /* @__PURE__ */ new Map();
     this.activeTabId = null;
     this.mainWindow = null;
+    this.viewportBounds = null;
   }
   static getInstance() {
     if (!TabManager.instance) {
@@ -165,6 +166,10 @@ class TabManager {
         return true;
       }
       return false;
+    });
+    ipcMain.on("browser:viewport-bounds", (_event, bounds) => {
+      this.viewportBounds = bounds;
+      this.resizeActiveView();
     });
   }
   /**
@@ -271,19 +276,23 @@ class TabManager {
     return true;
   }
   /**
-   * Resize the active view to fit the window
+   * Resize the active view to fit the viewport bounds
    */
   resizeActiveView() {
     if (!this.mainWindow || !this.activeTabId) return;
     const tab = this.tabs.get(this.activeTabId);
     if (!tab) return;
-    const bounds = this.mainWindow.getBounds();
-    tab.view.setBounds({
-      x: 0,
-      y: TITLE_BAR_HEIGHT,
-      width: bounds.width,
-      height: bounds.height - TITLE_BAR_HEIGHT
-    });
+    if (this.viewportBounds) {
+      tab.view.setBounds(this.viewportBounds);
+    } else {
+      const bounds = this.mainWindow.getBounds();
+      tab.view.setBounds({
+        x: 0,
+        y: TITLE_BAR_HEIGHT,
+        width: bounds.width,
+        height: bounds.height - TITLE_BAR_HEIGHT
+      });
+    }
   }
   /**
    * Get info for all tabs
