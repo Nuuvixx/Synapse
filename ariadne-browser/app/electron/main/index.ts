@@ -1,14 +1,15 @@
 
-import { app, shell, BrowserWindow, ipcMain, BrowserView } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { TabManager } from './TabManager'
 
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 900,
-        height: 670,
+        width: 1400,
+        height: 900,
         show: false,
         frame: false, // Frameless window
         autoHideMenuBar: true,
@@ -19,6 +20,10 @@ function createWindow(): void {
             sandbox: false
         }
     })
+
+    // Initialize TabManager with main window
+    const tabManager = TabManager.getInstance()
+    tabManager.init(mainWindow)
 
     // Window Controls IPC
     ipcMain.on('window-minimize', () => mainWindow.minimize())
