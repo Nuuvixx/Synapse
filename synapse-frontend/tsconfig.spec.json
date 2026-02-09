@@ -1,0 +1,17 @@
+{
+    "extends": "./tsconfig.app.json",
+    "compilerOptions": {
+        "composite": true,
+        "tsBuildInfoFile": "./tsconfig.spec.tsbuildinfo",
+        "types": [
+            "vitest/globals",
+            "node"
+        ]
+    },
+    "include": [
+        "src/test",
+        "**/*.test.ts",
+        "**/*.spec.ts"
+    ],
+    "exclude": []
+}

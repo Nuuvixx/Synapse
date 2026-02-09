@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ariadne</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      min-height: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+    }
+
+    .header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 15px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #00d4ff;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+
+    .actions {
+      padding: 15px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .sessions {
+      padding: 0 15px 15px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .session-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .session-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .session-item:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .session-item.active {
+      border: 1px solid #00d4ff;
+    }
+
+    .session-name {
+      font-size: 13px;
+    }
+
+    .session-time {
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer {
+      padding: 15px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🧭 Ariadne</div>
+    <div class="tagline">Your Spatial Web Browser</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-value" id="nodeCount">-</div>
+      <div class="stat-label">Pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="edgeCount">-</div>
+      <div class="stat-label">Links</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="sessionCount">-</div>
+      <div class="stat-label">Sessions</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="openGraph">
+      <span>🌐</span> Open Graph View
+    </button>
+    <button class="btn btn-secondary" id="saveTree">
+      <span>💾</span> Save Current Tree
+    </button>
+    <button class="btn btn-secondary" id="exportData">
+      <span>📤</span> Export Session
+    </button>
+  </div>
+
+  <div class="sessions">
+    <div class="section-title">Recent Sessions</div>
+    <div class="session-list" id="sessionList">
+      <!-- Sessions loaded dynamically -->
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">Press Alt+G to open graph anytime</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
