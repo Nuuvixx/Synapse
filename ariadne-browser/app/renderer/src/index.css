@@ -23,13 +23,72 @@
 
 /* Ariadne - Spatial Web Browser Styles */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
-  /* Custom color palette */
-  --ariadne-cyan: #22d3ee;
-  --ariadne-purple: #a855f7;
-  --ariadne-bg: #020617;
-  --ariadne-surface: #0f172a;
-  --ariadne-border: #1e293b;
+  /* ── Stitch & Glass Design Tokens ── */
+
+  /* Core Palette */
+  --sg-bg-deep: #020617;
+  --sg-bg-canvas: #0a0e1a;
+  --sg-surface-1: #0f1629;
+  --sg-surface-2: #151c32;
+  --sg-surface-3: #1a2240;
+  --sg-surface-elevated: #1e273f;
+
+  /* Chrome (Browser Tab Area) */
+  --sg-chrome: #111827;
+  --sg-chrome-active: #1a2236;
+  --sg-chrome-hover: #161d30;
+
+  /* Borders */
+  --sg-border: rgba(56, 75, 112, 0.35);
+  --sg-border-subtle: rgba(56, 75, 112, 0.18);
+  --sg-border-glow-cyan: rgba(34, 211, 238, 0.3);
+  --sg-border-glow-purple: rgba(168, 85, 247, 0.3);
+
+  /* Accent Colors */
+  --sg-cyan: #22d3ee;
+  --sg-cyan-dim: #0e7490;
+  --sg-purple: #a855f7;
+  --sg-purple-dim: #7c3aed;
+  --sg-emerald: #34d399;
+  --sg-amber: #fbbf24;
+  --sg-rose: #fb7185;
+
+  /* Text */
+  --sg-text-primary: #e2e8f0;
+  --sg-text-secondary: #94a3b8;
+  --sg-text-tertiary: #64748b;
+  --sg-text-ghost: #475569;
+
+  /* Glass Effect */
+  --sg-glass-bg: rgba(15, 22, 41, 0.65);
+  --sg-glass-border: rgba(56, 75, 112, 0.3);
+  --sg-glass-blur: 16px;
+
+  /* Glow */
+  --sg-glow-cyan: 0 0 20px rgba(34, 211, 238, 0.25), 0 0 60px rgba(34, 211, 238, 0.08);
+  --sg-glow-purple: 0 0 20px rgba(168, 85, 247, 0.25), 0 0 60px rgba(168, 85, 247, 0.08);
+  --sg-glow-cyan-intense: 0 0 30px rgba(34, 211, 238, 0.4), 0 0 80px rgba(34, 211, 238, 0.15);
+
+  /* Shadows */
+  --sg-shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --sg-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --sg-shadow-xl: 0 12px 60px rgba(0, 0, 0, 0.6);
+
+  /* Radii */
+  --sg-radius-sm: 6px;
+  --sg-radius-md: 10px;
+  --sg-radius-lg: 14px;
+  --sg-radius-xl: 18px;
+
+  /* Legacy compat */
+  --ariadne-cyan: var(--sg-cyan);
+  --ariadne-purple: var(--sg-purple);
+  --ariadne-bg: var(--sg-bg-deep);
+  --ariadne-surface: var(--sg-surface-1);
+  --ariadne-border: var(--sg-border);
 }
 
 /* Base styles */
@@ -47,9 +106,9 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--ariadne-bg);
-  color: #e2e8f0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--sg-bg-deep);
+  color: var(--sg-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -57,6 +116,51 @@ body {
 #root {
   width: 100%;
   height: 100%;
+}
+
+/* ── Stitch & Glass Utilities ── */
+
+.sg-glass {
+  background: var(--sg-glass-bg);
+  backdrop-filter: blur(var(--sg-glass-blur));
+  -webkit-backdrop-filter: blur(var(--sg-glass-blur));
+  border: 1px solid var(--sg-glass-border);
+}
+
+.sg-glow-cyan {
+  box-shadow: var(--sg-glow-cyan);
+}
+
+.sg-glow-purple {
+  box-shadow: var(--sg-glow-purple);
+}
+
+.sg-glow-cyan-intense {
+  box-shadow: var(--sg-glow-cyan-intense);
+}
+
+.sg-surface {
+  background: var(--sg-surface-1);
+  border: 1px solid var(--sg-border-subtle);
+}
+
+.sg-surface-elevated {
+  background: var(--sg-surface-elevated);
+  border: 1px solid var(--sg-border);
+  box-shadow: var(--sg-shadow-md);
+}
+
+.sg-divider {
+  width: 6px;
+  cursor: col-resize;
+  background: linear-gradient(180deg, var(--sg-border) 0%, var(--sg-cyan-dim) 50%, var(--sg-border) 100%);
+  opacity: 0.5;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.sg-divider:hover {
+  opacity: 1;
+  background: linear-gradient(180deg, var(--sg-border-glow-cyan) 0%, var(--sg-cyan) 50%, var(--sg-border-glow-cyan) 100%);
 }
 
 /* React Flow Customization */

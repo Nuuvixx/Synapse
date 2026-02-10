@@ -6,8 +6,6 @@ export function TitleBar() {
     const [isMac, setIsMac] = useState(false);
 
     useEffect(() => {
-        // Check platform if exposed, otherwise default to Windows style
-        // You might want to expose process.platform via preload if needed
         setIsMac(window.navigator.userAgent.includes("Mac"));
     }, []);
 
@@ -16,11 +14,28 @@ export function TitleBar() {
     const handleClose = () => window.electron.ipcRenderer.send("window-close");
 
     return (
-        <div className="h-8 w-full bg-background/80 backdrop-blur-md flex items-center justify-between px-2 select-none border-b border-border z-50 relative app-drag-region">
+        <div
+            className="h-8 w-full flex items-center justify-between px-2 select-none z-50 relative app-drag-region"
+            style={{
+                background: 'var(--sg-chrome)',
+                borderBottom: '1px solid var(--sg-border-subtle)',
+            }}
+        >
             {/* Draggable Area - Title / Icon */}
             <div className="flex items-center gap-2 pl-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-tr from-primary to-accent opacity-80" />
-                <span className="text-xs font-medium text-foreground/70">Ariadne</span>
+                <div
+                    className="w-3 h-3 rounded-full"
+                    style={{
+                        background: 'linear-gradient(135deg, var(--sg-cyan), var(--sg-purple))',
+                        boxShadow: '0 0 8px rgba(34, 211, 238, 0.4)',
+                    }}
+                />
+                <span
+                    className="text-xs font-semibold tracking-wide"
+                    style={{ color: 'var(--sg-text-secondary)' }}
+                >
+                    Ariadne
+                </span>
             </div>
 
             {/* Window Controls (Windows Style) */}
@@ -28,19 +43,46 @@ export function TitleBar() {
                 <div className="flex items-center h-full no-drag-region">
                     <button
                         onClick={handleMinimize}
-                        className="h-8 w-10 flex items-center justify-center hover:bg-muted transition-colors text-foreground/60 hover:text-foreground"
+                        className="h-8 w-10 flex items-center justify-center transition-colors"
+                        style={{ color: 'var(--sg-text-tertiary)' }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = 'var(--sg-surface-3)';
+                            e.currentTarget.style.color = 'var(--sg-text-primary)';
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--sg-text-tertiary)';
+                        }}
                     >
                         <Minus size={14} />
                     </button>
                     <button
                         onClick={handleMaximize}
-                        className="h-8 w-10 flex items-center justify-center hover:bg-muted transition-colors text-foreground/60 hover:text-foreground"
+                        className="h-8 w-10 flex items-center justify-center transition-colors"
+                        style={{ color: 'var(--sg-text-tertiary)' }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = 'var(--sg-surface-3)';
+                            e.currentTarget.style.color = 'var(--sg-text-primary)';
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--sg-text-tertiary)';
+                        }}
                     >
                         <Square size={12} />
                     </button>
                     <button
                         onClick={handleClose}
-                        className="h-8 w-10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors text-foreground/60"
+                        className="h-8 w-10 flex items-center justify-center transition-colors"
+                        style={{ color: 'var(--sg-text-tertiary)' }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = '#ef4444';
+                            e.currentTarget.style.color = '#ffffff';
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.color = 'var(--sg-text-tertiary)';
+                        }}
                     >
                         <X size={14} />
                     </button>

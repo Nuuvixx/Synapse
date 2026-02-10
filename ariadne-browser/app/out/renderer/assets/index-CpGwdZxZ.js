@@ -28723,54 +28723,54 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$C = [
+const __iconNode$F = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$C);
-const __iconNode$B = [
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$F);
+const __iconNode$E = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$B);
-const __iconNode$A = [
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$E);
+const __iconNode$D = [
   ["path", { d: "m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z", key: "1fy3hk" }]
 ];
-const Bookmark = createLucideIcon("bookmark", __iconNode$A);
-const __iconNode$z = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$z);
-const __iconNode$y = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$y);
-const __iconNode$x = [
+const Bookmark = createLucideIcon("bookmark", __iconNode$D);
+const __iconNode$C = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$C);
+const __iconNode$B = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$B);
+const __iconNode$A = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$x);
-const __iconNode$w = [
+const Clock = createLucideIcon("clock", __iconNode$A);
+const __iconNode$z = [
   ["path", { d: "M12 15V3", key: "m9g1x1" }],
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
 ];
-const Download = createLucideIcon("download", __iconNode$w);
-const __iconNode$v = [
+const Download = createLucideIcon("download", __iconNode$z);
+const __iconNode$y = [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "12", cy: "5", r: "1", key: "gxeob9" }],
   ["circle", { cx: "12", cy: "19", r: "1", key: "lyex9k" }]
 ];
-const EllipsisVertical = createLucideIcon("ellipsis-vertical", __iconNode$v);
-const __iconNode$u = [
+const EllipsisVertical = createLucideIcon("ellipsis-vertical", __iconNode$y);
+const __iconNode$x = [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
   ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }]
 ];
-const Ellipsis = createLucideIcon("ellipsis", __iconNode$u);
-const __iconNode$t = [
+const Ellipsis = createLucideIcon("ellipsis", __iconNode$x);
+const __iconNode$w = [
   ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
   ["path", { d: "M10 14 21 3", key: "gplh6r" }],
   ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
 ];
-const ExternalLink = createLucideIcon("external-link", __iconNode$t);
-const __iconNode$s = [
+const ExternalLink = createLucideIcon("external-link", __iconNode$w);
+const __iconNode$v = [
   [
     "path",
     {
@@ -28788,8 +28788,8 @@ const __iconNode$s = [
   ],
   ["path", { d: "m2 2 20 20", key: "1ooewy" }]
 ];
-const EyeOff = createLucideIcon("eye-off", __iconNode$s);
-const __iconNode$r = [
+const EyeOff = createLucideIcon("eye-off", __iconNode$v);
+const __iconNode$u = [
   [
     "path",
     {
@@ -28799,8 +28799,8 @@ const __iconNode$r = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Eye = createLucideIcon("eye", __iconNode$r);
-const __iconNode$q = [
+const Eye = createLucideIcon("eye", __iconNode$u);
+const __iconNode$t = [
   [
     "path",
     {
@@ -28818,51 +28818,48 @@ const __iconNode$q = [
   ["path", { d: "M3 5a2 2 0 0 0 2 2h3", key: "f2jnh7" }],
   ["path", { d: "M3 3v13a2 2 0 0 0 2 2h3", key: "k8epm1" }]
 ];
-const FolderTree = createLucideIcon("folder-tree", __iconNode$q);
-const __iconNode$p = [
+const FolderTree = createLucideIcon("folder-tree", __iconNode$t);
+const __iconNode$s = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
   ["path", { d: "M2 12h20", key: "9i4pu4" }]
 ];
-const Globe = createLucideIcon("globe", __iconNode$p);
-const __iconNode$o = [
+const Globe = createLucideIcon("globe", __iconNode$s);
+const __iconNode$r = [
   ["line", { x1: "4", x2: "20", y1: "9", y2: "9", key: "4lhtct" }],
   ["line", { x1: "4", x2: "20", y1: "15", y2: "15", key: "vyu0kd" }],
   ["line", { x1: "10", x2: "8", y1: "3", y2: "21", key: "1ggp8o" }],
   ["line", { x1: "16", x2: "14", y1: "3", y2: "21", key: "weycgp" }]
 ];
-const Hash = createLucideIcon("hash", __iconNode$o);
-const __iconNode$n = [
+const Hash = createLucideIcon("hash", __iconNode$r);
+const __iconNode$q = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }],
   ["path", { d: "M12 7v5l4 2", key: "1fdv2h" }]
 ];
-const History = createLucideIcon("history", __iconNode$n);
-const __iconNode$m = [
+const History = createLucideIcon("history", __iconNode$q);
+const __iconNode$p = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
   ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }],
   ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }]
 ];
-const Image = createLucideIcon("image", __iconNode$m);
-const __iconNode$l = [
+const Image = createLucideIcon("image", __iconNode$p);
+const __iconNode$o = [
   ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
   ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
   ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
   ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
 ];
-const LayoutGrid = createLucideIcon("layout-grid", __iconNode$l);
-const __iconNode$k = [
+const LayoutGrid = createLucideIcon("layout-grid", __iconNode$o);
+const __iconNode$n = [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
 ];
-const Link2 = createLucideIcon("link-2", __iconNode$k);
-const __iconNode$j = [
-  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
-  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
-];
-const Lock = createLucideIcon("lock", __iconNode$j);
-const __iconNode$i = [
+const Link2 = createLucideIcon("link-2", __iconNode$n);
+const __iconNode$m = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$m);
+const __iconNode$l = [
   [
     "path",
     {
@@ -28873,28 +28870,28 @@ const __iconNode$i = [
   ["path", { d: "M15 5.764v15", key: "1pn4in" }],
   ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$i);
-const __iconNode$h = [
+const Map$1 = createLucideIcon("map", __iconNode$l);
+const __iconNode$k = [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3", key: "1dcmit" }],
   ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
   ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
   ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
 ];
-const Maximize = createLucideIcon("maximize", __iconNode$h);
-const __iconNode$g = [
+const Maximize = createLucideIcon("maximize", __iconNode$k);
+const __iconNode$j = [
   ["path", { d: "M4 5h16", key: "1tepv9" }],
   ["path", { d: "M4 12h16", key: "1lakjw" }],
   ["path", { d: "M4 19h16", key: "1djgab" }]
 ];
-const Menu = createLucideIcon("menu", __iconNode$g);
-const __iconNode$f = [["path", { d: "M5 12h14", key: "1ays0h" }]];
-const Minus = createLucideIcon("minus", __iconNode$f);
-const __iconNode$e = [
+const Menu = createLucideIcon("menu", __iconNode$j);
+const __iconNode$i = [["path", { d: "M5 12h14", key: "1ays0h" }]];
+const Minus = createLucideIcon("minus", __iconNode$i);
+const __iconNode$h = [
   ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1", key: "kaeet6" }],
   ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
 ];
-const Pause = createLucideIcon("pause", __iconNode$e);
-const __iconNode$d = [
+const Pause = createLucideIcon("pause", __iconNode$h);
+const __iconNode$g = [
   [
     "path",
     {
@@ -28903,28 +28900,28 @@ const __iconNode$d = [
     }
   ]
 ];
-const Play = createLucideIcon("play", __iconNode$d);
-const __iconNode$c = [
+const Play = createLucideIcon("play", __iconNode$g);
+const __iconNode$f = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-const Plus = createLucideIcon("plus", __iconNode$c);
-const __iconNode$b = [
+const Plus = createLucideIcon("plus", __iconNode$f);
+const __iconNode$e = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$b);
-const __iconNode$a = [
+const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$e);
+const __iconNode$d = [
   ["path", { d: "M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8", key: "1p45f6" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }]
 ];
-const RotateCw = createLucideIcon("rotate-cw", __iconNode$a);
-const __iconNode$9 = [
+const RotateCw = createLucideIcon("rotate-cw", __iconNode$d);
+const __iconNode$c = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const Search = createLucideIcon("search", __iconNode$9);
-const __iconNode$8 = [
+const Search = createLucideIcon("search", __iconNode$c);
+const __iconNode$b = [
   [
     "path",
     {
@@ -28934,7 +28931,40 @@ const __iconNode$8 = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Settings = createLucideIcon("settings", __iconNode$8);
+const Settings = createLucideIcon("settings", __iconNode$b);
+const __iconNode$a = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+];
+const ShieldAlert = createLucideIcon("shield-alert", __iconNode$a);
+const __iconNode$9 = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const ShieldCheck = createLucideIcon("shield-check", __iconNode$9);
+const __iconNode$8 = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ]
+];
+const Shield = createLucideIcon("shield", __iconNode$8);
 const __iconNode$7 = [
   [
     "path",
@@ -30034,45 +30064,45 @@ const NodeCard = reactExports.memo(function NodeCard2({
       return "unknown";
     }
   }, []);
-  const getPlaceholderColor = reactExports.useCallback((domain2) => {
-    const colors = [
-      "from-blue-500 to-purple-600",
-      "from-green-500 to-teal-600",
-      "from-orange-500 to-red-600",
-      "from-pink-500 to-rose-600",
-      "from-cyan-500 to-blue-600",
-      "from-violet-500 to-indigo-600"
+  const getPlaceholderGradient = reactExports.useCallback((domain2) => {
+    const gradients = [
+      "linear-gradient(135deg, #0e7490 0%, #7c3aed 100%)",
+      "linear-gradient(135deg, #059669 0%, #0891b2 100%)",
+      "linear-gradient(135deg, #7c3aed 0%, #db2777 100%)",
+      "linear-gradient(135deg, #0284c7 0%, #6d28d9 100%)",
+      "linear-gradient(135deg, #0d9488 0%, #2563eb 100%)",
+      "linear-gradient(135deg, #9333ea 0%, #0ea5e9 100%)"
     ];
     const hash = domain2.split("").reduce((a2, b) => {
       a2 = (a2 << 5) - a2 + b.charCodeAt(0);
       return a2 & a2;
     }, 0);
-    return colors[Math.abs(hash) % colors.length];
+    return gradients[Math.abs(hash) % gradients.length];
   }, []);
   const domain = getDomain(node.url);
-  const placeholderGradient = getPlaceholderColor(domain);
+  const placeholderGradient = getPlaceholderGradient(domain);
   const truncatedTitle = node.title.length > 40 ? node.title.substring(0, 40) + "..." : node.title;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
     {
-      className: `
-        relative rounded-xl overflow-hidden cursor-pointer
-        transition-all duration-200 ease-out
-        ${selected2 ? "ring-2 ring-cyan-400 ring-offset-2 ring-offset-slate-900" : ""}
-        ${shouldDim ? "opacity-40 grayscale" : "opacity-100"}
-      `,
+      className: "relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 ease-out",
       style: {
         width: 200,
         minHeight: showThumbnails && node.screenshot && !imageError ? 150 : 60,
-        background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
-        boxShadow: selected2 ? "0 0 30px rgba(34, 211, 238, 0.4)" : isHovered ? "0 10px 40px rgba(0, 0, 0, 0.4)" : "0 4px 20px rgba(0, 0, 0, 0.3)"
+        background: "var(--sg-glass-bg)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        border: selected2 ? "1.5px solid var(--sg-cyan)" : isHovered ? "1.5px solid var(--sg-border-glow-cyan)" : "1.5px solid var(--sg-glass-border)",
+        boxShadow: selected2 ? "var(--sg-glow-cyan-intense)" : isHovered ? "var(--sg-glow-cyan)" : "var(--sg-shadow-md)",
+        opacity: shouldDim ? 0.35 : 1,
+        filter: shouldDim ? "grayscale(0.6)" : "none"
       },
       onClick,
       onDoubleClick,
       onMouseEnter: () => setIsHovered(true),
       onMouseLeave: () => setIsHovered(false),
-      whileHover: { scale: 1.02 },
-      whileTap: { scale: 0.98 },
+      whileHover: { scale: 1.03, y: -2 },
+      whileTap: { scale: 0.97 },
       layout: true,
       children: [
         showThumbnails && node.screenshot && !imageError && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-full h-24 overflow-hidden", children: [
@@ -30085,9 +30115,22 @@ const NodeCard = reactExports.memo(function NodeCard2({
               onError: () => setImageError(true)
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "absolute inset-0",
+              style: { background: "linear-gradient(to top, var(--sg-surface-1) 0%, transparent 60%)" }
+            }
+          )
         ] }),
-        (!showThumbnails || !node.screenshot || imageError) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `w-full h-16 bg-gradient-to-br ${placeholderGradient} flex items-center justify-center`, children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white/80 text-xs font-medium px-2 text-center", children: domain.substring(0, 20) }) }),
+        (!showThumbnails || !node.screenshot || imageError) && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: "w-full h-16 flex items-center justify-center",
+            style: { background: placeholderGradient },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white/80 text-xs font-medium px-2 text-center", children: domain.substring(0, 20) })
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
             showFavicons && node.favicon && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -30095,30 +30138,70 @@ const NodeCard = reactExports.memo(function NodeCard2({
               {
                 src: node.favicon,
                 alt: "",
-                className: "w-4 h-4 mt-0.5 flex-shrink-0",
+                className: "w-4 h-4 mt-0.5 flex-shrink-0 rounded-sm",
                 onError: (e) => {
                   e.target.style.display = "none";
                 }
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-slate-200 leading-tight line-clamp-2 flex-1", children: truncatedTitle })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "p",
+              {
+                className: "text-xs leading-tight line-clamp-2 flex-1 font-medium",
+                style: { color: "var(--sg-text-primary)" },
+                children: truncatedTitle
+              }
+            )
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[10px] text-slate-500 mt-1 truncate", children: domain })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "p",
+            {
+              className: "text-[10px] mt-1 truncate",
+              style: { color: "var(--sg-text-ghost)" },
+              children: domain
+            }
+          )
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute top-2 right-2 flex gap-1", children: [
-          isClosed && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full bg-slate-500", title: "Closed" }),
-          node.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full bg-emerald-400 animate-pulse", title: "Active" })
+          isClosed && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              className: "w-2.5 h-2.5 rounded-full",
+              style: { background: "var(--sg-text-ghost)" },
+              title: "Closed"
+            }
+          ),
+          node.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              className: "w-2.5 h-2.5 rounded-full animate-pulse",
+              style: {
+                background: "var(--sg-emerald)",
+                boxShadow: "0 0 8px rgba(52, 211, 153, 0.5)"
+              },
+              title: "Active"
+            }
+          )
         ] }),
         isHovered && /* @__PURE__ */ jsxRuntimeExports.jsx(
           motion.div,
           {
             initial: { opacity: 0 },
             animate: { opacity: 1 },
-            className: "absolute inset-0 bg-slate-900/80 flex items-center justify-center gap-2",
+            className: "absolute inset-0 flex items-center justify-center gap-2",
+            style: {
+              background: "rgba(2, 6, 23, 0.85)",
+              backdropFilter: "blur(4px)"
+            },
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(
               "button",
               {
-                className: "px-3 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-white text-xs rounded-lg transition-colors",
+                className: "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all",
+                style: {
+                  background: "var(--sg-cyan)",
+                  color: "#020617",
+                  boxShadow: "0 0 16px rgba(34, 211, 238, 0.3)"
+                },
                 onClick: (e) => {
                   e.stopPropagation();
                   onDoubleClick();
@@ -33193,71 +33276,17 @@ function GraphToolbar({
       {
         initial: { opacity: 0, y: -20 },
         animate: { opacity: 1, y: 0 },
-        className: "bg-slate-800/90 backdrop-blur-sm border border-slate-700 rounded-xl p-2 flex items-center gap-1 shadow-xl",
+        className: "sg-glass rounded-2xl p-2 flex items-center gap-1 sg-glow-cyan",
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: onFitView,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize, { className: "w-4 h-4" }),
-              label: "Fit View"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: onResetView,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, { className: "w-4 h-4" }),
-              label: "Reset"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-px h-6 bg-slate-700 mx-1" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: onToggleTimeline,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { className: "w-4 h-4" }),
-              label: "Timeline",
-              active: showTimeline
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: onToggleMinimap,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Map$1, { className: "w-4 h-4" }),
-              label: "Minimap",
-              active: showMinimap
-            }
-          ),
-          onTogglePhysics && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: onTogglePhysics,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-4 h-4" }),
-              label: "Physics",
-              active: usePhysics
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-px h-6 bg-slate-700 mx-1" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: () => setShowSettings(!showSettings),
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-4 h-4" }),
-              label: "Settings",
-              active: showSettings
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            ToolbarButton,
-            {
-              onClick: () => setShowMenu(!showMenu),
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Ellipsis, { className: "w-4 h-4" }),
-              label: "More",
-              active: showMenu
-            }
-          )
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: onFitView, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize, { className: "w-4 h-4" }), label: "Fit View" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: onResetView, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, { className: "w-4 h-4" }), label: "Reset" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-px h-6 mx-1", style: { background: "var(--sg-border)" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: onToggleTimeline, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { className: "w-4 h-4" }), label: "Timeline", active: showTimeline }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: onToggleMinimap, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Map$1, { className: "w-4 h-4" }), label: "Minimap", active: showMinimap }),
+          onTogglePhysics && /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: onTogglePhysics, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-4 h-4" }), label: "Physics", active: usePhysics }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-px h-6 mx-1", style: { background: "var(--sg-border)" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: () => setShowSettings(!showSettings), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-4 h-4" }), label: "Settings", active: showSettings }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ToolbarButton, { onClick: () => setShowMenu(!showMenu), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Ellipsis, { className: "w-4 h-4" }), label: "More", active: showMenu })
         ]
       }
     ),
@@ -33267,18 +33296,11 @@ function GraphToolbar({
         initial: { opacity: 0, scale: 0.95 },
         animate: { opacity: 1, scale: 1 },
         exit: { opacity: 0, scale: 0.95 },
-        className: "bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-xl p-4 shadow-xl",
+        className: "sg-glass rounded-2xl p-4 sg-glow-purple",
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-medium text-slate-200", children: "View Settings" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "button",
-              {
-                onClick: () => setShowSettings(false),
-                className: "text-slate-400 hover:text-slate-200",
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-4 h-4" })
-              }
-            )
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold", style: { color: "var(--sg-text-primary)" }, children: "View Settings" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowSettings(false), style: { color: "var(--sg-text-tertiary)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-4 h-4" }) })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -33327,16 +33349,9 @@ function GraphToolbar({
         initial: { opacity: 0, scale: 0.95 },
         animate: { opacity: 1, scale: 1 },
         exit: { opacity: 0, scale: 0.95 },
-        className: "bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-xl p-2 shadow-xl",
+        className: "sg-glass rounded-2xl p-2",
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            MenuItem,
-            {
-              onClick: handleExport,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Download, { className: "w-4 h-4" }),
-              label: "Export Session"
-            }
-          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(MenuItem, { onClick: handleExport, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Download, { className: "w-4 h-4" }), label: "Export Session" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             MenuItem,
             {
@@ -33364,16 +33379,8 @@ function GraphToolbar({
               label: "Import Session"
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-px bg-slate-700 my-1" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            MenuItem,
-            {
-              onClick: handleClear,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { className: "w-4 h-4 text-red-400" }),
-              label: "Clear All Data",
-              danger: true
-            }
-          )
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-px my-1", style: { background: "var(--sg-border)" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(MenuItem, { onClick: handleClear, icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { className: "w-4 h-4", style: { color: "var(--sg-rose)" } }), label: "Clear All Data", danger: true })
         ]
       }
     ) })
@@ -33384,33 +33391,34 @@ function ToolbarButton({ onClick, icon, label, active }) {
     "button",
     {
       onClick,
-      className: cn(
-        "flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all",
-        "hover:bg-slate-700 text-slate-400 hover:text-slate-200",
-        active && "bg-cyan-500/20 text-cyan-400"
-      ),
+      className: "flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all",
+      style: {
+        color: active ? "var(--sg-cyan)" : "var(--sg-text-tertiary)",
+        background: active ? "rgba(34, 211, 238, 0.1)" : "transparent"
+      },
       title: label,
       children: [
         icon,
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px]", children: label })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] font-medium", children: label })
       ]
     }
   );
 }
 function ToggleOption({ label, checked, onChange, icon }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center justify-between cursor-pointer group", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-slate-400 group-hover:text-slate-300", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", style: { color: "var(--sg-text-secondary)" }, children: [
       icon,
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm", children: label })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", children: label })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         onClick: () => onChange(!checked),
-        className: cn(
-          "w-10 h-5 rounded-full transition-colors relative",
-          checked ? "bg-cyan-500" : "bg-slate-600"
-        ),
+        className: "w-10 h-5 rounded-full transition-all relative",
+        style: {
+          background: checked ? "var(--sg-cyan)" : "var(--sg-surface-3)",
+          boxShadow: checked ? "0 0 10px rgba(34, 211, 238, 0.3)" : "none"
+        },
         children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "span",
           {
@@ -33429,13 +33437,21 @@ function MenuItem({ onClick, icon, label, danger }) {
     "button",
     {
       onClick,
-      className: cn(
-        "w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left",
-        danger ? "hover:bg-red-500/20 text-slate-300 hover:text-red-400" : "hover:bg-slate-700 text-slate-300"
-      ),
+      className: "w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all text-left",
+      style: {
+        color: danger ? "var(--sg-text-secondary)" : "var(--sg-text-secondary)"
+      },
+      onMouseEnter: (e) => {
+        e.currentTarget.style.background = danger ? "rgba(251, 113, 133, 0.1)" : "var(--sg-surface-3)";
+        if (danger) e.currentTarget.style.color = "var(--sg-rose)";
+      },
+      onMouseLeave: (e) => {
+        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.color = "var(--sg-text-secondary)";
+      },
       children: [
         icon,
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm", children: label })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", children: label })
       ]
     }
   );
@@ -33456,22 +33472,14 @@ function TimelineSlider({ onClose }) {
   }, [loadTimeline]);
   const formatTime = (timestamp) => {
     const date2 = new Date(timestamp);
-    return date2.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
+    return date2.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
   };
   const formatDuration = (ms) => {
     const seconds = Math.floor(ms / 1e3);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
-    if (hours > 0) {
-      return `${hours}h ${minutes % 60}m`;
-    }
-    if (minutes > 0) {
-      return `${minutes}m ${seconds % 60}s`;
-    }
+    if (hours > 0) return `${hours}h ${minutes % 60}m`;
+    if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
     return `${seconds}s`;
   };
   const handleSliderInteraction = reactExports.useCallback((clientX) => {
@@ -33486,9 +33494,7 @@ function TimelineSlider({ onClose }) {
     handleSliderInteraction(e.clientX);
   };
   const handleMouseMove = (e) => {
-    if (isDragging2) {
-      handleSliderInteraction(e.clientX);
-    }
+    if (isDragging2) handleSliderInteraction(e.clientX);
   };
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -33498,9 +33504,7 @@ function TimelineSlider({ onClose }) {
     handleSliderInteraction(e.touches[0].clientX);
   };
   const handleTouchMove = (e) => {
-    if (isDragging2) {
-      handleSliderInteraction(e.touches[0].clientX);
-    }
+    if (isDragging2) handleSliderInteraction(e.touches[0].clientX);
   };
   const handleTouchEnd = () => {
     setIsDragging(false);
@@ -33523,9 +33527,7 @@ function TimelineSlider({ onClose }) {
       cancelAnimationFrame(animationRef.current);
     }
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, [isPlaying, setTimelineProgress, pauseTimeline]);
   const getVisibleNodesCount = () => {
@@ -33535,18 +33537,15 @@ function TimelineSlider({ onClose }) {
   };
   const getEventMarkers = () => {
     if (!timeline) return [];
-    return timeline.events.map((event) => {
-      const position = (event.timestamp - timeline.startTime) / (timeline.endTime - timeline.startTime);
-      return {
-        position: Math.max(0, Math.min(1, position)),
-        type: event.type,
-        timestamp: event.timestamp
-      };
-    });
+    return timeline.events.map((event) => ({
+      position: Math.max(0, Math.min(1, (event.timestamp - timeline.startTime) / (timeline.endTime - timeline.startTime))),
+      type: event.type,
+      timestamp: event.timestamp
+    }));
   };
   if (!timeline) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-slate-800/95 backdrop-blur-sm border-t border-slate-700 p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-center text-slate-400", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-5 h-5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mr-2" }),
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sg-glass p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-center", style: { color: "var(--sg-text-tertiary)" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-5 h-5 border-2 rounded-full animate-spin mr-2", style: { borderColor: "var(--sg-cyan)", borderTopColor: "transparent" } }),
       "Loading timeline..."
     ] }) });
   }
@@ -33554,67 +33553,47 @@ function TimelineSlider({ onClose }) {
   const currentTime = timeline.startTime + duration * progress2;
   const visibleCount = getVisibleNodesCount();
   const eventMarkers = getEventMarkers();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-slate-800/95 backdrop-blur-sm border-t border-slate-700 p-4", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sg-glass p-4", style: { borderTop: "1px solid var(--sg-border)" }, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-medium text-slate-200", children: "Session Timeline" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-slate-500", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold", style: { color: "var(--sg-text-primary)" }, children: "Session Timeline" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: [
           visibleCount,
           " events visible"
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: onClose,
-          className: "text-slate-400 hover:text-slate-200 transition-colors",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-5 h-5" })
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "transition-colors", style: { color: "var(--sg-text-tertiary)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-5 h-5" }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4 mb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: () => setTimelineProgress(0),
-          className: "p-2 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors",
-          title: "Go to start",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(SkipBack, { className: "w-4 h-4" })
-        }
-      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setTimelineProgress(0), className: "p-2 rounded-xl transition-all", style: { color: "var(--sg-text-tertiary)" }, title: "Go to start", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SkipBack, { className: "w-4 h-4" }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
           onClick: isPlaying ? pauseTimeline : playTimeline,
-          className: cn(
-            "p-3 rounded-lg transition-colors",
-            isPlaying ? "bg-amber-500/20 text-amber-400 hover:bg-amber-500/30" : "bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30"
-          ),
+          className: "p-3 rounded-xl transition-all",
+          style: {
+            background: isPlaying ? "rgba(251, 191, 36, 0.1)" : "rgba(34, 211, 238, 0.1)",
+            color: isPlaying ? "var(--sg-amber)" : "var(--sg-cyan)",
+            boxShadow: isPlaying ? "0 0 12px rgba(251, 191, 36, 0.15)" : "0 0 12px rgba(34, 211, 238, 0.15)"
+          },
           title: isPlaying ? "Pause" : "Play",
           children: isPlaying ? /* @__PURE__ */ jsxRuntimeExports.jsx(Pause, { className: "w-5 h-5" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Play, { className: "w-5 h-5" })
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: () => setTimelineProgress(1),
-          className: "p-2 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors",
-          title: "Go to end",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(SkipForward, { className: "w-4 h-4" })
-        }
-      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setTimelineProgress(1), className: "p-2 rounded-xl transition-all", style: { color: "var(--sg-text-tertiary)" }, title: "Go to end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SkipForward, { className: "w-4 h-4" }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-cyan-400 font-mono", children: formatTime(currentTime) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-600", children: "/" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-500 font-mono", children: formatTime(timeline.endTime) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-mono font-semibold", style: { color: "var(--sg-cyan)" }, children: formatTime(currentTime) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-ghost)" }, children: "/" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-mono", style: { color: "var(--sg-text-ghost)" }, children: formatTime(timeline.endTime) })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-slate-500 ml-auto", children: formatDuration(duration) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs ml-auto", style: { color: "var(--sg-text-ghost)" }, children: formatDuration(duration) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
       {
         ref: sliderRef,
-        className: "relative h-12 bg-slate-900/50 rounded-lg cursor-pointer overflow-hidden",
+        className: "relative h-12 rounded-xl cursor-pointer overflow-hidden",
+        style: { background: "var(--sg-surface-2)", border: "1px solid var(--sg-border-subtle)" },
         onMouseDown: handleMouseDown,
         onMouseMove: handleMouseMove,
         onMouseUp: handleMouseUp,
@@ -33623,54 +33602,64 @@ function TimelineSlider({ onClose }) {
         onTouchMove: handleTouchMove,
         onTouchEnd: handleTouchEnd,
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 opacity-50" }),
           eventMarkers.map((marker, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             "div",
             {
-              className: cn(
-                "absolute top-0 w-0.5 h-full transition-opacity",
-                marker.type === "node_created" && "bg-cyan-500/30",
-                marker.type === "node_closed" && "bg-slate-500/30",
-                marker.type === "edge_created" && "bg-purple-500/30",
-                marker.position <= progress2 ? "opacity-100" : "opacity-30"
-              ),
-              style: { left: `${marker.position * 100}%` }
+              className: "absolute top-0 w-0.5 h-full transition-opacity",
+              style: {
+                left: `${marker.position * 100}%`,
+                background: marker.type === "node_created" ? "rgba(34, 211, 238, 0.3)" : marker.type === "node_closed" ? "rgba(100, 116, 139, 0.3)" : "rgba(168, 85, 247, 0.3)",
+                opacity: marker.position <= progress2 ? 1 : 0.3
+              }
             },
             index2
           )),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             motion.div,
             {
-              className: "absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500/20 to-cyan-400/10",
-              style: { width: `${progress2 * 100}%` },
+              className: "absolute inset-y-0 left-0",
+              style: {
+                width: `${progress2 * 100}%`,
+                background: "linear-gradient(90deg, rgba(34, 211, 238, 0.15) 0%, rgba(34, 211, 238, 0.05) 100%)"
+              },
               layoutId: "timelineProgress"
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             motion.div,
             {
-              className: "absolute top-0 bottom-0 w-1 bg-cyan-400 shadow-lg shadow-cyan-400/50",
-              style: { left: `${progress2 * 100}%` },
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-cyan-400 rounded-full" })
+              className: "absolute top-0 bottom-0 w-1",
+              style: {
+                left: `${progress2 * 100}%`,
+                background: "var(--sg-cyan)",
+                boxShadow: "0 0 12px rgba(34, 211, 238, 0.6)"
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  className: "absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full",
+                  style: { background: "var(--sg-cyan)", boxShadow: "0 0 8px rgba(34, 211, 238, 0.5)" }
+                }
+              )
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-1 left-2 text-[10px] text-slate-500", children: formatTime(timeline.startTime) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-1 right-2 text-[10px] text-slate-500", children: formatTime(timeline.endTime) })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-1 left-2 text-[10px]", style: { color: "var(--sg-text-ghost)" }, children: formatTime(timeline.startTime) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-1 right-2 text-[10px]", style: { color: "var(--sg-text-ghost)" }, children: formatTime(timeline.endTime) })
         ]
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4 mt-3 text-xs", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full bg-cyan-500" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-400", children: "Page Opened" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full", style: { background: "var(--sg-cyan)" } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-tertiary)" }, children: "Page Opened" })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full bg-slate-500" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-400", children: "Page Closed" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full", style: { background: "var(--sg-text-ghost)" } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-tertiary)" }, children: "Page Closed" })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full bg-purple-500" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-400", children: "Link Created" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full", style: { background: "var(--sg-purple)" } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-tertiary)" }, children: "Link Created" })
       ] })
     ] })
   ] });
@@ -33721,66 +33710,46 @@ function NodeDetailPanel({ node, onClose }) {
       initial: { opacity: 0, x: 20 },
       animate: { opacity: 1, x: 0 },
       exit: { opacity: 0, x: 20 },
-      className: "w-80 bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-xl shadow-2xl overflow-hidden",
+      className: "w-80 sg-glass rounded-2xl overflow-hidden sg-glow-purple",
+      style: { boxShadow: "var(--sg-shadow-xl), var(--sg-glow-purple)" },
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 border-b border-slate-700", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-medium text-slate-200 truncate pr-4", children: "Page Details" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: onClose,
-              className: "text-slate-400 hover:text-slate-200 transition-colors",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-5 h-5" })
-            }
-          )
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4", style: { borderBottom: "1px solid var(--sg-border)" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold", style: { color: "var(--sg-text-primary)" }, children: "Page Details" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "transition-colors", style: { color: "var(--sg-text-tertiary)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-5 h-5" }) })
         ] }),
-        node.screenshot && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative h-40 bg-slate-900 overflow-hidden", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
-            {
-              src: node.screenshot,
-              alt: node.title,
-              className: "w-full h-full object-cover"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent" })
+        node.screenshot && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative h-40 overflow-hidden", style: { background: "var(--sg-bg-deep)" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: node.screenshot, alt: node.title, className: "w-full h-full object-cover" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0", style: { background: "linear-gradient(to top, var(--sg-surface-1) 0%, transparent 60%)" } })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 space-y-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-lg font-semibold text-slate-100 leading-tight", children: node.title }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-slate-900/50 rounded-lg p-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
-            node.favicon && /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                src: node.favicon,
-                alt: "",
-                className: "w-4 h-4 mt-0.5 flex-shrink-0"
-              }
-            ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-lg font-bold leading-tight", style: { color: "var(--sg-text-primary)" }, children: node.title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rounded-xl p-3", style: { background: "var(--sg-surface-2)", border: "1px solid var(--sg-border-subtle)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
+            node.favicon && /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: node.favicon, alt: "", className: "w-4 h-4 mt-0.5 flex-shrink-0 rounded-sm" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-w-0", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-cyan-400 truncate", children: getDomain(node.url) }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-slate-500 truncate", children: getPath(node.url) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs truncate font-medium", style: { color: "var(--sg-cyan)" }, children: getDomain(node.url) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs truncate", style: { color: "var(--sg-text-ghost)" }, children: getPath(node.url) })
             ] })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs text-slate-400", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs", style: { color: "var(--sg-text-tertiary)" }, children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { className: "w-4 h-4" }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
                 "Opened: ",
                 formatTime(node.timestamp)
               ] })
             ] }),
-            node.closedAt && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs text-slate-400", children: [
+            node.closedAt && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs", style: { color: "var(--sg-text-tertiary)" }, children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-4 h-4" }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
                 "Closed: ",
                 formatTime(node.closedAt)
               ] })
             ] }),
-            node.parentId && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs text-slate-400", children: [
+            node.parentId && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs", style: { color: "var(--sg-text-tertiary)" }, children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(Link2, { className: "w-4 h-4" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Opened from another tab" })
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs text-slate-400", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-xs", style: { color: "var(--sg-text-ghost)" }, children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(Hash, { className: "w-4 h-4" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-mono", children: node.id })
             ] })
@@ -33789,34 +33758,57 @@ function NodeDetailPanel({ node, onClose }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "span",
               {
-                className: cn(
-                  "px-2 py-1 rounded-full text-xs font-medium",
-                  isClosed ? "bg-slate-700 text-slate-400" : "bg-emerald-500/20 text-emerald-400"
-                ),
+                className: "px-2.5 py-1 rounded-full text-xs font-semibold",
+                style: {
+                  background: isClosed ? "var(--sg-surface-3)" : "rgba(52, 211, 153, 0.15)",
+                  color: isClosed ? "var(--sg-text-tertiary)" : "var(--sg-emerald)",
+                  border: isClosed ? "none" : "1px solid rgba(52, 211, 153, 0.2)"
+                },
                 children: isClosed ? "Closed" : "Active"
               }
             ),
-            node.userPositioned && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "px-2 py-1 rounded-full text-xs font-medium bg-purple-500/20 text-purple-400", children: "Positioned" })
+            node.userPositioned && /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: "px-2.5 py-1 rounded-full text-xs font-semibold",
+                style: {
+                  background: "rgba(168, 85, 247, 0.15)",
+                  color: "var(--sg-purple)",
+                  border: "1px solid rgba(168, 85, 247, 0.2)"
+                },
+                children: "Positioned"
+              }
+            )
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 pt-2", children: [
             isClosed ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "button",
               {
                 onClick: handleReopen,
-                className: "flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-white rounded-lg transition-colors text-sm font-medium",
+                className: "flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all",
+                style: {
+                  background: "var(--sg-cyan)",
+                  color: "#020617",
+                  boxShadow: "0 0 16px rgba(34, 211, 238, 0.25)"
+                },
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, { className: "w-4 h-4" }),
-                  "Reopen Tab"
+                  " Reopen Tab"
                 ]
               }
             ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "button",
               {
                 onClick: handleFocus,
-                className: "flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-white rounded-lg transition-colors text-sm font-medium",
+                className: "flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all",
+                style: {
+                  background: "var(--sg-cyan)",
+                  color: "#020617",
+                  boxShadow: "0 0 16px rgba(34, 211, 238, 0.25)"
+                },
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { className: "w-4 h-4" }),
-                  "Focus Tab"
+                  " Focus Tab"
                 ]
               }
             ),
@@ -33824,7 +33816,12 @@ function NodeDetailPanel({ node, onClose }) {
               "button",
               {
                 onClick: handleDelete,
-                className: "px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors",
+                className: "px-4 py-2 rounded-xl transition-all",
+                style: {
+                  background: "rgba(251, 113, 133, 0.1)",
+                  color: "var(--sg-rose)",
+                  border: "1px solid rgba(251, 113, 133, 0.15)"
+                },
                 children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { className: "w-4 h-4" })
               }
             )
@@ -33835,7 +33832,8 @@ function NodeDetailPanel({ node, onClose }) {
               href: node.url,
               target: "_blank",
               rel: "noopener noreferrer",
-              className: "block text-center text-xs text-slate-500 hover:text-cyan-400 transition-colors",
+              className: "block text-center text-xs transition-colors",
+              style: { color: "var(--sg-text-ghost)" },
               children: "Open in new tab →"
             }
           )
@@ -34769,16 +34767,17 @@ const convertToFlowEdges = (edges) => {
     id: edge.id,
     source: edge.source,
     target: edge.target,
-    type: "smoothstep",
+    type: "default",
     animated: true,
     style: {
-      stroke: "#22d3ee",
+      stroke: "var(--sg-cyan)",
       strokeWidth: 2,
-      opacity: 0.6
+      opacity: 0.4,
+      filter: "drop-shadow(0 0 3px rgba(34, 211, 238, 0.5))"
     },
     markerEnd: {
       type: MarkerType.ArrowClosed,
-      color: "#22d3ee"
+      color: "var(--sg-cyan)"
     }
   }));
 };
@@ -34840,22 +34839,18 @@ function GraphCanvas() {
   } = useForceSimulation({
     width: canvasSize.width,
     height: canvasSize.height,
-    linkDistance: 180,
-    chargeStrength: -500,
-    collisionRadius: 1.3,
-    alphaDecay: 0.03,
-    velocityDecay: 0.5,
+    linkDistance: 250,
+    chargeStrength: -400,
+    collisionRadius: 100,
+    alphaDecay: 0.02,
+    velocityDecay: 0.6,
     onTick: usePhysics ? handleSimulationTick : void 0
   });
   reactExports.useEffect(() => {
     if (!hasInitialized) {
-      loadGraphData().then(() => {
-        setHasInitialized(true);
-      });
+      loadGraphData().then(() => setHasInitialized(true));
       const handleMessage = (message) => {
-        if (message.action === "graphUpdated") {
-          loadGraphData();
-        }
+        if (message.action === "graphUpdated") loadGraphData();
       };
       if (typeof chrome !== "undefined" && chrome.runtime) {
         chrome.runtime.onMessage.addListener(handleMessage);
@@ -34886,9 +34881,7 @@ function GraphCanvas() {
     onNodesChange(changes);
     changes.forEach((change) => {
       if (change.type === "position" && change.position && !change.dragging) {
-        if (updateTimeoutRef.current) {
-          clearTimeout(updateTimeoutRef.current);
-        }
+        if (updateTimeoutRef.current) clearTimeout(updateTimeoutRef.current);
         updateTimeoutRef.current = setTimeout(() => {
           updateNodePosition(change.id, change.position);
         }, 500);
@@ -34897,60 +34890,55 @@ function GraphCanvas() {
   }, [onNodesChange, updateNodePosition]);
   const handleDragStart = reactExports.useCallback((_event, node) => {
     dragStartTimeRef.current = Date.now();
-    if (usePhysics) {
-      simDragStart(node.id);
-    }
+    if (usePhysics) simDragStart(node.id);
   }, [usePhysics, simDragStart]);
   const handleDrag = reactExports.useCallback((_event, node) => {
-    if (usePhysics) {
-      simDrag(node.id, node.position.x, node.position.y);
-    }
+    if (usePhysics) simDrag(node.id, node.position.x, node.position.y);
   }, [usePhysics, simDrag]);
   const handleDragEnd = reactExports.useCallback((_event, node) => {
     const dragDuration = Date.now() - dragStartTimeRef.current;
-    const wasLongDrag = dragDuration > 300;
-    if (usePhysics) {
-      simDragEnd(node.id, wasLongDrag);
-    }
+    if (usePhysics) simDragEnd(node.id, dragDuration > 300);
     updateNodePosition(node.id, node.position);
   }, [usePhysics, simDragEnd, updateNodePosition]);
   const handleSelectionChange = reactExports.useCallback((params) => {
-    if (params.nodes.length === 1) {
-      selectNode(params.nodes[0].id);
-    } else if (params.nodes.length === 0) {
-      selectNode(null);
-    }
+    if (params.nodes.length === 1) selectNode(params.nodes[0].id);
+    else if (params.nodes.length === 0) selectNode(null);
   }, [selectNode]);
   const handleConnect = reactExports.useCallback((connection) => {
     setEdges((eds) => addEdge({
       ...connection,
-      type: "smoothstep",
+      type: "default",
       animated: true,
-      markerEnd: { type: MarkerType.ArrowClosed, color: "#22d3ee" }
+      style: { stroke: "var(--sg-cyan)", strokeWidth: 2, opacity: 0.6 },
+      markerEnd: { type: MarkerType.ArrowClosed, color: "var(--sg-cyan)" }
     }, eds));
   }, [setEdges]);
   const handleTogglePhysics = reactExports.useCallback(() => {
-    if (usePhysics) {
-      stopSimulation();
-    } else {
-      restartSimulation(0.5);
-    }
+    if (usePhysics) stopSimulation();
+    else restartSimulation(0.5);
     setUsePhysics(!usePhysics);
   }, [usePhysics, stopSimulation, restartSimulation]);
   const selectedNode = selectedNodeIds.length === 1 ? storeNodes.find((n) => n.id === selectedNodeIds[0]) : null;
   const isLoading = !hasInitialized && storeNodes.length === 0;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: canvasRef, className: "w-full h-full bg-slate-950 relative overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: canvasRef, className: "w-full h-full relative overflow-hidden", style: { background: "var(--sg-bg-canvas)" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isLoading && /* @__PURE__ */ jsxRuntimeExports.jsxs(
       motion.div,
       {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
-        className: "absolute inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center gap-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-cyan-400 text-sm", children: "Loading your browsing graph..." })
-        ] })
+        className: "absolute inset-0 z-50 flex items-center justify-center flex-col gap-4",
+        style: { background: "var(--sg-bg-deep)", backdropFilter: "blur(4px)" },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "w-12 h-12 border-4 rounded-full animate-spin",
+              style: { borderColor: "var(--sg-cyan)", borderTopColor: "transparent" }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { color: "var(--sg-cyan)" }, children: "Loading your browsing graph..." })
+        ]
       }
     ) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -34970,34 +34958,38 @@ function GraphCanvas() {
         fitViewOptions: { padding: 0.3 },
         minZoom: 0.1,
         maxZoom: 2,
-        defaultEdgeOptions: {
-          type: "smoothstep",
-          animated: true
-        },
         proOptions: { hideAttribution: true },
-        className: "bg-slate-950",
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Background,
             {
-              color: "#334155",
-              gap: 20,
+              color: "var(--sg-border)",
+              gap: 24,
               size: 1,
-              className: "bg-slate-950"
+              style: { background: "var(--sg-bg-canvas)" }
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Controls, { className: "bg-slate-800 border-slate-700 text-slate-200" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Controls,
+            {
+              style: {
+                background: "var(--sg-surface-2)",
+                border: "1px solid var(--sg-border)",
+                color: "var(--sg-text-primary)"
+              }
+            }
+          ),
           showMinimap && /* @__PURE__ */ jsxRuntimeExports.jsx(
             MiniMap,
             {
               nodeStrokeWidth: 3,
               zoomable: true,
               pannable: true,
-              className: "bg-slate-800 border border-slate-700 rounded-lg",
-              maskColor: "rgba(15, 23, 42, 0.8)",
+              style: { background: "var(--sg-surface-2)", border: "1px solid var(--sg-border)" },
+              maskColor: "var(--sg-bg-deep)",
               nodeColor: (node) => {
                 const n = node.data;
-                return n?.status === "closed" ? "#64748b" : "#22d3ee";
+                return n?.status === "closed" ? "var(--sg-text-tertiary)" : "var(--sg-cyan)";
               }
             }
           ),
@@ -35014,22 +35006,18 @@ function GraphCanvas() {
               usePhysics
             }
           ) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, { position: "top-right", className: "m-4 mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-slate-800/90 backdrop-blur-sm border border-slate-700 rounded-xl p-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-slate-400 text-xs uppercase tracking-wider mb-3", children: "Session Stats" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, { position: "top-right", className: "m-4 mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sg-glass rounded-xl p-4 sg-glow-purple", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs uppercase tracking-wider mb-2", style: { color: "var(--sg-text-ghost)" }, children: "Session Stats" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-cyan-400", children: storeNodes.length }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-slate-500", children: "Pages" })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold", style: { color: "var(--sg-cyan)" }, children: storeNodes.length }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-secondary)" }, children: "Pages" })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-purple-400", children: storeEdges.length }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-slate-500", children: "Links" })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold", style: { color: "var(--sg-purple)" }, children: storeEdges.length }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-secondary)" }, children: "Links" })
               ] })
-            ] }),
-            usePhysics && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-3 pt-3 border-t border-slate-700", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-emerald-400 flex items-center gap-1", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 bg-emerald-400 rounded-full animate-pulse" }),
-              "Physics Active"
-            ] }) })
+            ] })
           ] }) })
         ]
       }
@@ -35067,7 +35055,8 @@ function Sidebar({ isOpen, onClose }) {
         animate: { opacity: 1 },
         exit: { opacity: 0 },
         onClick: onClose,
-        className: "fixed inset-0 bg-black/50 z-40"
+        className: "fixed inset-0 z-40",
+        style: { background: "rgba(2, 6, 23, 0.6)", backdropFilter: "blur(4px)" }
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -35076,18 +35065,33 @@ function Sidebar({ isOpen, onClose }) {
         initial: { x: -320 },
         animate: { x: 0 },
         exit: { x: -320 },
-        className: "fixed left-0 top-8 bottom-0 w-80 bg-slate-900 border-r border-slate-800 z-50 flex flex-col",
+        className: "fixed left-0 top-8 bottom-0 w-80 z-50 flex flex-col",
+        style: {
+          background: "var(--sg-surface-1)",
+          borderRight: "1px solid var(--sg-border)",
+          boxShadow: "var(--sg-shadow-xl)"
+        },
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 border-b border-slate-800", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", style: { borderBottom: "1px solid var(--sg-border-subtle)" }, children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-4", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: "🧭" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  className: "w-10 h-10 rounded-2xl flex items-center justify-center",
+                  style: {
+                    background: "linear-gradient(135deg, var(--sg-cyan), var(--sg-purple))",
+                    boxShadow: "0 0 16px rgba(34, 211, 238, 0.25)"
+                  },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: "🧭" })
+                }
+              ),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-bold text-slate-100", children: "Ariadne" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-slate-500", children: "Spatial Web Browser" })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-bold", style: { color: "var(--sg-text-primary)" }, children: "Ariadne" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: "Spatial Web Browser" })
               ] })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4", style: { color: "var(--sg-text-ghost)" } }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "input",
                 {
@@ -35095,39 +35099,20 @@ function Sidebar({ isOpen, onClose }) {
                   placeholder: "Search pages...",
                   value: searchQuery,
                   onChange: (e) => setSearchQuery(e.target.value),
-                  className: "w-full pl-9 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className: "w-full pl-9 pr-4 py-2 rounded-xl text-sm outline-none transition-all",
+                  style: {
+                    background: "var(--sg-surface-2)",
+                    border: "1px solid var(--sg-border-subtle)",
+                    color: "var(--sg-text-primary)"
+                  }
                 }
               )
             ] })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex border-b border-slate-800", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              TabButton,
-              {
-                active: activeTab === "sessions",
-                onClick: () => setActiveTab("sessions"),
-                icon: /* @__PURE__ */ jsxRuntimeExports.jsx(History, { className: "w-4 h-4" }),
-                label: "Sessions"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              TabButton,
-              {
-                active: activeTab === "trees",
-                onClick: () => setActiveTab("trees"),
-                icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Bookmark, { className: "w-4 h-4" }),
-                label: "Trees"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              TabButton,
-              {
-                active: activeTab === "settings",
-                onClick: () => setActiveTab("settings"),
-                icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-4 h-4" }),
-                label: "Settings"
-              }
-            )
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex", style: { borderBottom: "1px solid var(--sg-border-subtle)" }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "sessions", onClick: () => setActiveTab("sessions"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(History, { className: "w-4 h-4" }), label: "Sessions" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "trees", onClick: () => setActiveTab("trees"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Bookmark, { className: "w-4 h-4" }), label: "Trees" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "settings", onClick: () => setActiveTab("settings"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-4 h-4" }), label: "Settings" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto p-4", children: [
             activeTab === "sessions" && /* @__PURE__ */ jsxRuntimeExports.jsx(SessionsTab, { searchQuery }),
@@ -35139,15 +35124,16 @@ function Sidebar({ isOpen, onClose }) {
     )
   ] }) });
 }
-function TabButton({ active, onClick, icon, label }) {
+function SidebarTab({ active, onClick, icon, label }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "button",
     {
       onClick,
-      className: cn(
-        "flex-1 flex items-center justify-center gap-2 py-3 text-sm transition-colors",
-        active ? "text-cyan-400 border-b-2 border-cyan-400" : "text-slate-400 hover:text-slate-200"
-      ),
+      className: "flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all",
+      style: {
+        color: active ? "var(--sg-cyan)" : "var(--sg-text-tertiary)",
+        borderBottom: active ? "2px solid var(--sg-cyan)" : "2px solid transparent"
+      },
       children: [
         icon,
         label
@@ -35162,68 +35148,63 @@ function SessionsTab({ searchQuery }) {
   const createSession = useGraphStore((state) => state.createSession);
   const deleteSession = useGraphStore((state) => state.deleteSession);
   const [expandedSession, setExpandedSession] = reactExports.useState(null);
-  const filteredSessions = sessions.filter(
-    (s) => s.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredSessions = sessions.filter((s) => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const handleCreateSession = () => {
     const name = prompt("Enter session name:");
-    if (name) {
-      createSession(name);
-    }
+    if (name) createSession(name);
   };
-  const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric"
-    });
-  };
+  const formatTime = (timestamp) => new Date(timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric" });
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
       {
         onClick: handleCreateSession,
-        className: "w-full flex items-center gap-2 px-3 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition-colors text-sm",
+        className: "w-full flex items-center gap-2 px-3 py-2 rounded-xl transition-all text-sm font-medium",
+        style: {
+          background: "rgba(34, 211, 238, 0.1)",
+          color: "var(--sg-cyan)",
+          border: "1px solid rgba(34, 211, 238, 0.15)"
+        },
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { className: "w-4 h-4" }),
-          "New Session"
+          " New Session"
         ]
       }
     ),
     filteredSessions.map((session) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
       {
-        className: cn(
-          "rounded-lg border transition-all overflow-hidden",
-          session.id === currentSessionId ? "border-cyan-500/50 bg-cyan-500/10" : "border-slate-700 bg-slate-800/50 hover:border-slate-600"
-        ),
+        className: "rounded-xl overflow-hidden transition-all",
+        style: {
+          border: session.id === currentSessionId ? "1px solid rgba(34, 211, 238, 0.3)" : "1px solid var(--sg-border-subtle)",
+          background: session.id === currentSessionId ? "rgba(34, 211, 238, 0.05)" : "var(--sg-surface-2)"
+        },
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(
             "div",
             {
               className: "flex items-center justify-between p-3 cursor-pointer",
-              onClick: () => setExpandedSession(
-                expandedSession === session.id ? null : session.id
-              ),
+              onClick: () => setExpandedSession(expandedSession === session.id ? null : session.id),
               children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                  expandedSession === session.id ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { className: "w-4 h-4 text-slate-500" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4 text-slate-500" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-slate-200", children: session.name })
+                  expandedSession === session.id ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { className: "w-4 h-4", style: { color: "var(--sg-text-ghost)" } }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4", style: { color: "var(--sg-text-ghost)" } }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", style: { color: "var(--sg-text-primary)" }, children: session.name })
                 ] }),
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-slate-500", children: formatTime(session.updatedAt) }),
-                  session.id === currentSessionId && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full bg-cyan-400" })
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: formatTime(session.updatedAt) }),
+                  session.id === currentSessionId && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full", style: { background: "var(--sg-cyan)", boxShadow: "0 0 6px rgba(34, 211, 238, 0.5)" } })
                 ] })
               ]
             }
           ),
-          expandedSession === session.id && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-3 pb-3 border-t border-slate-700/50 pt-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-2 text-xs text-slate-500 mb-3", children: [
+          expandedSession === session.id && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-3 pb-3 pt-2", style: { borderTop: "1px solid var(--sg-border-subtle)" }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-2 text-xs mb-3", style: { color: "var(--sg-text-ghost)" }, children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-400", children: session.nodeCount }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-secondary)" }, children: session.nodeCount }),
                 " pages"
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-slate-400", children: session.edgeCount }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-secondary)" }, children: session.edgeCount }),
                 " links"
               ] })
             ] }),
@@ -35232,7 +35213,8 @@ function SessionsTab({ searchQuery }) {
                 "button",
                 {
                   onClick: () => switchSession(session.id),
-                  className: "flex-1 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded text-xs transition-colors",
+                  className: "flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                  style: { background: "var(--sg-surface-3)", color: "var(--sg-text-primary)" },
                   children: "Switch"
                 }
               ),
@@ -35240,11 +35222,10 @@ function SessionsTab({ searchQuery }) {
                 "button",
                 {
                   onClick: () => {
-                    if (confirm("Delete this session?")) {
-                      deleteSession(session.id);
-                    }
+                    if (confirm("Delete this session?")) deleteSession(session.id);
                   },
-                  className: "px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded text-xs transition-colors",
+                  className: "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                  style: { background: "rgba(251, 113, 133, 0.1)", color: "var(--sg-rose)" },
                   children: "Delete"
                 }
               )
@@ -35260,55 +35241,31 @@ function TreesTab({ searchQuery }) {
   const savedTrees = useGraphStore((state) => state.savedTrees);
   const loadTree = useGraphStore((state) => state.loadTree);
   const deleteTree = useGraphStore((state) => state.deleteTree);
-  const filteredTrees = savedTrees.filter(
-    (t) => t.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-  const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric"
-    });
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: filteredTrees.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-8 text-slate-500", children: [
+  const filteredTrees = savedTrees.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const formatTime = (timestamp) => new Date(timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: filteredTrees.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-8", style: { color: "var(--sg-text-ghost)" }, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(FolderTree, { className: "w-12 h-12 mx-auto mb-3 opacity-50" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm", children: "No saved trees yet" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs mt-1", children: "Select nodes and save them as a tree" })
   ] }) : filteredTrees.map((tree) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
-      className: "flex items-center justify-between p-3 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-slate-600 transition-colors",
+      className: "flex items-center justify-between p-3 rounded-xl transition-all",
+      style: { background: "var(--sg-surface-2)", border: "1px solid var(--sg-border-subtle)" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-slate-200", children: tree.name }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-slate-500", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium", style: { color: "var(--sg-text-primary)" }, children: tree.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: [
             tree.nodeCount,
             " pages • ",
             formatTime(tree.createdAt)
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: () => loadTree(tree.id),
-              className: "p-2 hover:bg-slate-700 text-slate-400 hover:text-cyan-400 rounded-lg transition-colors",
-              title: "Load tree",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4" })
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: () => {
-                if (confirm("Delete this saved tree?")) {
-                  deleteTree(tree.id);
-                }
-              },
-              className: "p-2 hover:bg-red-500/20 text-slate-400 hover:text-red-400 rounded-lg transition-colors",
-              title: "Delete tree",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(EllipsisVertical, { className: "w-4 h-4" })
-            }
-          )
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => loadTree(tree.id), className: "p-2 rounded-lg transition-all", style: { color: "var(--sg-text-tertiary)" }, title: "Load tree", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
+            if (confirm("Delete?")) deleteTree(tree.id);
+          }, className: "p-2 rounded-lg transition-all", style: { color: "var(--sg-text-tertiary)" }, title: "Delete", children: /* @__PURE__ */ jsxRuntimeExports.jsx(EllipsisVertical, { className: "w-4 h-4" }) })
         ] })
       ]
     },
@@ -35326,55 +35283,27 @@ function SettingsTab() {
   const setClusterByDomain = useGraphStore((state) => state.setClusterByDomain);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs font-medium text-slate-500 uppercase tracking-wider", children: "View Options" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ToggleSetting,
-        {
-          label: "Dim closed tabs",
-          checked: dimClosedNodes,
-          onChange: setDimClosedNodes
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ToggleSetting,
-        {
-          label: "Show thumbnails",
-          checked: showThumbnails,
-          onChange: setShowThumbnails
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ToggleSetting,
-        {
-          label: "Show favicons",
-          checked: showFavicons,
-          onChange: setShowFavicons
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ToggleSetting,
-        {
-          label: "Cluster by domain",
-          checked: clusterByDomain,
-          onChange: setClusterByDomain
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs font-semibold uppercase tracking-wider", style: { color: "var(--sg-text-ghost)" }, children: "View Options" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Dim closed tabs", checked: dimClosedNodes, onChange: setDimClosedNodes }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Show thumbnails", checked: showThumbnails, onChange: setShowThumbnails }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Show favicons", checked: showFavicons, onChange: setShowFavicons }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Cluster by domain", checked: clusterByDomain, onChange: setClusterByDomain })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-px bg-slate-800" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-px", style: { background: "var(--sg-border-subtle)" } }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs font-medium text-slate-500 uppercase tracking-wider", children: "Keyboard Shortcuts" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs font-semibold uppercase tracking-wider", style: { color: "var(--sg-text-ghost)" }, children: "Keyboard Shortcuts" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2 text-sm", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-slate-400", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between", style: { color: "var(--sg-text-tertiary)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Open graph" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 bg-slate-800 rounded text-slate-500", children: "Alt+G" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 rounded-lg text-xs", style: { background: "var(--sg-surface-3)", color: "var(--sg-text-ghost)" }, children: "Alt+G" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-slate-400", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between", style: { color: "var(--sg-text-tertiary)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Fit view" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 bg-slate-800 rounded text-slate-500", children: "F" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 rounded-lg text-xs", style: { background: "var(--sg-surface-3)", color: "var(--sg-text-ghost)" }, children: "F" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-slate-400", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between", style: { color: "var(--sg-text-tertiary)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Reset view" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 bg-slate-800 rounded text-slate-500", children: "R" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 rounded-lg text-xs", style: { background: "var(--sg-surface-3)", color: "var(--sg-text-ghost)" }, children: "R" })
         ] })
       ] })
     ] })
@@ -35382,24 +35311,17 @@ function SettingsTab() {
 }
 function ToggleSetting({ label, checked, onChange }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center justify-between cursor-pointer", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-slate-300", children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", style: { color: "var(--sg-text-secondary)" }, children: label }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         onClick: () => onChange(!checked),
-        className: cn(
-          "w-10 h-5 rounded-full transition-colors relative",
-          checked ? "bg-cyan-500" : "bg-slate-700"
-        ),
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "span",
-          {
-            className: cn(
-              "absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform",
-              checked ? "left-5" : "left-0.5"
-            )
-          }
-        )
+        className: "w-10 h-5 rounded-full transition-all relative",
+        style: {
+          background: checked ? "var(--sg-cyan)" : "var(--sg-surface-3)",
+          boxShadow: checked ? "0 0 10px rgba(34, 211, 238, 0.3)" : "none"
+        },
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: cn("absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform", checked ? "left-5" : "left-0.5") })
       }
     )
   ] });
@@ -35412,38 +35334,91 @@ function TitleBar() {
   const handleMinimize = () => window.electron.ipcRenderer.send("window-minimize");
   const handleMaximize = () => window.electron.ipcRenderer.send("window-maximize");
   const handleClose = () => window.electron.ipcRenderer.send("window-close");
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-8 w-full bg-background/80 backdrop-blur-md flex items-center justify-between px-2 select-none border-b border-border z-50 relative app-drag-region", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 pl-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full bg-gradient-to-tr from-primary to-accent opacity-80" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-medium text-foreground/70", children: "Ariadne" })
-    ] }),
-    !isMac && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center h-full no-drag-region", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: handleMinimize,
-          className: "h-8 w-10 flex items-center justify-center hover:bg-muted transition-colors text-foreground/60 hover:text-foreground",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Minus, { size: 14 })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: handleMaximize,
-          className: "h-8 w-10 flex items-center justify-center hover:bg-muted transition-colors text-foreground/60 hover:text-foreground",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Square, { size: 12 })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: handleClose,
-          className: "h-8 w-10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors text-foreground/60",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
-        }
-      )
-    ] })
-  ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "h-8 w-full flex items-center justify-between px-2 select-none z-50 relative app-drag-region",
+      style: {
+        background: "var(--sg-chrome)",
+        borderBottom: "1px solid var(--sg-border-subtle)"
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 pl-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "w-3 h-3 rounded-full",
+              style: {
+                background: "linear-gradient(135deg, var(--sg-cyan), var(--sg-purple))",
+                boxShadow: "0 0 8px rgba(34, 211, 238, 0.4)"
+              }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              className: "text-xs font-semibold tracking-wide",
+              style: { color: "var(--sg-text-secondary)" },
+              children: "Ariadne"
+            }
+          )
+        ] }),
+        !isMac && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center h-full no-drag-region", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: handleMinimize,
+              className: "h-8 w-10 flex items-center justify-center transition-colors",
+              style: { color: "var(--sg-text-tertiary)" },
+              onMouseEnter: (e) => {
+                e.currentTarget.style.background = "var(--sg-surface-3)";
+                e.currentTarget.style.color = "var(--sg-text-primary)";
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--sg-text-tertiary)";
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Minus, { size: 14 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: handleMaximize,
+              className: "h-8 w-10 flex items-center justify-center transition-colors",
+              style: { color: "var(--sg-text-tertiary)" },
+              onMouseEnter: (e) => {
+                e.currentTarget.style.background = "var(--sg-surface-3)";
+                e.currentTarget.style.color = "var(--sg-text-primary)";
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--sg-text-tertiary)";
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Square, { size: 12 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: handleClose,
+              className: "h-8 w-10 flex items-center justify-center transition-colors",
+              style: { color: "var(--sg-text-tertiary)" },
+              onMouseEnter: (e) => {
+                e.currentTarget.style.background = "#ef4444";
+                e.currentTarget.style.color = "#ffffff";
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--sg-text-tertiary)";
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
+            }
+          )
+        ] })
+      ]
+    }
+  );
 }
 function AddressBar({
   activeTab,
@@ -35453,161 +35428,177 @@ function AddressBar({
   onReload,
   canGoBack,
   canGoForward,
-  isLoading = false,
+  isLoading,
   isBookmarked = false,
   onToggleBookmark,
   onToggleBookmarksBar,
-  showBookmarksBar = true
+  showBookmarksBar = false
 }) {
-  const [inputValue, setInputValue] = reactExports.useState("");
+  const [inputValue, setInputValue] = reactExports.useState(activeTab?.url || "");
   const [isFocused, setIsFocused] = reactExports.useState(false);
   const inputRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    if (activeTab && !isFocused) {
+    if (!isFocused && activeTab?.url) {
       setInputValue(activeTab.url);
     }
   }, [activeTab?.url, isFocused]);
-  const handleSubmit = reactExports.useCallback((e) => {
+  const getSecurityInfo = (url) => {
+    try {
+      const urlObj = new URL(url);
+      if (urlObj.protocol === "https:") {
+        return { icon: ShieldCheck, color: "var(--sg-emerald)", label: "Secure" };
+      }
+      if (urlObj.protocol === "http:") {
+        return { icon: ShieldAlert, color: "var(--sg-rose)", label: "Not Secure" };
+      }
+      return { icon: Shield, color: "var(--sg-text-ghost)", label: "Internal" };
+    } catch {
+      return { icon: Shield, color: "var(--sg-text-ghost)", label: "Internal" };
+    }
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
     let url = inputValue.trim();
     if (!url) return;
-    if (!/^https?:\/\//i.test(url)) {
-      if (/^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(url)) {
-        url = `https://${url}`;
+    if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("about:")) {
+      if (url.includes(".") && !url.includes(" ")) {
+        url = "https://" + url;
       } else {
         url = `https://www.google.com/search?q=${encodeURIComponent(url)}`;
       }
     }
     onNavigate(url);
     inputRef.current?.blur();
-  }, [inputValue, onNavigate]);
-  const getDisplayUrl = () => {
-    if (!activeTab?.url) return "";
-    try {
-      const urlObj = new URL(activeTab.url);
-      return urlObj.hostname + urlObj.pathname + urlObj.search;
-    } catch {
-      return activeTab.url;
+  };
+  const handleFocus = () => {
+    setIsFocused(true);
+    setTimeout(() => inputRef.current?.select(), 0);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
+    if (activeTab?.url) {
+      setInputValue(activeTab.url);
     }
   };
-  const isSecure = activeTab?.url?.startsWith("https://");
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      inputRef.current?.blur();
+    }
+  };
+  const security = activeTab ? getSecurityInfo(activeTab.url) : null;
+  const SecurityIcon = security?.icon || Shield;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
-      className: "flex items-center gap-2 px-2 no-drag-region",
+      className: "flex items-center gap-2 px-3 py-1.5 no-drag-region",
       style: {
-        background: "#292b2f",
-        height: "42px",
-        borderBottom: "1px solid #3b3d44"
+        background: "var(--sg-surface-1)",
+        borderBottom: "1px solid var(--sg-border-subtle)"
       },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-0.5", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: onBack,
-              disabled: !canGoBack,
-              className: cn(
-                "p-1.5 rounded-full transition-colors",
-                canGoBack ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white" : "text-[#5f6368] cursor-not-allowed"
-              ),
-              title: "Go back (Alt+←)",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 18 })
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: onForward,
-              disabled: !canGoForward,
-              className: cn(
-                "p-1.5 rounded-full transition-colors",
-                canGoForward ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white" : "text-[#5f6368] cursor-not-allowed"
-              ),
-              title: "Go forward (Alt+→)",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { size: 18 })
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: onReload,
-              disabled: !activeTab,
-              className: cn(
-                "p-1.5 rounded-full transition-colors",
-                activeTab ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white" : "text-[#5f6368] cursor-not-allowed"
-              ),
-              title: "Reload (Ctrl+R)",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCw, { size: 16, className: isLoading ? "animate-spin" : "" })
-            }
-          )
+          /* @__PURE__ */ jsxRuntimeExports.jsx(NavButton, { onClick: onBack, disabled: !canGoBack, title: "Back", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 16 }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(NavButton, { onClick: onForward, disabled: !canGoForward, title: "Forward", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { size: 16 }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(NavButton, { onClick: onReload, title: "Reload", children: isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { size: 16, className: "animate-spin", style: { color: "var(--sg-cyan)" } }) : /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCw, { size: 16 }) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("form", { onSubmit: handleSubmit, className: "flex-1 relative", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: cn(
-          "flex items-center gap-2 px-3 py-1.5 rounded-full transition-all",
-          "border",
-          isFocused ? "bg-[#202124] border-[#8ab4f8] ring-1 ring-[#8ab4f8]/30" : "bg-[#35363a] border-transparent hover:bg-[#3c3d41]"
-        ), children: [
-          activeTab && !isFocused ? isSecure ? /* @__PURE__ */ jsxRuntimeExports.jsx(Lock, { size: 14, className: "text-[#9aa0a6] flex-shrink-0" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 14, className: "text-[#9aa0a6] flex-shrink-0" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 14, className: "text-[#9aa0a6] flex-shrink-0" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "input",
-            {
-              ref: inputRef,
-              type: "text",
-              value: isFocused ? inputValue : getDisplayUrl(),
-              onChange: (e) => setInputValue(e.target.value),
-              onFocus: () => {
-                setIsFocused(true);
-                setInputValue(activeTab?.url || "");
-                setTimeout(() => inputRef.current?.select(), 0);
-              },
-              onBlur: () => setIsFocused(false),
-              placeholder: "Search or enter URL...",
-              className: "flex-1 bg-transparent text-sm text-[#e8eaed] placeholder-[#9aa0a6] focus:outline-none"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isFocused && inputValue && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            motion.button,
-            {
-              type: "button",
-              initial: { opacity: 0, scale: 0.8 },
-              animate: { opacity: 1, scale: 1 },
-              exit: { opacity: 0, scale: 0.8 },
-              onClick: () => {
-                setInputValue("");
-                inputRef.current?.focus();
-              },
-              className: "p-0.5 hover:bg-[#5f6368] rounded-full transition-colors",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14, className: "text-[#9aa0a6]" })
-            }
-          ) }),
-          activeTab && onToggleBookmark && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              type: "button",
-              onClick: onToggleBookmark,
-              className: cn(
-                "p-0.5 rounded-full transition-colors",
-                "hover:bg-[#35363a]",
-                isBookmarked ? "text-[#fbbc04]" : "text-[#9aa0a6] hover:text-white"
+        /* @__PURE__ */ jsxRuntimeExports.jsx("form", { onSubmit: handleSubmit, className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "div",
+          {
+            className: "flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-200",
+            style: {
+              background: isFocused ? "var(--sg-surface-3)" : "var(--sg-surface-2)",
+              border: `1px solid ${isFocused ? "var(--sg-border-glow-cyan)" : "var(--sg-border-subtle)"}`,
+              boxShadow: isFocused ? "var(--sg-glow-cyan)" : "none"
+            },
+            children: [
+              security && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                SecurityIcon,
+                {
+                  size: 14,
+                  style: { color: security.color, flexShrink: 0 },
+                  title: security.label
+                }
               ),
-              title: isBookmarked ? "Remove bookmark" : "Bookmark this tab",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { size: 16, fill: isBookmarked ? "currentColor" : "none" })
-            }
-          )
-        ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  ref: inputRef,
+                  type: "text",
+                  value: inputValue,
+                  onChange: (e) => setInputValue(e.target.value),
+                  onFocus: handleFocus,
+                  onBlur: handleBlur,
+                  onKeyDown: handleKeyDown,
+                  placeholder: "Search or enter URL",
+                  spellCheck: false,
+                  className: "flex-1 bg-transparent outline-none text-[13px] font-medium",
+                  style: {
+                    color: isFocused ? "var(--sg-text-primary)" : "var(--sg-text-secondary)"
+                  }
+                }
+              ),
+              activeTab && onToggleBookmark && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  onClick: onToggleBookmark,
+                  className: "p-0.5 rounded-full transition-all",
+                  style: {
+                    color: isBookmarked ? "var(--sg-amber)" : "var(--sg-text-ghost)"
+                  },
+                  title: isBookmarked ? "Remove bookmark" : "Bookmark this tab",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { size: 16, fill: isBookmarked ? "currentColor" : "none" })
+                }
+              )
+            ]
+          }
+        ) }),
         onToggleBookmarksBar && /* @__PURE__ */ jsxRuntimeExports.jsx(
           "button",
           {
             onClick: onToggleBookmarksBar,
-            className: cn(
-              "p-1.5 rounded-full transition-colors",
-              showBookmarksBar ? "text-[#8ab4f8] bg-[#8ab4f8]/10" : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
-            ),
+            className: "p-1.5 rounded-lg transition-all",
+            style: {
+              color: showBookmarksBar ? "var(--sg-cyan)" : "var(--sg-text-ghost)",
+              background: showBookmarksBar ? "rgba(34, 211, 238, 0.1)" : "transparent"
+            },
             title: showBookmarksBar ? "Hide bookmarks bar" : "Show bookmarks bar",
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(Bookmark, { size: 16 })
           }
         )
       ]
+    }
+  );
+}
+function NavButton({
+  onClick,
+  disabled,
+  title,
+  children: children2
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "button",
+    {
+      onClick,
+      disabled,
+      className: "p-1.5 rounded-lg transition-all",
+      style: {
+        color: disabled ? "var(--sg-text-ghost)" : "var(--sg-text-tertiary)",
+        cursor: disabled ? "default" : "pointer",
+        opacity: disabled ? 0.4 : 1
+      },
+      title,
+      onMouseEnter: (e) => {
+        if (!disabled) {
+          e.currentTarget.style.background = "var(--sg-surface-3)";
+          e.currentTarget.style.color = "var(--sg-text-primary)";
+        }
+      },
+      onMouseLeave: (e) => {
+        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.color = disabled ? "var(--sg-text-ghost)" : "var(--sg-text-tertiary)";
+      },
+      children: children2
     }
   );
 }
@@ -36195,28 +36186,30 @@ function BrowserPanel({
       exit: { width: 0, opacity: 0 },
       transition: { type: "spring", damping: 25, stiffness: 300 },
       className: cn(
-        "h-full flex flex-col overflow-hidden",
-        !fullscreen && "border-l border-[#3b3d44]"
+        "h-full flex flex-col overflow-hidden"
       ),
-      style: { background: "#202124" },
+      style: { background: "var(--sg-chrome)" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "div",
           {
             className: "flex items-end px-1 pt-1 no-drag-region",
             style: {
-              background: "#202124",
-              minHeight: "40px"
+              background: "var(--sg-chrome)",
+              minHeight: "42px",
+              borderBottom: "1px solid var(--sg-border-subtle)"
             },
             children: [
               onToggleGraph && /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "button",
                 {
                   onClick: onToggleGraph,
-                  className: cn(
-                    "p-1.5 mb-1 mr-1 rounded-md transition-colors flex-shrink-0",
-                    showGraph ? "text-emerald-400 bg-emerald-500/10" : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
-                  ),
+                  className: "p-1.5 mb-1 mr-1 rounded-lg transition-all flex-shrink-0",
+                  style: {
+                    color: showGraph ? "var(--sg-cyan)" : "var(--sg-text-tertiary)",
+                    background: showGraph ? "rgba(34, 211, 238, 0.1)" : "transparent",
+                    boxShadow: showGraph ? "0 0 12px rgba(34, 211, 238, 0.15)" : "none"
+                  },
                   title: showGraph ? "Hide Graph (Alt+V)" : "Show Graph (Alt+V)",
                   children: /* @__PURE__ */ jsxRuntimeExports.jsx(LayoutGrid, { size: 16 })
                 }
@@ -36227,14 +36220,17 @@ function BrowserPanel({
                   {
                     onClick: () => switchTab(tab.id),
                     className: cn(
-                      "group relative flex items-center gap-2 px-3 h-[34px] cursor-pointer transition-colors duration-150",
-                      "rounded-t-lg flex-shrink-0",
-                      tab.isActive ? "bg-[#292b2f] text-[#e8eaed]" : "text-[#9aa0a6] hover:bg-[#292b2f]/50 hover:text-[#c4c7cc]"
+                      "group relative flex items-center gap-2 px-3 h-[36px] cursor-pointer transition-all duration-200",
+                      "rounded-t-xl flex-shrink-0"
                     ),
                     style: {
                       maxWidth: "240px",
                       minWidth: tabs.length > 8 ? "40px" : "120px",
-                      width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`
+                      width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`,
+                      background: tab.isActive ? "var(--sg-surface-1)" : "transparent",
+                      color: tab.isActive ? "var(--sg-text-primary)" : "var(--sg-text-tertiary)",
+                      borderTop: tab.isActive ? "2px solid var(--sg-cyan)" : "2px solid transparent",
+                      boxShadow: tab.isActive ? "0 -2px 10px rgba(34, 211, 238, 0.1)" : "none"
                     },
                     title: tab.title,
                     children: [
@@ -36248,8 +36244,14 @@ function BrowserPanel({
                             e.currentTarget.style.display = "none";
                           }
                         }
-                      ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-4 h-4 rounded-sm flex-shrink-0", style: { background: "#5f6368" } }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[12px] truncate flex-1 text-left leading-none", children: tab.title || "New Tab" }),
+                      ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "div",
+                        {
+                          className: "w-4 h-4 rounded-sm flex-shrink-0",
+                          style: { background: "var(--sg-surface-3)" }
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[12px] truncate flex-1 text-left leading-none font-medium", children: tab.title || "New Tab" }),
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         "span",
                         {
@@ -36259,13 +36261,19 @@ function BrowserPanel({
                           },
                           className: cn(
                             "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0",
-                            "hover:bg-[#5f6368] text-[#9aa0a6] hover:text-white",
                             tab.isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                           ),
+                          style: { color: "var(--sg-text-tertiary)" },
                           children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
                         }
                       ),
-                      !tab.isActive && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-0 top-[6px] bottom-[6px] w-[1px] bg-[#3b3d44] group-hover:opacity-0 transition-opacity" })
+                      !tab.isActive && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "div",
+                        {
+                          className: "absolute right-0 top-[8px] bottom-[8px] w-[1px] group-hover:opacity-0 transition-opacity",
+                          style: { background: "var(--sg-border)" }
+                        }
+                      )
                     ]
                   },
                   tab.id
@@ -36274,11 +36282,17 @@ function BrowserPanel({
                   "button",
                   {
                     onClick: () => handleCreateTab("https://www.google.com"),
-                    className: cn(
-                      "p-1.5 mb-0.5 ml-1 rounded-full transition-colors flex-shrink-0",
-                      "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
-                    ),
+                    className: "p-1.5 mb-0.5 ml-1 rounded-lg transition-all flex-shrink-0",
+                    style: { color: "var(--sg-text-tertiary)" },
                     title: "New Tab (Ctrl+T)",
+                    onMouseEnter: (e) => {
+                      e.currentTarget.style.color = "var(--sg-cyan)";
+                      e.currentTarget.style.background = "rgba(34, 211, 238, 0.1)";
+                    },
+                    onMouseLeave: (e) => {
+                      e.currentTarget.style.color = "var(--sg-text-tertiary)";
+                      e.currentTarget.style.background = "transparent";
+                    },
                     children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 18 })
                   }
                 )
@@ -36310,18 +36324,31 @@ function BrowserPanel({
             animate: { height: "auto", opacity: 1 },
             exit: { height: 0, opacity: 0 },
             transition: { duration: 0.15 },
-            className: "overflow-hidden border-b border-[#3b3d44]",
-            style: { background: "#292b2f" },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-1 px-3 py-1 overflow-x-auto no-scrollbar", children: bookmarks.map((bm) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            className: "overflow-hidden",
+            style: {
+              background: "var(--sg-surface-1)",
+              borderBottom: "1px solid var(--sg-border-subtle)"
+            },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-1 px-3 py-1.5 overflow-x-auto no-scrollbar", children: bookmarks.map((bm) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "button",
               {
                 onClick: () => handleNavigate(bm.url),
-                className: cn(
-                  "flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors",
-                  "text-[#c4c7cc] hover:bg-[#35363a] hover:text-white",
-                  "text-[12px] whitespace-nowrap flex-shrink-0"
-                ),
+                className: "flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all text-[12px] whitespace-nowrap flex-shrink-0 font-medium",
+                style: {
+                  color: "var(--sg-text-secondary)",
+                  background: "transparent"
+                },
                 title: bm.url,
+                onMouseEnter: (e) => {
+                  e.currentTarget.style.background = "var(--sg-surface-3)";
+                  e.currentTarget.style.color = "var(--sg-text-primary)";
+                  e.currentTarget.style.boxShadow = "0 0 8px rgba(34, 211, 238, 0.08)";
+                },
+                onMouseLeave: (e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--sg-text-secondary)";
+                  e.currentTarget.style.boxShadow = "none";
+                },
                 children: [
                   bm.favicon ? /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "img",
@@ -36333,7 +36360,7 @@ function BrowserPanel({
                         e.currentTarget.style.display = "none";
                       }
                     }
-                  ) : /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { size: 12, className: "text-[#9aa0a6] flex-shrink-0" }),
+                  ) : /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { size: 12, style: { color: "var(--sg-text-ghost)" }, className: "flex-shrink-0" }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "max-w-[120px] truncate", children: bm.title || new URL(bm.url).hostname })
                 ]
               },
@@ -36375,42 +36402,65 @@ function App() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [showGraph]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-screen w-screen bg-slate-950 text-slate-200 overflow-hidden flex flex-col", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TitleBar, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 relative flex overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ReactFlowProvider, { children: [
-      showGraph && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, { isOpen: sidebarOpen, onClose: () => setSidebarOpen(false) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 relative flex flex-col", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            motion.button,
-            {
-              initial: { opacity: 0, scale: 0.8 },
-              animate: { opacity: sidebarOpen ? 0 : 1, scale: 1 },
-              className: cn(
-                "absolute top-4 left-4 z-30 p-2 rounded-lg transition-all",
-                "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
-                "hover:bg-slate-700 hover:border-slate-600",
-                "text-slate-400 hover:text-slate-200"
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "h-screen w-screen overflow-hidden flex flex-col",
+      style: { background: "var(--sg-bg-deep)", color: "var(--sg-text-primary)" },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TitleBar, {}),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 relative flex overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ReactFlowProvider, { children: [
+          showGraph && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, { isOpen: sidebarOpen, onClose: () => setSidebarOpen(false) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 relative flex flex-col", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                motion.button,
+                {
+                  initial: { opacity: 0, scale: 0.8 },
+                  animate: { opacity: sidebarOpen ? 0 : 1, scale: 1 },
+                  className: cn(
+                    "absolute top-4 left-4 z-30 p-2 rounded-xl transition-all sg-glass sg-glow-cyan"
+                  ),
+                  style: { color: "var(--sg-text-secondary)" },
+                  onClick: () => setSidebarOpen(true),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { className: "w-5 h-5" })
+                }
               ),
-              onClick: () => setSidebarOpen(true),
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { className: "w-5 h-5" })
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "main",
+                {
+                  className: "flex-1 relative",
+                  style: { background: "var(--sg-bg-canvas)" },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(GraphCanvas, {})
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sg-divider" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            BrowserPanel,
+            {
+              isOpen: true,
+              fullscreen: !showGraph,
+              onToggleGraph: () => setShowGraph(!showGraph),
+              showGraph
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 relative bg-slate-950", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GraphCanvas, {}) })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        BrowserPanel,
-        {
-          isOpen: true,
-          fullscreen: !showGraph,
-          onToggleGraph: () => setShowGraph(!showGraph),
-          showGraph
-        }
-      ),
-      !isExtension && showGraph && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-4 left-4 z-50 pointer-events-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 text-xs text-amber-500 backdrop-blur-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Demo Mode" }) }) })
-    ] }) })
-  ] });
+          !isExtension && showGraph && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-4 left-4 z-50 pointer-events-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "rounded-xl px-3 py-2 text-xs sg-glass",
+              style: {
+                color: "var(--sg-amber)",
+                borderColor: "rgba(251, 191, 36, 0.2)"
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Demo Mode" })
+            }
+          ) })
+        ] }) })
+      ]
+    }
+  );
 }
 clientExports.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })

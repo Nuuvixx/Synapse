@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showGraph, setShowGraph] = useState(false); // Browser fullscreen by default
+  const [showGraph, setShowGraph] = useState(false);
   const [isExtension, setIsExtension] = useState(false);
 
   useEffect(() => {
@@ -21,15 +21,12 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Toggle sidebar with Alt+G (only when graph is visible)
       if (e.altKey && e.key === 'g' && showGraph) {
         setSidebarOpen(prev => !prev);
       }
-      // Toggle graph view with Alt+V
       if (e.altKey && e.key === 'v') {
         setShowGraph(prev => !prev);
       }
-      // Close overlays with Escape
       if (e.key === 'Escape') {
         setSidebarOpen(false);
       }
@@ -40,7 +37,10 @@ function App() {
   }, [showGraph]);
 
   return (
-    <div className="h-screen w-screen bg-slate-950 text-slate-200 overflow-hidden flex flex-col">
+    <div
+      className="h-screen w-screen overflow-hidden flex flex-col"
+      style={{ background: 'var(--sg-bg-deep)', color: 'var(--sg-text-primary)' }}
+    >
       {/* 1. Custom Title Bar */}
       <TitleBar />
 
@@ -57,21 +57,25 @@ function App() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: sidebarOpen ? 0 : 1, scale: 1 }}
                   className={cn(
-                    "absolute top-4 left-4 z-30 p-2 rounded-lg transition-all",
-                    "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50",
-                    "hover:bg-slate-700 hover:border-slate-600",
-                    "text-slate-400 hover:text-slate-200"
+                    "absolute top-4 left-4 z-30 p-2 rounded-xl transition-all sg-glass sg-glow-cyan"
                   )}
+                  style={{ color: 'var(--sg-text-secondary)' }}
                   onClick={() => setSidebarOpen(true)}
                 >
                   <Menu className="w-5 h-5" />
                 </motion.button>
 
                 {/* Graph Canvas */}
-                <main className="flex-1 relative bg-slate-950">
+                <main
+                  className="flex-1 relative"
+                  style={{ background: 'var(--sg-bg-canvas)' }}
+                >
                   <GraphCanvas />
                 </main>
               </div>
+
+              {/* Glassmorphism Divider between graph and browser */}
+              <div className="sg-divider" />
             </>
           )}
 
@@ -83,10 +87,16 @@ function App() {
             showGraph={showGraph}
           />
 
-          {/* Demo Mode Warning - only show when graph is visible */}
+          {/* Demo Mode Warning */}
           {!isExtension && showGraph && (
             <div className="absolute bottom-4 left-4 z-50 pointer-events-none">
-              <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 text-xs text-amber-500 backdrop-blur-md">
+              <div
+                className="rounded-xl px-3 py-2 text-xs sg-glass"
+                style={{
+                  color: 'var(--sg-amber)',
+                  borderColor: 'rgba(251, 191, 36, 0.2)',
+                }}
+              >
                 <p>Demo Mode</p>
               </div>
             </div>

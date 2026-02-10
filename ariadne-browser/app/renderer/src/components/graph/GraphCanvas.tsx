@@ -1,8 +1,8 @@
 /**
- * Graph Canvas Component
+ * Graph Canvas Component — Stitch & Glass Design
  * 
- * Main React Flow canvas for rendering the browsing graph.
- * Uses D3-force simulation for organic node positioning.
+ * Main React Flow canvas with deep space background,
+ * glowing edges, and refined node interactions.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -53,10 +53,8 @@ const nodeTypes: NodeTypes = {
         focusNode(nodeData.id);
         // Switch to associated browser tab if available
         if (window.api?.tab) {
-          // Get tab associations and switch if tab exists for this node
           const { getTabNodeAssociations } = await import('@/hooks/useTabNodeSync');
           const associations = getTabNodeAssociations();
-          // Find tabId for this nodeId
           for (const [tabId, nodeId] of associations.entries()) {
             if (nodeId === nodeData.id) {
               await window.api.tab.switchTab(tabId);
@@ -79,13 +77,12 @@ const nodeTypes: NodeTypes = {
 };
 
 
-// Convert graph data to React Flow format with optional position override
+// Convert graph data to React Flow format
 const convertToFlowNodes = (
   nodes: GraphNode[],
   simulatedPositions?: Map<string, { x: number; y: number }>
 ): Node[] => {
   return nodes.map((node, index) => {
-    // Priority: simulated position > stored position > calculated fallback
     const simPos = simulatedPositions?.get(node.id);
     const position = simPos || node.position || {
       x: (index % 5) * 250 + 200,
@@ -109,16 +106,17 @@ const convertToFlowEdges = (edges: { id: string; source: string; target: string 
     id: edge.id,
     source: edge.source,
     target: edge.target,
-    type: 'smoothstep',
+    type: 'default',
     animated: true,
     style: {
-      stroke: '#22d3ee',
+      stroke: 'var(--sg-cyan)',
       strokeWidth: 2,
-      opacity: 0.6
+      opacity: 0.4,
+      filter: 'drop-shadow(0 0 3px rgba(34, 211, 238, 0.5))'
     },
     markerEnd: {
       type: MarkerType.ArrowClosed,
-      color: '#22d3ee'
+      color: 'var(--sg-cyan)'
     }
   }));
 };
@@ -157,7 +155,6 @@ export function GraphCanvas() {
         });
       }
     };
-
     updateSize();
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
@@ -171,7 +168,6 @@ export function GraphCanvas() {
     });
     simulatedPositionsRef.current = newPositions;
 
-    // Update React Flow nodes with new positions
     setNodes(currentNodes =>
       currentNodes.map(node => {
         const newPos = newPositions.get(node.id);
@@ -193,54 +189,44 @@ export function GraphCanvas() {
   } = useForceSimulation({
     width: canvasSize.width,
     height: canvasSize.height,
-    linkDistance: 180,
-    chargeStrength: -500,
-    collisionRadius: 1.3,
-    alphaDecay: 0.03,
-    velocityDecay: 0.5,
+    linkDistance: 250,
+    chargeStrength: -400,
+    collisionRadius: 100,
+    alphaDecay: 0.02,
+    velocityDecay: 0.6,
     onTick: usePhysics ? handleSimulationTick : undefined
   });
 
-  // Load initial data once on mount
+  // Load initial data
   useEffect(() => {
     if (!hasInitialized) {
-      loadGraphData().then(() => {
-        setHasInitialized(true);
-      });
-
-      // Listen for graph updates from background (only in extension mode)
+      loadGraphData().then(() => setHasInitialized(true));
       const handleMessage = (message: { action: string }) => {
-        if (message.action === 'graphUpdated') {
-          loadGraphData();
-        }
+        if (message.action === 'graphUpdated') loadGraphData();
       };
-
       if (typeof chrome !== 'undefined' && chrome.runtime) {
         chrome.runtime.onMessage.addListener(handleMessage);
-        return () => {
-          chrome.runtime.onMessage.removeListener(handleMessage);
-        };
+        return () => { chrome.runtime.onMessage.removeListener(handleMessage); };
       }
     }
   }, [hasInitialized, loadGraphData]);
 
-  // Update simulation when store data changes
+  // Update simulation
   useEffect(() => {
     if (usePhysics && storeNodes.length > 0) {
       updateSimulation(storeNodes, storeEdges);
     } else {
-      // No physics - directly convert nodes
       setNodes(convertToFlowNodes(storeNodes));
       setEdges(convertToFlowEdges(storeEdges));
     }
   }, [storeNodes, storeEdges, usePhysics, updateSimulation, setNodes, setEdges]);
 
-  // Update edges (always needed)
+  // Update edges
   useEffect(() => {
     setEdges(convertToFlowEdges(storeEdges));
   }, [storeEdges, setEdges]);
 
-  // Fit view when nodes are first loaded
+  // Initial fit view
   useEffect(() => {
     if (hasInitialized && nodes.length > 0) {
       const timer = setTimeout(() => fitView({ padding: 0.3, duration: 500 }), 500);
@@ -248,17 +234,12 @@ export function GraphCanvas() {
     }
   }, [hasInitialized, nodes.length, fitView]);
 
-  // Handle node position changes from React Flow
+  // Handle updates
   const handleNodesChange = useCallback((changes: Parameters<typeof onNodesChange>[0]) => {
     onNodesChange(changes);
-
-    // Debounce position updates to background (for persisting user-dragged positions)
     changes.forEach(change => {
       if (change.type === 'position' && change.position && !change.dragging) {
-        if (updateTimeoutRef.current) {
-          clearTimeout(updateTimeoutRef.current);
-        }
-
+        if (updateTimeoutRef.current) clearTimeout(updateTimeoutRef.current);
         updateTimeoutRef.current = setTimeout(() => {
           updateNodePosition(change.id, change.position as XYPosition);
         }, 500);
@@ -266,73 +247,50 @@ export function GraphCanvas() {
     });
   }, [onNodesChange, updateNodePosition]);
 
-  // Handle drag start
   const handleDragStart = useCallback((_event: React.MouseEvent, node: Node) => {
     dragStartTimeRef.current = Date.now();
-    if (usePhysics) {
-      simDragStart(node.id);
-    }
+    if (usePhysics) simDragStart(node.id);
   }, [usePhysics, simDragStart]);
 
-  // Handle drag
   const handleDrag = useCallback((_event: React.MouseEvent, node: Node) => {
-    if (usePhysics) {
-      simDrag(node.id, node.position.x, node.position.y);
-    }
+    if (usePhysics) simDrag(node.id, node.position.x, node.position.y);
   }, [usePhysics, simDrag]);
 
-  // Handle drag end
   const handleDragEnd = useCallback((_event: React.MouseEvent, node: Node) => {
     const dragDuration = Date.now() - dragStartTimeRef.current;
-    const wasLongDrag = dragDuration > 300; // 300ms threshold
-
-    if (usePhysics) {
-      simDragEnd(node.id, wasLongDrag);
-    }
-
-    // Always update position in store for persistence
+    if (usePhysics) simDragEnd(node.id, dragDuration > 300);
     updateNodePosition(node.id, node.position);
   }, [usePhysics, simDragEnd, updateNodePosition]);
 
-  // Handle selection
   const handleSelectionChange = useCallback((params: { nodes: Node[] }) => {
-    if (params.nodes.length === 1) {
-      selectNode(params.nodes[0].id);
-    } else if (params.nodes.length === 0) {
-      selectNode(null);
-    }
+    if (params.nodes.length === 1) selectNode(params.nodes[0].id);
+    else if (params.nodes.length === 0) selectNode(null);
   }, [selectNode]);
 
-  // Handle connect (manual edge creation)
   const handleConnect = useCallback((connection: Connection) => {
     setEdges((eds: Edge[]) => addEdge({
       ...connection,
-      type: 'smoothstep',
+      type: 'default',
       animated: true,
-      markerEnd: { type: MarkerType.ArrowClosed, color: '#22d3ee' }
+      style: { stroke: 'var(--sg-cyan)', strokeWidth: 2, opacity: 0.6 },
+      markerEnd: { type: MarkerType.ArrowClosed, color: 'var(--sg-cyan)' }
     }, eds));
   }, [setEdges]);
 
-  // Toggle physics
   const handleTogglePhysics = useCallback(() => {
-    if (usePhysics) {
-      stopSimulation();
-    } else {
-      restartSimulation(0.5);
-    }
+    if (usePhysics) stopSimulation();
+    else restartSimulation(0.5);
     setUsePhysics(!usePhysics);
   }, [usePhysics, stopSimulation, restartSimulation]);
 
-  // Selected node data
   const selectedNode = selectedNodeIds.length === 1
     ? storeNodes.find(n => n.id === selectedNodeIds[0])
     : null;
 
-  // Check if we're still loading (no nodes yet and hasn't initialized)
   const isLoading = !hasInitialized && storeNodes.length === 0;
 
   return (
-    <div ref={canvasRef} className="w-full h-full bg-slate-950 relative overflow-hidden">
+    <div ref={canvasRef} className="w-full h-full relative overflow-hidden" style={{ background: 'var(--sg-bg-canvas)' }}>
       {/* Loading overlay */}
       <AnimatePresence>
         {isLoading && (
@@ -340,17 +298,16 @@ export function GraphCanvas() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm"
+            className="absolute inset-0 z-50 flex items-center justify-center flex-col gap-4"
+            style={{ background: 'var(--sg-bg-deep)', backdropFilter: 'blur(4px)' }}
           >
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-cyan-400 text-sm">Loading your browsing graph...</p>
-            </div>
+            <div className="w-12 h-12 border-4 rounded-full animate-spin"
+              style={{ borderColor: 'var(--sg-cyan)', borderTopColor: 'transparent' }} />
+            <p style={{ color: 'var(--sg-cyan)' }}>Loading your browsing graph...</p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* React Flow Canvas */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -366,40 +323,37 @@ export function GraphCanvas() {
         fitViewOptions={{ padding: 0.3 }}
         minZoom={0.1}
         maxZoom={2}
-        defaultEdgeOptions={{
-          type: 'smoothstep',
-          animated: true
-        }}
         proOptions={{ hideAttribution: true }}
-        className="bg-slate-950"
       >
-        {/* Background */}
         <Background
-          color="#334155"
-          gap={20}
+          color="var(--sg-border)"
+          gap={24}
           size={1}
-          className="bg-slate-950"
+          style={{ background: 'var(--sg-bg-canvas)' }}
         />
 
-        {/* Controls */}
-        <Controls className="bg-slate-800 border-slate-700 text-slate-200" />
+        <Controls
+          style={{
+            background: 'var(--sg-surface-2)',
+            border: '1px solid var(--sg-border)',
+            color: 'var(--sg-text-primary)'
+          }}
+        />
 
-        {/* MiniMap */}
         {showMinimap && (
           <MiniMap
             nodeStrokeWidth={3}
             zoomable
             pannable
-            className="bg-slate-800 border border-slate-700 rounded-lg"
-            maskColor="rgba(15, 23, 42, 0.8)"
+            style={{ background: 'var(--sg-surface-2)', border: '1px solid var(--sg-border)' }}
+            maskColor="var(--sg-bg-deep)"
             nodeColor={(node) => {
               const n = node.data as unknown as GraphNode;
-              return n?.status === 'closed' ? '#64748b' : '#22d3ee';
+              return n?.status === 'closed' ? 'var(--sg-text-tertiary)' : 'var(--sg-cyan)';
             }}
           />
         )}
 
-        {/* Toolbar Panel */}
         <Panel position="top-left" className="m-4 mt-8">
           <GraphToolbar
             onFitView={() => fitView({ padding: 0.3, duration: 300 })}
@@ -413,33 +367,23 @@ export function GraphCanvas() {
           />
         </Panel>
 
-        {/* Stats Panel */}
         <Panel position="top-right" className="m-4 mt-8">
-          <div className="bg-slate-800/90 backdrop-blur-sm border border-slate-700 rounded-xl p-4">
-            <h3 className="text-slate-400 text-xs uppercase tracking-wider mb-3">Session Stats</h3>
+          <div className="sg-glass rounded-xl p-4 sg-glow-purple">
+            <h3 className="text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--sg-text-ghost)' }}>Session Stats</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-2xl font-bold text-cyan-400">{storeNodes.length}</p>
-                <p className="text-xs text-slate-500">Pages</p>
+                <p className="text-2xl font-bold" style={{ color: 'var(--sg-cyan)' }}>{storeNodes.length}</p>
+                <p className="text-xs" style={{ color: 'var(--sg-text-secondary)' }}>Pages</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-purple-400">{storeEdges.length}</p>
-                <p className="text-xs text-slate-500">Links</p>
+                <p className="text-2xl font-bold" style={{ color: 'var(--sg-purple)' }}>{storeEdges.length}</p>
+                <p className="text-xs" style={{ color: 'var(--sg-text-secondary)' }}>Links</p>
               </div>
             </div>
-            {usePhysics && (
-              <div className="mt-3 pt-3 border-t border-slate-700">
-                <p className="text-xs text-emerald-400 flex items-center gap-1">
-                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  Physics Active
-                </p>
-              </div>
-            )}
           </div>
         </Panel>
       </ReactFlow>
 
-      {/* Timeline Slider */}
       <AnimatePresence>
         {showTimeline && (
           <motion.div
@@ -453,7 +397,6 @@ export function GraphCanvas() {
         )}
       </AnimatePresence>
 
-      {/* Node Detail Panel */}
       <AnimatePresence>
         {selectedNode && (
           <motion.div

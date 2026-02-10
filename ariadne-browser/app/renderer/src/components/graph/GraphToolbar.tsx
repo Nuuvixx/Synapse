@@ -1,13 +1,8 @@
 /**
- * Graph Toolbar Component
+ * Graph Toolbar Component — Stitch & Glass Design
  * 
- * Floating toolbar with graph controls:
- * - Fit view
- * - Reset view
- * - Toggle timeline
- * - Toggle minimap
- * - Settings
- * - Export/Import
+ * Floating glassmorphism toolbar with glowing active states,
+ * refined toggles, and premium dropdown menus.
  */
 
 import { useState } from 'react';
@@ -56,7 +51,6 @@ export function GraphToolbar({
   const [showSettings, setShowSettings] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  // Store settings
   const dimClosedNodes = useGraphStore(state => state.dimClosedNodes);
   const showThumbnails = useGraphStore(state => state.showThumbnails);
   const showFavicons = useGraphStore(state => state.showFavicons);
@@ -67,7 +61,6 @@ export function GraphToolbar({
   const setShowFavicons = useGraphStore(state => state.setShowFavicons);
   const setClusterByDomain = useGraphStore(state => state.setClusterByDomain);
 
-  // Actions
   const exportSession = useGraphStore(state => state.exportSession);
   const clearAllData = useGraphStore(state => state.clearAllData);
 
@@ -89,60 +82,24 @@ export function GraphToolbar({
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-slate-800/90 backdrop-blur-sm border border-slate-700 rounded-xl p-2 flex items-center gap-1 shadow-xl"
+        className="sg-glass rounded-2xl p-2 flex items-center gap-1 sg-glow-cyan"
       >
-        <ToolbarButton
-          onClick={onFitView}
-          icon={<Maximize className="w-4 h-4" />}
-          label="Fit View"
-        />
+        <ToolbarButton onClick={onFitView} icon={<Maximize className="w-4 h-4" />} label="Fit View" />
+        <ToolbarButton onClick={onResetView} icon={<RotateCcw className="w-4 h-4" />} label="Reset" />
 
-        <ToolbarButton
-          onClick={onResetView}
-          icon={<RotateCcw className="w-4 h-4" />}
-          label="Reset"
-        />
+        <div className="w-px h-6 mx-1" style={{ background: 'var(--sg-border)' }} />
 
-        <div className="w-px h-6 bg-slate-700 mx-1" />
-
-        <ToolbarButton
-          onClick={onToggleTimeline}
-          icon={<Clock className="w-4 h-4" />}
-          label="Timeline"
-          active={showTimeline}
-        />
-
-        <ToolbarButton
-          onClick={onToggleMinimap}
-          icon={<Map className="w-4 h-4" />}
-          label="Minimap"
-          active={showMinimap}
-        />
+        <ToolbarButton onClick={onToggleTimeline} icon={<Clock className="w-4 h-4" />} label="Timeline" active={showTimeline} />
+        <ToolbarButton onClick={onToggleMinimap} icon={<Map className="w-4 h-4" />} label="Minimap" active={showMinimap} />
 
         {onTogglePhysics && (
-          <ToolbarButton
-            onClick={onTogglePhysics}
-            icon={<Zap className="w-4 h-4" />}
-            label="Physics"
-            active={usePhysics}
-          />
+          <ToolbarButton onClick={onTogglePhysics} icon={<Zap className="w-4 h-4" />} label="Physics" active={usePhysics} />
         )}
 
-        <div className="w-px h-6 bg-slate-700 mx-1" />
+        <div className="w-px h-6 mx-1" style={{ background: 'var(--sg-border)' }} />
 
-        <ToolbarButton
-          onClick={() => setShowSettings(!showSettings)}
-          icon={<Settings className="w-4 h-4" />}
-          label="Settings"
-          active={showSettings}
-        />
-
-        <ToolbarButton
-          onClick={() => setShowMenu(!showMenu)}
-          icon={<MoreHorizontal className="w-4 h-4" />}
-          label="More"
-          active={showMenu}
-        />
+        <ToolbarButton onClick={() => setShowSettings(!showSettings)} icon={<Settings className="w-4 h-4" />} label="Settings" active={showSettings} />
+        <ToolbarButton onClick={() => setShowMenu(!showMenu)} icon={<MoreHorizontal className="w-4 h-4" />} label="More" active={showMenu} />
       </motion.div>
 
       {/* Settings Panel */}
@@ -152,46 +109,24 @@ export function GraphToolbar({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-xl p-4 shadow-xl"
+            className="sg-glass rounded-2xl p-4 sg-glow-purple"
           >
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-medium text-slate-200">View Settings</h3>
-              <button
-                onClick={() => setShowSettings(false)}
-                className="text-slate-400 hover:text-slate-200"
-              >
+              <h3 className="text-sm font-semibold" style={{ color: 'var(--sg-text-primary)' }}>View Settings</h3>
+              <button onClick={() => setShowSettings(false)} style={{ color: 'var(--sg-text-tertiary)' }}>
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-3">
-              <ToggleOption
-                label="Dim Closed Tabs"
-                checked={dimClosedNodes}
-                onChange={setDimClosedNodes}
-                icon={dimClosedNodes ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              />
-
-              <ToggleOption
-                label="Show Thumbnails"
-                checked={showThumbnails}
-                onChange={setShowThumbnails}
-                icon={<ImageIcon className="w-4 h-4" />}
-              />
-
-              <ToggleOption
-                label="Show Favicons"
-                checked={showFavicons}
-                onChange={setShowFavicons}
-                icon={<Globe className="w-4 h-4" />}
-              />
-
-              <ToggleOption
-                label="Cluster by Domain"
-                checked={clusterByDomain}
-                onChange={setClusterByDomain}
-                icon={<Map className="w-4 h-4" />}
-              />
+              <ToggleOption label="Dim Closed Tabs" checked={dimClosedNodes} onChange={setDimClosedNodes}
+                icon={dimClosedNodes ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />} />
+              <ToggleOption label="Show Thumbnails" checked={showThumbnails} onChange={setShowThumbnails}
+                icon={<ImageIcon className="w-4 h-4" />} />
+              <ToggleOption label="Show Favicons" checked={showFavicons} onChange={setShowFavicons}
+                icon={<Globe className="w-4 h-4" />} />
+              <ToggleOption label="Cluster by Domain" checked={clusterByDomain} onChange={setClusterByDomain}
+                icon={<Map className="w-4 h-4" />} />
             </div>
           </motion.div>
         )}
@@ -204,14 +139,9 @@ export function GraphToolbar({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-xl p-2 shadow-xl"
+            className="sg-glass rounded-2xl p-2"
           >
-            <MenuItem
-              onClick={handleExport}
-              icon={<Download className="w-4 h-4" />}
-              label="Export Session"
-            />
-
+            <MenuItem onClick={handleExport} icon={<Download className="w-4 h-4" />} label="Export Session" />
             <MenuItem
               onClick={() => {
                 const input = document.createElement('input');
@@ -236,15 +166,8 @@ export function GraphToolbar({
               icon={<Upload className="w-4 h-4" />}
               label="Import Session"
             />
-
-            <div className="h-px bg-slate-700 my-1" />
-
-            <MenuItem
-              onClick={handleClear}
-              icon={<Trash2 className="w-4 h-4 text-red-400" />}
-              label="Clear All Data"
-              danger
-            />
+            <div className="h-px my-1" style={{ background: 'var(--sg-border)' }} />
+            <MenuItem onClick={handleClear} icon={<Trash2 className="w-4 h-4" style={{ color: 'var(--sg-rose)' }} />} label="Clear All Data" danger />
           </motion.div>
         )}
       </AnimatePresence>
@@ -252,52 +175,49 @@ export function GraphToolbar({
   );
 }
 
-// Toolbar Button Component
-interface ToolbarButtonProps {
+/* ── Sub-Components ── */
+
+function ToolbarButton({ onClick, icon, label, active }: {
   onClick: () => void;
   icon: React.ReactNode;
   label: string;
   active?: boolean;
-}
-
-function ToolbarButton({ onClick, icon, label, active }: ToolbarButtonProps) {
+}) {
   return (
     <button
       onClick={onClick}
-      className={cn(
-        "flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all",
-        "hover:bg-slate-700 text-slate-400 hover:text-slate-200",
-        active && "bg-cyan-500/20 text-cyan-400"
-      )}
+      className="flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all"
+      style={{
+        color: active ? 'var(--sg-cyan)' : 'var(--sg-text-tertiary)',
+        background: active ? 'rgba(34, 211, 238, 0.1)' : 'transparent',
+      }}
       title={label}
     >
       {icon}
-      <span className="text-[10px]">{label}</span>
+      <span className="text-[10px] font-medium">{label}</span>
     </button>
   );
 }
 
-// Toggle Option Component
-interface ToggleOptionProps {
+function ToggleOption({ label, checked, onChange, icon }: {
   label: string;
   checked: boolean;
   onChange: (value: boolean) => void;
   icon: React.ReactNode;
-}
-
-function ToggleOption({ label, checked, onChange, icon }: ToggleOptionProps) {
+}) {
   return (
     <label className="flex items-center justify-between cursor-pointer group">
-      <div className="flex items-center gap-2 text-slate-400 group-hover:text-slate-300">
+      <div className="flex items-center gap-2" style={{ color: 'var(--sg-text-secondary)' }}>
         {icon}
-        <span className="text-sm">{label}</span>
+        <span className="text-sm font-medium">{label}</span>
       </div>
       <button
         onClick={() => onChange(!checked)}
-        className={cn(
-          "w-10 h-5 rounded-full transition-colors relative",
-          checked ? "bg-cyan-500" : "bg-slate-600"
-        )}
+        className="w-10 h-5 rounded-full transition-all relative"
+        style={{
+          background: checked ? 'var(--sg-cyan)' : 'var(--sg-surface-3)',
+          boxShadow: checked ? '0 0 10px rgba(34, 211, 238, 0.3)' : 'none',
+        }}
       >
         <span
           className={cn(
@@ -310,27 +230,30 @@ function ToggleOption({ label, checked, onChange, icon }: ToggleOptionProps) {
   );
 }
 
-// Menu Item Component
-interface MenuItemProps {
+function MenuItem({ onClick, icon, label, danger }: {
   onClick: () => void;
   icon: React.ReactNode;
   label: string;
   danger?: boolean;
-}
-
-function MenuItem({ onClick, icon, label, danger }: MenuItemProps) {
+}) {
   return (
     <button
       onClick={onClick}
-      className={cn(
-        "w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left",
-        danger
-          ? "hover:bg-red-500/20 text-slate-300 hover:text-red-400"
-          : "hover:bg-slate-700 text-slate-300"
-      )}
+      className="w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all text-left"
+      style={{
+        color: danger ? 'var(--sg-text-secondary)' : 'var(--sg-text-secondary)',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.background = danger ? 'rgba(251, 113, 133, 0.1)' : 'var(--sg-surface-3)';
+        if (danger) e.currentTarget.style.color = 'var(--sg-rose)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.background = 'transparent';
+        e.currentTarget.style.color = 'var(--sg-text-secondary)';
+      }}
     >
       {icon}
-      <span className="text-sm">{label}</span>
+      <span className="text-sm font-medium">{label}</span>
     </button>
   );
 }

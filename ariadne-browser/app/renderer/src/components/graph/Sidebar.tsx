@@ -1,7 +1,8 @@
 /**
- * Sidebar Component
+ * Sidebar Component — Stitch & Glass Design
  * 
- * Shows sessions, saved trees, and navigation.
+ * Glassmorphism sidebar with session management,
+ * tree browser, and refined settings panel.
  */
 
 import { useState } from 'react';
@@ -41,7 +42,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 z-40"
+            style={{ background: 'rgba(2, 6, 23, 0.6)', backdropFilter: 'blur(4px)' }}
           />
 
           {/* Sidebar */}
@@ -49,53 +51,54 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             initial={{ x: -320 }}
             animate={{ x: 0 }}
             exit={{ x: -320 }}
-            className="fixed left-0 top-8 bottom-0 w-80 bg-slate-900 border-r border-slate-800 z-50 flex flex-col"
+            className="fixed left-0 top-8 bottom-0 w-80 z-50 flex flex-col"
+            style={{
+              background: 'var(--sg-surface-1)',
+              borderRight: '1px solid var(--sg-border)',
+              boxShadow: 'var(--sg-shadow-xl)',
+            }}
           >
             {/* Header */}
-            <div className="p-4 border-b border-slate-800">
+            <div className="p-4" style={{ borderBottom: '1px solid var(--sg-border-subtle)' }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
+                <div
+                  className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--sg-cyan), var(--sg-purple))',
+                    boxShadow: '0 0 16px rgba(34, 211, 238, 0.25)',
+                  }}
+                >
                   <span className="text-xl">🧭</span>
                 </div>
                 <div>
-                  <h1 className="font-bold text-slate-100">Ariadne</h1>
-                  <p className="text-xs text-slate-500">Spatial Web Browser</p>
+                  <h1 className="font-bold" style={{ color: 'var(--sg-text-primary)' }}>Ariadne</h1>
+                  <p className="text-xs" style={{ color: 'var(--sg-text-ghost)' }}>Spatial Web Browser</p>
                 </div>
               </div>
 
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--sg-text-ghost)' }} />
                 <input
                   type="text"
                   placeholder="Search pages..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full pl-9 pr-4 py-2 rounded-xl text-sm outline-none transition-all"
+                  style={{
+                    background: 'var(--sg-surface-2)',
+                    border: '1px solid var(--sg-border-subtle)',
+                    color: 'var(--sg-text-primary)',
+                  }}
                 />
               </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-slate-800">
-              <TabButton
-                active={activeTab === 'sessions'}
-                onClick={() => setActiveTab('sessions')}
-                icon={<History className="w-4 h-4" />}
-                label="Sessions"
-              />
-              <TabButton
-                active={activeTab === 'trees'}
-                onClick={() => setActiveTab('trees')}
-                icon={<Bookmark className="w-4 h-4" />}
-                label="Trees"
-              />
-              <TabButton
-                active={activeTab === 'settings'}
-                onClick={() => setActiveTab('settings')}
-                icon={<Settings className="w-4 h-4" />}
-                label="Settings"
-              />
+            <div className="flex" style={{ borderBottom: '1px solid var(--sg-border-subtle)' }}>
+              <SidebarTab active={activeTab === 'sessions'} onClick={() => setActiveTab('sessions')} icon={<History className="w-4 h-4" />} label="Sessions" />
+              <SidebarTab active={activeTab === 'trees'} onClick={() => setActiveTab('trees')} icon={<Bookmark className="w-4 h-4" />} label="Trees" />
+              <SidebarTab active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} icon={<Settings className="w-4 h-4" />} label="Settings" />
             </div>
 
             {/* Content */}
@@ -111,24 +114,17 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   );
 }
 
-// Tab Button Component
-interface TabButtonProps {
-  active: boolean;
-  onClick: () => void;
-  icon: React.ReactNode;
-  label: string;
-}
+/* ── Sub-Components ── */
 
-function TabButton({ active, onClick, icon, label }: TabButtonProps) {
+function SidebarTab({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
     <button
       onClick={onClick}
-      className={cn(
-        "flex-1 flex items-center justify-center gap-2 py-3 text-sm transition-colors",
-        active
-          ? "text-cyan-400 border-b-2 border-cyan-400"
-          : "text-slate-400 hover:text-slate-200"
-      )}
+      className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all"
+      style={{
+        color: active ? 'var(--sg-cyan)' : 'var(--sg-text-tertiary)',
+        borderBottom: active ? '2px solid var(--sg-cyan)' : '2px solid transparent',
+      }}
     >
       {icon}
       {label}
@@ -136,105 +132,83 @@ function TabButton({ active, onClick, icon, label }: TabButtonProps) {
   );
 }
 
-// Sessions Tab
 function SessionsTab({ searchQuery }: { searchQuery: string }) {
   const sessions = useGraphStore(state => state.sessions);
   const currentSessionId = useGraphStore(state => state.currentSessionId);
   const switchSession = useGraphStore(state => state.switchSession);
   const createSession = useGraphStore(state => state.createSession);
   const deleteSession = useGraphStore(state => state.deleteSession);
-
   const [expandedSession, setExpandedSession] = useState<string | null>(null);
 
-  const filteredSessions = sessions.filter(s =>
-    s.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredSessions = sessions.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const handleCreateSession = () => {
     const name = prompt('Enter session name:');
-    if (name) {
-      createSession(name);
-    }
+    if (name) createSession(name);
   };
 
-  const formatTime = (timestamp: number) => {
-    return new Date(timestamp).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric'
-    });
-  };
+  const formatTime = (timestamp: number) => new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   return (
     <div className="space-y-2">
       <button
         onClick={handleCreateSession}
-        className="w-full flex items-center gap-2 px-3 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition-colors text-sm"
+        className="w-full flex items-center gap-2 px-3 py-2 rounded-xl transition-all text-sm font-medium"
+        style={{
+          background: 'rgba(34, 211, 238, 0.1)',
+          color: 'var(--sg-cyan)',
+          border: '1px solid rgba(34, 211, 238, 0.15)',
+        }}
       >
-        <Plus className="w-4 h-4" />
-        New Session
+        <Plus className="w-4 h-4" /> New Session
       </button>
 
       {filteredSessions.map(session => (
         <div
           key={session.id}
-          className={cn(
-            "rounded-lg border transition-all overflow-hidden",
-            session.id === currentSessionId
-              ? "border-cyan-500/50 bg-cyan-500/10"
-              : "border-slate-700 bg-slate-800/50 hover:border-slate-600"
-          )}
+          className="rounded-xl overflow-hidden transition-all"
+          style={{
+            border: session.id === currentSessionId ? '1px solid rgba(34, 211, 238, 0.3)' : '1px solid var(--sg-border-subtle)',
+            background: session.id === currentSessionId ? 'rgba(34, 211, 238, 0.05)' : 'var(--sg-surface-2)',
+          }}
         >
           <div
             className="flex items-center justify-between p-3 cursor-pointer"
-            onClick={() => setExpandedSession(
-              expandedSession === session.id ? null : session.id
-            )}
+            onClick={() => setExpandedSession(expandedSession === session.id ? null : session.id)}
           >
             <div className="flex items-center gap-2">
               {expandedSession === session.id ? (
-                <ChevronDown className="w-4 h-4 text-slate-500" />
+                <ChevronDown className="w-4 h-4" style={{ color: 'var(--sg-text-ghost)' }} />
               ) : (
-                <ChevronRight className="w-4 h-4 text-slate-500" />
+                <ChevronRight className="w-4 h-4" style={{ color: 'var(--sg-text-ghost)' }} />
               )}
-              <span className="text-sm text-slate-200">{session.name}</span>
+              <span className="text-sm font-medium" style={{ color: 'var(--sg-text-primary)' }}>{session.name}</span>
             </div>
-
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500">{formatTime(session.updatedAt)}</span>
+              <span className="text-xs" style={{ color: 'var(--sg-text-ghost)' }}>{formatTime(session.updatedAt)}</span>
               {session.id === currentSessionId && (
-                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                <span className="w-2 h-2 rounded-full" style={{ background: 'var(--sg-cyan)', boxShadow: '0 0 6px rgba(34, 211, 238, 0.5)' }} />
               )}
             </div>
           </div>
 
           {expandedSession === session.id && (
-            <div className="px-3 pb-3 border-t border-slate-700/50 pt-2">
-              <div className="grid grid-cols-2 gap-2 text-xs text-slate-500 mb-3">
-                <div>
-                  <span className="text-slate-400">{session.nodeCount}</span> pages
-                </div>
-                <div>
-                  <span className="text-slate-400">{session.edgeCount}</span> links
-                </div>
+            <div className="px-3 pb-3 pt-2" style={{ borderTop: '1px solid var(--sg-border-subtle)' }}>
+              <div className="grid grid-cols-2 gap-2 text-xs mb-3" style={{ color: 'var(--sg-text-ghost)' }}>
+                <div><span style={{ color: 'var(--sg-text-secondary)' }}>{session.nodeCount}</span> pages</div>
+                <div><span style={{ color: 'var(--sg-text-secondary)' }}>{session.edgeCount}</span> links</div>
               </div>
-
               <div className="flex gap-2">
                 <button
                   onClick={() => switchSession(session.id)}
-                  className="flex-1 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded text-xs transition-colors"
-                >
-                  Switch
-                </button>
+                  className="flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                  style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-primary)' }}
+                >Switch</button>
                 <button
-                  onClick={() => {
-                    if (confirm('Delete this session?')) {
-                      deleteSession(session.id);
-                    }
-                  }}
-                  className="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded text-xs transition-colors"
-                >
-                  Delete
-                </button>
+                  onClick={() => { if (confirm('Delete this session?')) deleteSession(session.id); }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                  style={{ background: 'rgba(251, 113, 133, 0.1)', color: 'var(--sg-rose)' }}
+                >Delete</button>
               </div>
             </div>
           )}
@@ -244,27 +218,17 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
   );
 }
 
-// Trees Tab
 function TreesTab({ searchQuery }: { searchQuery: string }) {
   const savedTrees = useGraphStore(state => state.savedTrees);
   const loadTree = useGraphStore(state => state.loadTree);
   const deleteTree = useGraphStore(state => state.deleteTree);
-
-  const filteredTrees = savedTrees.filter(t =>
-    t.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const formatTime = (timestamp: number) => {
-    return new Date(timestamp).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric'
-    });
-  };
+  const filteredTrees = savedTrees.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const formatTime = (timestamp: number) => new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   return (
     <div className="space-y-2">
       {filteredTrees.length === 0 ? (
-        <div className="text-center py-8 text-slate-500">
+        <div className="text-center py-8" style={{ color: 'var(--sg-text-ghost)' }}>
           <FolderTree className="w-12 h-12 mx-auto mb-3 opacity-50" />
           <p className="text-sm">No saved trees yet</p>
           <p className="text-xs mt-1">Select nodes and save them as a tree</p>
@@ -273,32 +237,18 @@ function TreesTab({ searchQuery }: { searchQuery: string }) {
         filteredTrees.map(tree => (
           <div
             key={tree.id}
-            className="flex items-center justify-between p-3 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-slate-600 transition-colors"
+            className="flex items-center justify-between p-3 rounded-xl transition-all"
+            style={{ background: 'var(--sg-surface-2)', border: '1px solid var(--sg-border-subtle)' }}
           >
             <div>
-              <p className="text-sm text-slate-200">{tree.name}</p>
-              <p className="text-xs text-slate-500">
-                {tree.nodeCount} pages • {formatTime(tree.createdAt)}
-              </p>
+              <p className="text-sm font-medium" style={{ color: 'var(--sg-text-primary)' }}>{tree.name}</p>
+              <p className="text-xs" style={{ color: 'var(--sg-text-ghost)' }}>{tree.nodeCount} pages • {formatTime(tree.createdAt)}</p>
             </div>
-
             <div className="flex gap-1">
-              <button
-                onClick={() => loadTree(tree.id)}
-                className="p-2 hover:bg-slate-700 text-slate-400 hover:text-cyan-400 rounded-lg transition-colors"
-                title="Load tree"
-              >
+              <button onClick={() => loadTree(tree.id)} className="p-2 rounded-lg transition-all" style={{ color: 'var(--sg-text-tertiary)' }} title="Load tree">
                 <ChevronRight className="w-4 h-4" />
               </button>
-              <button
-                onClick={() => {
-                  if (confirm('Delete this saved tree?')) {
-                    deleteTree(tree.id);
-                  }
-                }}
-                className="p-2 hover:bg-red-500/20 text-slate-400 hover:text-red-400 rounded-lg transition-colors"
-                title="Delete tree"
-              >
+              <button onClick={() => { if (confirm('Delete?')) deleteTree(tree.id); }} className="p-2 rounded-lg transition-all" style={{ color: 'var(--sg-text-tertiary)' }} title="Delete">
                 <MoreVertical className="w-4 h-4" />
               </button>
             </div>
@@ -309,13 +259,11 @@ function TreesTab({ searchQuery }: { searchQuery: string }) {
   );
 }
 
-// Settings Tab
 function SettingsTab() {
   const dimClosedNodes = useGraphStore(state => state.dimClosedNodes);
   const showThumbnails = useGraphStore(state => state.showThumbnails);
   const showFavicons = useGraphStore(state => state.showFavicons);
   const clusterByDomain = useGraphStore(state => state.clusterByDomain);
-
   const setDimClosedNodes = useGraphStore(state => state.setDimClosedNodes);
   const setShowThumbnails = useGraphStore(state => state.setShowThumbnails);
   const setShowFavicons = useGraphStore(state => state.setShowFavicons);
@@ -324,54 +272,29 @@ function SettingsTab() {
   return (
     <div className="space-y-4">
       <div className="space-y-3">
-        <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-          View Options
-        </h3>
-
-        <ToggleSetting
-          label="Dim closed tabs"
-          checked={dimClosedNodes}
-          onChange={setDimClosedNodes}
-        />
-
-        <ToggleSetting
-          label="Show thumbnails"
-          checked={showThumbnails}
-          onChange={setShowThumbnails}
-        />
-
-        <ToggleSetting
-          label="Show favicons"
-          checked={showFavicons}
-          onChange={setShowFavicons}
-        />
-
-        <ToggleSetting
-          label="Cluster by domain"
-          checked={clusterByDomain}
-          onChange={setClusterByDomain}
-        />
+        <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--sg-text-ghost)' }}>View Options</h3>
+        <ToggleSetting label="Dim closed tabs" checked={dimClosedNodes} onChange={setDimClosedNodes} />
+        <ToggleSetting label="Show thumbnails" checked={showThumbnails} onChange={setShowThumbnails} />
+        <ToggleSetting label="Show favicons" checked={showFavicons} onChange={setShowFavicons} />
+        <ToggleSetting label="Cluster by domain" checked={clusterByDomain} onChange={setClusterByDomain} />
       </div>
 
-      <div className="h-px bg-slate-800" />
+      <div className="h-px" style={{ background: 'var(--sg-border-subtle)' }} />
 
       <div className="space-y-3">
-        <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-          Keyboard Shortcuts
-        </h3>
-
+        <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--sg-text-ghost)' }}>Keyboard Shortcuts</h3>
         <div className="space-y-2 text-sm">
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between" style={{ color: 'var(--sg-text-tertiary)' }}>
             <span>Open graph</span>
-            <kbd className="px-2 py-0.5 bg-slate-800 rounded text-slate-500">Alt+G</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg text-xs" style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-ghost)' }}>Alt+G</kbd>
           </div>
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between" style={{ color: 'var(--sg-text-tertiary)' }}>
             <span>Fit view</span>
-            <kbd className="px-2 py-0.5 bg-slate-800 rounded text-slate-500">F</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg text-xs" style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-ghost)' }}>F</kbd>
           </div>
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between" style={{ color: 'var(--sg-text-tertiary)' }}>
             <span>Reset view</span>
-            <kbd className="px-2 py-0.5 bg-slate-800 rounded text-slate-500">R</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg text-xs" style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-ghost)' }}>R</kbd>
           </div>
         </div>
       </div>
@@ -379,30 +302,19 @@ function SettingsTab() {
   );
 }
 
-// Toggle Setting Component
-interface ToggleSettingProps {
-  label: string;
-  checked: boolean;
-  onChange: (value: boolean) => void;
-}
-
-function ToggleSetting({ label, checked, onChange }: ToggleSettingProps) {
+function ToggleSetting({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
   return (
     <label className="flex items-center justify-between cursor-pointer">
-      <span className="text-sm text-slate-300">{label}</span>
+      <span className="text-sm font-medium" style={{ color: 'var(--sg-text-secondary)' }}>{label}</span>
       <button
         onClick={() => onChange(!checked)}
-        className={cn(
-          "w-10 h-5 rounded-full transition-colors relative",
-          checked ? "bg-cyan-500" : "bg-slate-700"
-        )}
+        className="w-10 h-5 rounded-full transition-all relative"
+        style={{
+          background: checked ? 'var(--sg-cyan)' : 'var(--sg-surface-3)',
+          boxShadow: checked ? '0 0 10px rgba(34, 211, 238, 0.3)' : 'none',
+        }}
       >
-        <span
-          className={cn(
-            "absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform",
-            checked ? "left-5" : "left-0.5"
-          )}
-        />
+        <span className={cn("absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform", checked ? "left-5" : "left-0.5")} />
       </button>
     </label>
   );

@@ -1,11 +1,8 @@
 /**
- * Node Card Component
+ * Node Card Component — Stitch & Glass Design
  * 
- * Renders a single node in the graph with:
- * - Screenshot thumbnail (if available)
- * - Favicon
- * - Page title
- * - Status indicators
+ * Glassmorphism node cards with glowing borders,
+ * neon status indicators, and hover reveal actions.
  */
 
 import { memo, useState, useCallback } from 'react';
@@ -28,15 +25,14 @@ export const NodeCard = memo(function NodeCard({
 }: NodeCardProps) {
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const showThumbnails = useGraphStore(state => state.showThumbnails);
   const showFavicons = useGraphStore(state => state.showFavicons);
   const dimClosedNodes = useGraphStore(state => state.dimClosedNodes);
-  
+
   const isClosed = node.status === 'closed';
   const shouldDim = isClosed && dimClosedNodes;
-  
-  // Get domain from URL for placeholder
+
   const getDomain = useCallback((url: string) => {
     try {
       return new URL(url).hostname.replace('www.', '');
@@ -44,56 +40,58 @@ export const NodeCard = memo(function NodeCard({
       return 'unknown';
     }
   }, []);
-  
-  // Get placeholder color based on domain
-  const getPlaceholderColor = useCallback((domain: string) => {
-    const colors = [
-      'from-blue-500 to-purple-600',
-      'from-green-500 to-teal-600',
-      'from-orange-500 to-red-600',
-      'from-pink-500 to-rose-600',
-      'from-cyan-500 to-blue-600',
-      'from-violet-500 to-indigo-600'
+
+  const getPlaceholderGradient = useCallback((domain: string) => {
+    const gradients = [
+      'linear-gradient(135deg, #0e7490 0%, #7c3aed 100%)',
+      'linear-gradient(135deg, #059669 0%, #0891b2 100%)',
+      'linear-gradient(135deg, #7c3aed 0%, #db2777 100%)',
+      'linear-gradient(135deg, #0284c7 0%, #6d28d9 100%)',
+      'linear-gradient(135deg, #0d9488 0%, #2563eb 100%)',
+      'linear-gradient(135deg, #9333ea 0%, #0ea5e9 100%)',
     ];
     const hash = domain.split('').reduce((a, b) => {
       a = ((a << 5) - a) + b.charCodeAt(0);
       return a & a;
     }, 0);
-    return colors[Math.abs(hash) % colors.length];
+    return gradients[Math.abs(hash) % gradients.length];
   }, []);
-  
+
   const domain = getDomain(node.url);
-  const placeholderGradient = getPlaceholderColor(domain);
-  
-  // Truncate title
+  const placeholderGradient = getPlaceholderGradient(domain);
+
   const truncatedTitle = node.title.length > 40
     ? node.title.substring(0, 40) + '...'
     : node.title;
-  
+
   return (
     <motion.div
-      className={`
-        relative rounded-xl overflow-hidden cursor-pointer
-        transition-all duration-200 ease-out
-        ${selected ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-slate-900' : ''}
-        ${shouldDim ? 'opacity-40 grayscale' : 'opacity-100'}
-      `}
+      className="relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 ease-out"
       style={{
         width: 200,
         minHeight: showThumbnails && node.screenshot && !imageError ? 150 : 60,
-        background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-        boxShadow: selected
-          ? '0 0 30px rgba(34, 211, 238, 0.4)'
+        background: 'var(--sg-glass-bg)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: selected
+          ? '1.5px solid var(--sg-cyan)'
           : isHovered
-          ? '0 10px 40px rgba(0, 0, 0, 0.4)'
-          : '0 4px 20px rgba(0, 0, 0, 0.3)'
+            ? '1.5px solid var(--sg-border-glow-cyan)'
+            : '1.5px solid var(--sg-glass-border)',
+        boxShadow: selected
+          ? 'var(--sg-glow-cyan-intense)'
+          : isHovered
+            ? 'var(--sg-glow-cyan)'
+            : 'var(--sg-shadow-md)',
+        opacity: shouldDim ? 0.35 : 1,
+        filter: shouldDim ? 'grayscale(0.6)' : 'none',
       }}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ scale: 1.03, y: -2 }}
+      whileTap={{ scale: 0.97 }}
       layout
     >
       {/* Screenshot Thumbnail */}
@@ -105,19 +103,25 @@ export const NodeCard = memo(function NodeCard({
             className="w-full h-full object-cover"
             onError={() => setImageError(true)}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(to top, var(--sg-surface-1) 0%, transparent 60%)' }}
+          />
         </div>
       )}
-      
+
       {/* Placeholder when no screenshot */}
       {(!showThumbnails || !node.screenshot || imageError) && (
-        <div className={`w-full h-16 bg-gradient-to-br ${placeholderGradient} flex items-center justify-center`}>
+        <div
+          className="w-full h-16 flex items-center justify-center"
+          style={{ background: placeholderGradient }}
+        >
           <span className="text-white/80 text-xs font-medium px-2 text-center">
             {domain.substring(0, 20)}
           </span>
         </div>
       )}
-      
+
       {/* Content */}
       <div className="p-3">
         <div className="flex items-start gap-2">
@@ -126,44 +130,70 @@ export const NodeCard = memo(function NodeCard({
             <img
               src={node.favicon}
               alt=""
-              className="w-4 h-4 mt-0.5 flex-shrink-0"
+              className="w-4 h-4 mt-0.5 flex-shrink-0 rounded-sm"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           )}
-          
+
           {/* Title */}
-          <p className="text-xs text-slate-200 leading-tight line-clamp-2 flex-1">
+          <p
+            className="text-xs leading-tight line-clamp-2 flex-1 font-medium"
+            style={{ color: 'var(--sg-text-primary)' }}
+          >
             {truncatedTitle}
           </p>
         </div>
-        
+
         {/* URL hint */}
-        <p className="text-[10px] text-slate-500 mt-1 truncate">
+        <p
+          className="text-[10px] mt-1 truncate"
+          style={{ color: 'var(--sg-text-ghost)' }}
+        >
           {domain}
         </p>
       </div>
-      
+
       {/* Status indicators */}
       <div className="absolute top-2 right-2 flex gap-1">
         {isClosed && (
-          <span className="w-2 h-2 rounded-full bg-slate-500" title="Closed" />
+          <span
+            className="w-2.5 h-2.5 rounded-full"
+            style={{ background: 'var(--sg-text-ghost)' }}
+            title="Closed"
+          />
         )}
         {node.status === 'active' && (
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" title="Active" />
+          <span
+            className="w-2.5 h-2.5 rounded-full animate-pulse"
+            style={{
+              background: 'var(--sg-emerald)',
+              boxShadow: '0 0 8px rgba(52, 211, 153, 0.5)',
+            }}
+            title="Active"
+          />
         )}
       </div>
-      
+
       {/* Hover overlay with actions */}
       {isHovered && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="absolute inset-0 bg-slate-900/80 flex items-center justify-center gap-2"
+          className="absolute inset-0 flex items-center justify-center gap-2"
+          style={{
+            background: 'rgba(2, 6, 23, 0.85)',
+            backdropFilter: 'blur(4px)',
+          }}
         >
           <button
-            className="px-3 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-white text-xs rounded-lg transition-colors"
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            style={{
+              background: 'var(--sg-cyan)',
+              color: '#020617',
+              boxShadow: '0 0 16px rgba(34, 211, 238, 0.3)',
+            }}
             onClick={(e) => {
               e.stopPropagation();
               onDoubleClick();

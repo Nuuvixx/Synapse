@@ -1,8 +1,8 @@
 /**
  * BrowserPanel Component
  * 
- * Combines AddressBar and BrowserViewport into a complete browser experience.
- * Brave-inspired tab styling with inline + button and bookmarks bar.
+ * Stitch & Glass design - premium glassmorphism browser chrome
+ * with neon accent tabs, glowing bookmarks bar, and refined controls.
  */
 
 import { useState } from 'react';
@@ -79,52 +79,53 @@ export function BrowserPanel({
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                     className={cn(
-                        "h-full flex flex-col overflow-hidden",
-                        !fullscreen && "border-l border-[#3b3d44]"
+                        "h-full flex flex-col overflow-hidden"
                     )}
-                    style={{ background: '#202124' }}
+                    style={{ background: 'var(--sg-chrome)' }}
                 >
                     {/* ─── Tab Strip ─── */}
                     <div
                         className="flex items-end px-1 pt-1 no-drag-region"
                         style={{
-                            background: '#202124',
-                            minHeight: '40px'
+                            background: 'var(--sg-chrome)',
+                            minHeight: '42px',
+                            borderBottom: '1px solid var(--sg-border-subtle)',
                         }}
                     >
                         {/* Graph Toggle */}
                         {onToggleGraph && (
                             <button
                                 onClick={onToggleGraph}
-                                className={cn(
-                                    "p-1.5 mb-1 mr-1 rounded-md transition-colors flex-shrink-0",
-                                    showGraph
-                                        ? "text-emerald-400 bg-emerald-500/10"
-                                        : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
-                                )}
+                                className="p-1.5 mb-1 mr-1 rounded-lg transition-all flex-shrink-0"
+                                style={{
+                                    color: showGraph ? 'var(--sg-cyan)' : 'var(--sg-text-tertiary)',
+                                    background: showGraph ? 'rgba(34, 211, 238, 0.1)' : 'transparent',
+                                    boxShadow: showGraph ? '0 0 12px rgba(34, 211, 238, 0.15)' : 'none',
+                                }}
                                 title={showGraph ? "Hide Graph (Alt+V)" : "Show Graph (Alt+V)"}
                             >
                                 <LayoutGrid size={16} />
                             </button>
                         )}
 
-                        {/* Tabs + New Tab Button (inline, like Brave) */}
+                        {/* Tabs + New Tab Button */}
                         <div className="flex items-end flex-1 overflow-x-auto no-scrollbar">
                             {tabs.map(tab => (
                                 <div
                                     key={tab.id}
                                     onClick={() => switchTab(tab.id)}
                                     className={cn(
-                                        "group relative flex items-center gap-2 px-3 h-[34px] cursor-pointer transition-colors duration-150",
-                                        "rounded-t-lg flex-shrink-0",
-                                        tab.isActive
-                                            ? "bg-[#292b2f] text-[#e8eaed]"
-                                            : "text-[#9aa0a6] hover:bg-[#292b2f]/50 hover:text-[#c4c7cc]"
+                                        "group relative flex items-center gap-2 px-3 h-[36px] cursor-pointer transition-all duration-200",
+                                        "rounded-t-xl flex-shrink-0"
                                     )}
                                     style={{
                                         maxWidth: '240px',
                                         minWidth: tabs.length > 8 ? '40px' : '120px',
-                                        width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`
+                                        width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`,
+                                        background: tab.isActive ? 'var(--sg-surface-1)' : 'transparent',
+                                        color: tab.isActive ? 'var(--sg-text-primary)' : 'var(--sg-text-tertiary)',
+                                        borderTop: tab.isActive ? '2px solid var(--sg-cyan)' : '2px solid transparent',
+                                        boxShadow: tab.isActive ? '0 -2px 10px rgba(34, 211, 238, 0.1)' : 'none',
                                     }}
                                     title={tab.title}
                                 >
@@ -137,11 +138,14 @@ export function BrowserPanel({
                                             onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                         />
                                     ) : (
-                                        <div className="w-4 h-4 rounded-sm flex-shrink-0" style={{ background: '#5f6368' }} />
+                                        <div
+                                            className="w-4 h-4 rounded-sm flex-shrink-0"
+                                            style={{ background: 'var(--sg-surface-3)' }}
+                                        />
                                     )}
 
                                     {/* Title */}
-                                    <span className="text-[12px] truncate flex-1 text-left leading-none">
+                                    <span className="text-[12px] truncate flex-1 text-left leading-none font-medium">
                                         {tab.title || 'New Tab'}
                                     </span>
 
@@ -153,30 +157,39 @@ export function BrowserPanel({
                                         }}
                                         className={cn(
                                             "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0",
-                                            "hover:bg-[#5f6368] text-[#9aa0a6] hover:text-white",
                                             tab.isActive
                                                 ? "opacity-100"
                                                 : "opacity-0 group-hover:opacity-100"
                                         )}
+                                        style={{ color: 'var(--sg-text-tertiary)' }}
                                     >
                                         <X size={14} />
                                     </span>
 
                                     {/* Right separator for inactive tabs */}
                                     {!tab.isActive && (
-                                        <div className="absolute right-0 top-[6px] bottom-[6px] w-[1px] bg-[#3b3d44] group-hover:opacity-0 transition-opacity" />
+                                        <div
+                                            className="absolute right-0 top-[8px] bottom-[8px] w-[1px] group-hover:opacity-0 transition-opacity"
+                                            style={{ background: 'var(--sg-border)' }}
+                                        />
                                     )}
                                 </div>
                             ))}
 
-                            {/* ── + New Tab (inline, right after last tab) ── */}
+                            {/* ── + New Tab (inline) ── */}
                             <button
                                 onClick={() => handleCreateTab('https://www.google.com')}
-                                className={cn(
-                                    "p-1.5 mb-0.5 ml-1 rounded-full transition-colors flex-shrink-0",
-                                    "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
-                                )}
+                                className="p-1.5 mb-0.5 ml-1 rounded-lg transition-all flex-shrink-0"
+                                style={{ color: 'var(--sg-text-tertiary)' }}
                                 title="New Tab (Ctrl+T)"
+                                onMouseEnter={e => {
+                                    e.currentTarget.style.color = 'var(--sg-cyan)';
+                                    e.currentTarget.style.background = 'rgba(34, 211, 238, 0.1)';
+                                }}
+                                onMouseLeave={e => {
+                                    e.currentTarget.style.color = 'var(--sg-text-tertiary)';
+                                    e.currentTarget.style.background = 'transparent';
+                                }}
                             >
                                 <Plus size={18} />
                             </button>
@@ -207,27 +220,40 @@ export function BrowserPanel({
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.15 }}
-                                className="overflow-hidden border-b border-[#3b3d44]"
-                                style={{ background: '#292b2f' }}
+                                className="overflow-hidden"
+                                style={{
+                                    background: 'var(--sg-surface-1)',
+                                    borderBottom: '1px solid var(--sg-border-subtle)',
+                                }}
                             >
-                                <div className="flex items-center gap-1 px-3 py-1 overflow-x-auto no-scrollbar">
+                                <div className="flex items-center gap-1 px-3 py-1.5 overflow-x-auto no-scrollbar">
                                     {bookmarks.map(bm => (
                                         <button
                                             key={bm.url}
                                             onClick={() => handleNavigate(bm.url)}
-                                            className={cn(
-                                                "flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors",
-                                                "text-[#c4c7cc] hover:bg-[#35363a] hover:text-white",
-                                                "text-[12px] whitespace-nowrap flex-shrink-0"
-                                            )}
+                                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all text-[12px] whitespace-nowrap flex-shrink-0 font-medium"
+                                            style={{
+                                                color: 'var(--sg-text-secondary)',
+                                                background: 'transparent',
+                                            }}
                                             title={bm.url}
+                                            onMouseEnter={e => {
+                                                e.currentTarget.style.background = 'var(--sg-surface-3)';
+                                                e.currentTarget.style.color = 'var(--sg-text-primary)';
+                                                e.currentTarget.style.boxShadow = '0 0 8px rgba(34, 211, 238, 0.08)';
+                                            }}
+                                            onMouseLeave={e => {
+                                                e.currentTarget.style.background = 'transparent';
+                                                e.currentTarget.style.color = 'var(--sg-text-secondary)';
+                                                e.currentTarget.style.boxShadow = 'none';
+                                            }}
                                         >
                                             {bm.favicon ? (
                                                 <img src={bm.favicon} alt="" className="w-3.5 h-3.5 rounded-sm"
                                                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                                 />
                                             ) : (
-                                                <ExternalLink size={12} className="text-[#9aa0a6] flex-shrink-0" />
+                                                <ExternalLink size={12} style={{ color: 'var(--sg-text-ghost)' }} className="flex-shrink-0" />
                                             )}
                                             <span className="max-w-[120px] truncate">
                                                 {bm.title || new URL(bm.url).hostname}
