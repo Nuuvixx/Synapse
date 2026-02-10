@@ -12,6 +12,7 @@
 import { motion } from 'framer-motion';
 import { Github, Youtube, Brain, MessageCircle, Code, Search, Shield, Zap, Database } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useGraphStore } from '@/store/graphStore';
 
 interface WelcomePageProps {
     onNavigate: (url: string) => void;
@@ -28,6 +29,12 @@ const quickLinks = [
 
 export function WelcomePage({ onNavigate }: WelcomePageProps) {
     const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    const nodes = useGraphStore(state => state.nodes);
+    const edges = useGraphStore(state => state.edges);
+
+    const screenshotsCount = nodes.filter(n => n.screenshot).length;
+    const nodesCount = nodes.length;
+    const edgesCount = edges.length;
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -79,7 +86,7 @@ export function WelcomePage({ onNavigate }: WelcomePageProps) {
                         <input
                             type="text"
                             placeholder="Search the web or enter URL..."
-                            className="bg-transparent border-none outline-none text-lg text-white placeholder-gray-500 w-full font-light"
+                            className="bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 text-lg text-white placeholder-gray-500 w-full font-light"
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     onNavigate(e.currentTarget.value);
@@ -123,9 +130,9 @@ export function WelcomePage({ onNavigate }: WelcomePageProps) {
                 transition={{ duration: 0.7, delay: 0.4 }}
                 className="w-full bg-slate-900/40 backdrop-blur-md border-t border-white/5 py-4 px-8 flex justify-center gap-16"
             >
-                <StatItem icon={Shield} value="142" label="Trackers Blocked" color="text-orange-400" />
-                <StatItem icon={Database} value="48MB" label="Data Saved" color="text-cyan-400" />
-                <StatItem icon={Zap} value="1.2s" label="Time Saved" color="text-purple-400" />
+                <StatItem icon={Database} value={nodesCount.toString()} label="Nodes Explored" color="text-cyan-400" />
+                <StatItem icon={Zap} value={edgesCount.toString()} label="Connections" color="text-purple-400" />
+                <StatItem icon={Shield} value={screenshotsCount.toString()} label="Pages Captured" color="text-orange-400" />
             </motion.div>
 
             <style>{`
