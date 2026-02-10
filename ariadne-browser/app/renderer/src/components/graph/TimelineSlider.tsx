@@ -189,23 +189,27 @@ export function TimelineSlider({ onClose }: TimelineSliderProps) {
           className="absolute inset-y-0 left-0"
           style={{
             width: `${progress * 100}%`,
-            background: 'linear-gradient(90deg, rgba(34, 211, 238, 0.15) 0%, rgba(34, 211, 238, 0.05) 100%)',
+            background: 'linear-gradient(90deg, rgba(34, 211, 238, 0.4) 0%, rgba(34, 211, 238, 0.1) 100%)',
+            boxShadow: '0 0 15px rgba(34, 211, 238, 0.2)'
           }}
           layoutId="timelineProgress"
         />
 
         {/* Playhead */}
         <motion.div
-          className="absolute top-0 bottom-0 w-1"
+          className="absolute top-0 bottom-0 w-0.5 z-20"
           style={{
             left: `${progress * 100}%`,
             background: 'var(--sg-cyan)',
-            boxShadow: '0 0 12px rgba(34, 211, 238, 0.6)',
+            boxShadow: '0 0 10px var(--sg-cyan)'
           }}
         >
           <div
-            className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
-            style={{ background: 'var(--sg-cyan)', boxShadow: '0 0 8px rgba(34, 211, 238, 0.5)' }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-white"
+            style={{
+              background: 'var(--sg-cyan)',
+              boxShadow: '0 0 15px var(--sg-cyan), inset 0 0 6px white'
+            }}
           />
         </motion.div>
 

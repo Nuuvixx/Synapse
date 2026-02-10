@@ -16,12 +16,13 @@ import type {
   GraphStats,
   ViewportState
 } from '@/types';
-import { 
-  demoNodes, 
-  demoEdges, 
-  demoSessions, 
+import {
+  demoNodes,
+  demoEdges,
+  demoSessions,
   demoTimeline,
-  isExtensionMode 
+  demoSavedTrees,
+  isExtensionMode
 } from './demoData';
 
 interface GraphState {
@@ -31,25 +32,25 @@ interface GraphState {
   sessions: Session[];
   savedTrees: SavedTree[];
   currentSessionId: string | null;
-  
+
   // UI State
   selectedNodeIds: string[];
   hoveredNodeId: string | null;
   viewport: ViewportState;
   isLoading: boolean;
   error: string | null;
-  
+
   // View Settings
   dimClosedNodes: boolean;
   showThumbnails: boolean;
   showFavicons: boolean;
   clusterByDomain: boolean;
-  
+
   // Timeline
   timeline: TimelineData | null;
   timelineProgress: number;
   isPlayingTimeline: boolean;
-  
+
   // Actions
   loadGraphData: () => Promise<void>;
   loadSessions: () => Promise<void>;
@@ -57,7 +58,7 @@ interface GraphState {
   switchSession: (sessionId: string) => Promise<void>;
   createSession: (name: string) => Promise<void>;
   deleteSession: (sessionId: string) => Promise<void>;
-  
+
   // Node Actions
   selectNode: (nodeId: string | null) => void;
   selectMultipleNodes: (nodeIds: string[]) => void;
@@ -66,34 +67,34 @@ interface GraphState {
   reopenNode: (nodeId: string) => Promise<void>;
   deleteNode: (nodeId: string) => Promise<void>;
   updateNodePosition: (nodeId: string, position: { x: number; y: number }) => Promise<void>;
-  
+
   // Tree Actions
   saveTree: (name: string, nodeIds: string[]) => Promise<void>;
   loadTree: (treeId: string) => Promise<void>;
   deleteTree: (treeId: string) => Promise<void>;
-  
+
   // Timeline Actions
   loadTimeline: () => Promise<void>;
   setTimelineProgress: (progress: number) => void;
   playTimeline: () => void;
   pauseTimeline: () => void;
-  
+
   // View Actions
   setViewport: (viewport: ViewportState) => void;
   fitView: () => void;
   resetView: () => void;
-  
+
   // Settings
   setDimClosedNodes: (value: boolean) => void;
   setShowThumbnails: (value: boolean) => void;
   setShowFavicons: (value: boolean) => void;
   setClusterByDomain: (value: boolean) => void;
-  
+
   // Export/Import
   exportSession: () => Promise<void>;
   importSession: (data: unknown) => Promise<void>;
   clearAllData: () => Promise<void>;
-  
+
   // Stats
   getStats: () => GraphStats;
 }
@@ -104,7 +105,7 @@ const sendMessage = async (message: unknown): Promise<any> => {
     console.warn('[GraphStore] Chrome extension API not available');
     return null;
   }
-  
+
   try {
     return await chrome.runtime.sendMessage(message);
   } catch (error) {
@@ -122,22 +123,22 @@ export const useGraphStore = create<GraphState>()(
       sessions: isExtensionMode() ? [] : demoSessions,
       savedTrees: [],
       currentSessionId: isExtensionMode() ? null : 'demo-session',
-      
+
       selectedNodeIds: [],
       hoveredNodeId: null,
       viewport: { x: 0, y: 0, zoom: 1 },
       isLoading: false,
       error: null,
-      
+
       dimClosedNodes: true,
       showThumbnails: true,
       showFavicons: true,
       clusterByDomain: false,
-      
+
       timeline: isExtensionMode() ? null : demoTimeline,
       timelineProgress: 0,
       isPlayingTimeline: false,
-      
+
       // Load graph data from background
       loadGraphData: async () => {
         // If not in extension mode, use demo data
@@ -150,7 +151,7 @@ export const useGraphStore = create<GraphState>()(
           });
           return;
         }
-        
+
         set({ isLoading: true, error: null });
         try {
           const data = await sendMessage({ action: 'getGraphData' });
@@ -168,14 +169,14 @@ export const useGraphStore = create<GraphState>()(
           set({ error: 'Failed to load graph data', isLoading: false });
         }
       },
-      
+
       // Load all sessions
       loadSessions: async () => {
         if (!isExtensionMode()) {
           set({ sessions: demoSessions });
           return;
         }
-        
+
         try {
           const sessions = await sendMessage({ action: 'getSessions' });
           if (sessions) {
@@ -185,14 +186,14 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to load sessions:', error);
         }
       },
-      
+
       // Load saved trees
       loadSavedTrees: async () => {
         if (!isExtensionMode()) {
-          set({ savedTrees: [] });
+          set({ savedTrees: demoSavedTrees });
           return;
         }
-        
+
         try {
           const trees = await sendMessage({ action: 'getSavedTrees' });
           if (trees) {
@@ -202,7 +203,7 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to load saved trees:', error);
         }
       },
-      
+
       // Switch to a different session
       switchSession: async (sessionId: string) => {
         if (!isExtensionMode()) {
@@ -210,7 +211,7 @@ export const useGraphStore = create<GraphState>()(
           set({ currentSessionId: sessionId });
           return;
         }
-        
+
         set({ isLoading: true });
         try {
           await sendMessage({ action: 'switchSession', sessionId });
@@ -220,7 +221,7 @@ export const useGraphStore = create<GraphState>()(
           set({ error: 'Failed to switch session', isLoading: false });
         }
       },
-      
+
       // Create new session
       createSession: async (name: string) => {
         if (!isExtensionMode()) {
@@ -241,7 +242,7 @@ export const useGraphStore = create<GraphState>()(
           }));
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'createSession', name });
           await get().loadSessions();
@@ -250,19 +251,19 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to create session:', error);
         }
       },
-      
+
       // Delete session
       deleteSession: async (sessionId: string) => {
         if (!isExtensionMode()) {
           set(state => ({
             sessions: state.sessions.filter(s => s.id !== sessionId),
-            currentSessionId: state.currentSessionId === sessionId 
+            currentSessionId: state.currentSessionId === sessionId
               ? (state.sessions.find(s => s.id !== sessionId)?.id || null)
               : state.currentSessionId
           }));
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'deleteSession', sessionId });
           await get().loadSessions();
@@ -271,22 +272,22 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to delete session:', error);
         }
       },
-      
+
       // Select a single node
       selectNode: (nodeId: string | null) => {
         set({ selectedNodeIds: nodeId ? [nodeId] : [] });
       },
-      
+
       // Select multiple nodes
       selectMultipleNodes: (nodeIds: string[]) => {
         set({ selectedNodeIds: nodeIds });
       },
-      
+
       // Hover node
       hoverNode: (nodeId: string | null) => {
         set({ hoveredNodeId: nodeId });
       },
-      
+
       // Focus an existing tab
       focusNode: async (nodeId: string) => {
         if (!isExtensionMode()) {
@@ -296,19 +297,19 @@ export const useGraphStore = create<GraphState>()(
           }
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'focusNode', nodeId });
         } catch (error) {
           console.error('Failed to focus node:', error);
         }
       },
-      
+
       // Reopen a closed node
       reopenNode: async (nodeId: string) => {
         const node = get().nodes.find(n => n.id === nodeId);
         if (!node) return;
-        
+
         if (!isExtensionMode()) {
           window.open(node.url, '_blank');
           // Update status locally
@@ -319,7 +320,7 @@ export const useGraphStore = create<GraphState>()(
           }));
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'reopenNode', nodeId });
           await get().loadGraphData();
@@ -327,7 +328,7 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to reopen node:', error);
         }
       },
-      
+
       // Delete a node
       deleteNode: async (nodeId: string) => {
         if (!isExtensionMode()) {
@@ -337,7 +338,7 @@ export const useGraphStore = create<GraphState>()(
           }));
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'deleteNode', nodeId });
           await get().loadGraphData();
@@ -345,7 +346,7 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to delete node:', error);
         }
       },
-      
+
       // Update node position
       updateNodePosition: async (nodeId: string, position: { x: number; y: number }) => {
         // Always update locally
@@ -354,16 +355,16 @@ export const useGraphStore = create<GraphState>()(
             n.id === nodeId ? { ...n, position, userPositioned: true } : n
           )
         }));
-        
+
         if (!isExtensionMode()) return;
-        
+
         try {
           await sendMessage({ action: 'updateNodePosition', nodeId, position });
         } catch (error) {
           console.error('Failed to update node position:', error);
         }
       },
-      
+
       // Save a tree
       saveTree: async (name: string, nodeIds: string[]) => {
         if (!isExtensionMode()) {
@@ -371,7 +372,7 @@ export const useGraphStore = create<GraphState>()(
             id: `tree-${Date.now()}`,
             name,
             nodes: get().nodes.filter(n => nodeIds.includes(n.id)),
-            edges: get().edges.filter(e => 
+            edges: get().edges.filter(e =>
               nodeIds.includes(e.source) && nodeIds.includes(e.target)
             ),
             createdAt: Date.now(),
@@ -382,7 +383,7 @@ export const useGraphStore = create<GraphState>()(
           }));
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'saveTree', name, nodeIds });
           await get().loadSavedTrees();
@@ -390,7 +391,7 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to save tree:', error);
         }
       },
-      
+
       // Load a saved tree
       loadTree: async (treeId: string) => {
         if (!isExtensionMode()) {
@@ -403,7 +404,7 @@ export const useGraphStore = create<GraphState>()(
           }
           return;
         }
-        
+
         try {
           const tree = await sendMessage({ action: 'loadTree', treeId });
           if (tree) {
@@ -416,7 +417,7 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to load tree:', error);
         }
       },
-      
+
       // Delete a saved tree
       deleteTree: async (treeId: string) => {
         if (!isExtensionMode()) {
@@ -425,7 +426,7 @@ export const useGraphStore = create<GraphState>()(
           }));
           return;
         }
-        
+
         try {
           await sendMessage({ action: 'deleteTree', treeId });
           await get().loadSavedTrees();
@@ -433,14 +434,14 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to delete tree:', error);
         }
       },
-      
+
       // Load timeline data
       loadTimeline: async () => {
         if (!isExtensionMode()) {
           set({ timeline: demoTimeline });
           return;
         }
-        
+
         try {
           const timeline = await sendMessage({ action: 'getTimeline' });
           if (timeline) {
@@ -450,43 +451,43 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to load timeline:', error);
         }
       },
-      
+
       // Set timeline progress
       setTimelineProgress: (progress: number) => {
         set({ timelineProgress: progress });
       },
-      
+
       // Play timeline
       playTimeline: () => {
         set({ isPlayingTimeline: true });
       },
-      
+
       // Pause timeline
       pauseTimeline: () => {
         set({ isPlayingTimeline: false });
       },
-      
+
       // Set viewport
       setViewport: (viewport: ViewportState) => {
         set({ viewport });
       },
-      
+
       // Fit view to content
       fitView: () => {
         set(state => ({ viewport: { ...state.viewport } }));
       },
-      
+
       // Reset view
       resetView: () => {
         set({ viewport: { x: 0, y: 0, zoom: 1 } });
       },
-      
+
       // Settings
       setDimClosedNodes: (value: boolean) => set({ dimClosedNodes: value }),
       setShowThumbnails: (value: boolean) => set({ showThumbnails: value }),
       setShowFavicons: (value: boolean) => set({ showFavicons: value }),
       setClusterByDomain: (value: boolean) => set({ clusterByDomain: value }),
-      
+
       // Export session
       exportSession: async () => {
         const data = {
@@ -498,7 +499,7 @@ export const useGraphStore = create<GraphState>()(
             edges: get().edges
           }
         };
-        
+
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -507,7 +508,7 @@ export const useGraphStore = create<GraphState>()(
         a.click();
         URL.revokeObjectURL(url);
       },
-      
+
       // Import session
       importSession: async (data: unknown) => {
         try {
@@ -522,7 +523,7 @@ export const useGraphStore = create<GraphState>()(
           console.error('Failed to import session:', error);
         }
       },
-      
+
       // Clear all data
       clearAllData: async () => {
         set({
@@ -533,13 +534,13 @@ export const useGraphStore = create<GraphState>()(
           currentSessionId: null
         });
       },
-      
+
       // Get statistics
       getStats: () => {
         const state = get();
         const activeNodes = state.nodes.filter(n => n.status === 'active').length;
         const closedNodes = state.nodes.filter(n => n.status === 'closed').length;
-        
+
         return {
           totalNodes: state.nodes.length,
           activeNodes,

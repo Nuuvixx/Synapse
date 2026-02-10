@@ -5,7 +5,7 @@
  * when the Chrome extension API is not available.
  */
 
-import type { GraphNode, GraphEdge, Session, TimelineData } from '@/types';
+import type { GraphNode, GraphEdge, Session, TimelineData, SavedTree } from '@/types';
 
 // Generate a consistent position for nodes
 const positions: Record<string, { x: number; y: number }> = {
@@ -319,6 +319,25 @@ export const demoTimeline: TimelineData = {
   startTime: Date.now() - 3600000,
   endTime: Date.now(),
 };
+
+export const demoSavedTrees: SavedTree[] = [
+  {
+    id: 'tree-1',
+    name: 'React Ecosystem',
+    nodes: demoNodes.filter(n => ['tab-8', 'tab-10'].includes(n.id)),
+    edges: demoEdges.filter(e => e.source === 'tab-8' && e.target === 'tab-10'),
+    createdAt: Date.now() - 100000,
+    nodeCount: 2,
+  },
+  {
+    id: 'tree-2',
+    name: 'StackOverflow Threads',
+    nodes: demoNodes.filter(n => ['tab-3', 'tab-6', 'tab-7'].includes(n.id)),
+    edges: demoEdges.filter(e => ['edge-3-6', 'edge-3-7'].includes(e.id)),
+    createdAt: Date.now() - 500000,
+    nodeCount: 3,
+  }
+];
 
 // Check if running in extension mode
 export const isExtensionMode = (): boolean => {

@@ -26,7 +26,6 @@ export const NodeCard = memo(function NodeCard({
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const showThumbnails = useGraphStore(state => state.showThumbnails);
   const showFavicons = useGraphStore(state => state.showFavicons);
   const dimClosedNodes = useGraphStore(state => state.dimClosedNodes);
 
@@ -66,143 +65,77 @@ export const NodeCard = memo(function NodeCard({
 
   return (
     <motion.div
-      className="relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 ease-out"
+      className="relative rounded-[24px] overflow-hidden cursor-pointer group"
       style={{
-        width: 200,
-        minHeight: showThumbnails && node.screenshot && !imageError ? 150 : 60,
-        background: 'var(--sg-glass-bg)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        width: 180,
+        height: 54,
+        background: 'rgba(15, 23, 42, 0.6)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         border: selected
           ? '1.5px solid var(--sg-cyan)'
           : isHovered
-            ? '1.5px solid var(--sg-border-glow-cyan)'
-            : '1.5px solid var(--sg-glass-border)',
+            ? '1.5px solid var(--sg-cyan)'
+            : '1.5px solid rgba(148, 163, 184, 0.2)',
         boxShadow: selected
-          ? 'var(--sg-glow-cyan-intense)'
+          ? '0 0 20px rgba(34, 211, 238, 0.4)'
           : isHovered
-            ? 'var(--sg-glow-cyan)'
-            : 'var(--sg-shadow-md)',
-        opacity: shouldDim ? 0.35 : 1,
-        filter: shouldDim ? 'grayscale(0.6)' : 'none',
+            ? '0 0 15px rgba(34, 211, 238, 0.2)'
+            : '0 4px 12px rgba(0, 0, 0, 0.3)',
+        opacity: shouldDim ? 0.5 : 1,
+        filter: shouldDim ? 'grayscale(0.8)' : 'none',
       }}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.03, y: -2 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ scale: 1.05, y: -2 }}
+      whileTap={{ scale: 0.98 }}
       layout
     >
-      {/* Screenshot Thumbnail */}
-      {showThumbnails && node.screenshot && !imageError && (
-        <div className="relative w-full h-24 overflow-hidden">
-          <img
-            src={node.screenshot}
-            alt={node.title}
-            className="w-full h-full object-cover"
-            onError={() => setImageError(true)}
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: 'linear-gradient(to top, var(--sg-surface-1) 0%, transparent 60%)' }}
-          />
-        </div>
-      )}
+      {/* Progress Bar / Activity Indicator (Bottom Line) */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[2px]"
+        style={{
+          background: node.status === 'active'
+            ? 'linear-gradient(90deg, transparent, var(--sg-cyan), transparent)'
+            : 'transparent'
+        }}
+      />
 
-      {/* Placeholder when no screenshot */}
-      {(!showThumbnails || !node.screenshot || imageError) && (
-        <div
-          className="w-full h-16 flex items-center justify-center"
-          style={{ background: placeholderGradient }}
-        >
-          <span className="text-white/80 text-xs font-medium px-2 text-center">
-            {domain.substring(0, 20)}
-          </span>
-        </div>
-      )}
-
-      {/* Content */}
-      <div className="p-3">
-        <div className="flex items-start gap-2">
-          {/* Favicon */}
-          {showFavicons && node.favicon && (
+      <div className="flex items-center h-full px-3 gap-3">
+        {/* Icon Container (Orb) */}
+        <div className="relative w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-slate-800/80 border border-white/10 shadow-inner group-hover:border-cyan-500/50 transition-colors">
+          {showFavicons && node.favicon && !imageError ? (
             <img
               src={node.favicon}
+              className="w-4 h-4 rounded-sm"
+              onError={() => setImageError(true)}
               alt=""
-              className="w-4 h-4 mt-0.5 flex-shrink-0 rounded-sm"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
+            />
+          ) : (
+            <div
+              className="w-2 h-2 rounded-full"
+              style={{ background: placeholderGradient }}
             />
           )}
 
-          {/* Title */}
-          <p
-            className="text-xs leading-tight line-clamp-2 flex-1 font-medium"
-            style={{ color: 'var(--sg-text-primary)' }}
-          >
-            {truncatedTitle}
-          </p>
+          {/* Status Dot */}
+          {node.status === 'active' && (
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-cyan-500 border-2 border-slate-900 animate-pulse" />
+          )}
         </div>
 
-        {/* URL hint */}
-        <p
-          className="text-[10px] mt-1 truncate"
-          style={{ color: 'var(--sg-text-ghost)' }}
-        >
-          {domain}
-        </p>
+        {/* Text Content */}
+        <div className="flex-1 min-w-0 flex flex-col justify-center">
+          <h4 className="text-[12px] font-semibold text-slate-200 truncate leading-tight group-hover:text-cyan-100 transition-colors">
+            {truncatedTitle}
+          </h4>
+          <p className="text-[9px] text-slate-500 truncate font-mono mt-0.5 group-hover:text-slate-400">
+            {domain}
+          </p>
+        </div>
       </div>
-
-      {/* Status indicators */}
-      <div className="absolute top-2 right-2 flex gap-1">
-        {isClosed && (
-          <span
-            className="w-2.5 h-2.5 rounded-full"
-            style={{ background: 'var(--sg-text-ghost)' }}
-            title="Closed"
-          />
-        )}
-        {node.status === 'active' && (
-          <span
-            className="w-2.5 h-2.5 rounded-full animate-pulse"
-            style={{
-              background: 'var(--sg-emerald)',
-              boxShadow: '0 0 8px rgba(52, 211, 153, 0.5)',
-            }}
-            title="Active"
-          />
-        )}
-      </div>
-
-      {/* Hover overlay with actions */}
-      {isHovered && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="absolute inset-0 flex items-center justify-center gap-2"
-          style={{
-            background: 'rgba(2, 6, 23, 0.85)',
-            backdropFilter: 'blur(4px)',
-          }}
-        >
-          <button
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
-            style={{
-              background: 'var(--sg-cyan)',
-              color: '#020617',
-              boxShadow: '0 0 16px rgba(34, 211, 238, 0.3)',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDoubleClick();
-            }}
-          >
-            {isClosed ? 'Reopen' : 'Focus'}
-          </button>
-        </motion.div>
-      )}
     </motion.div>
   );
 });

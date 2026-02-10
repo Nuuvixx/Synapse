@@ -7,7 +7,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  Background,
   Controls,
   MiniMap,
   useNodesState,
@@ -32,6 +31,11 @@ import { TimelineSlider } from './TimelineSlider';
 import { NodeDetailPanel } from './NodeDetailPanel';
 import { useForceSimulation, type SimNode } from '@/hooks/useForceSimulation';
 import type { GraphNode } from '@/types';
+import CustomEdge from './CustomEdge';
+
+const edgeTypes = {
+  default: CustomEdge,
+};
 
 // Custom node types
 const nodeTypes: NodeTypes = {
@@ -107,16 +111,15 @@ const convertToFlowEdges = (edges: { id: string; source: string; target: string 
     source: edge.source,
     target: edge.target,
     type: 'default',
-    animated: true,
+    animated: false, // Animation is handled by CustomEdge now
     style: {
-      stroke: 'var(--sg-cyan)',
+      stroke: 'url(#edge-gradient)', // We'll define this SVG gradient in the component
       strokeWidth: 2,
-      opacity: 0.4,
-      filter: 'drop-shadow(0 0 3px rgba(34, 211, 238, 0.5))'
+      opacity: 0.8,
     },
     markerEnd: {
       type: MarkerType.ArrowClosed,
-      color: 'var(--sg-cyan)'
+      color: 'var(--sg-purple)'
     }
   }));
 };
@@ -209,6 +212,7 @@ export function GraphCanvas() {
         return () => { chrome.runtime.onMessage.removeListener(handleMessage); };
       }
     }
+    return undefined;
   }, [hasInitialized, loadGraphData]);
 
   // Update simulation
@@ -232,6 +236,7 @@ export function GraphCanvas() {
       const timer = setTimeout(() => fitView({ padding: 0.3, duration: 500 }), 500);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [hasInitialized, nodes.length, fitView]);
 
   // Handle updates
@@ -290,7 +295,8 @@ export function GraphCanvas() {
   const isLoading = !hasInitialized && storeNodes.length === 0;
 
   return (
-    <div ref={canvasRef} className="w-full h-full relative overflow-hidden" style={{ background: 'var(--sg-bg-canvas)' }}>
+    <div ref={canvasRef} className="w-full h-full relative overflow-hidden"
+      style={{ background: 'radial-gradient(ellipse at bottom, #0F172A 0%, #020617 100%)' }}>
       {/* Loading overlay */}
       <AnimatePresence>
         {isLoading && (
@@ -319,24 +325,36 @@ export function GraphCanvas() {
         onNodeDrag={handleDrag}
         onNodeDragStop={handleDragEnd}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         fitViewOptions={{ padding: 0.3 }}
-        minZoom={0.1}
-        maxZoom={2}
         proOptions={{ hideAttribution: true }}
       >
-        <Background
-          color="var(--sg-border)"
-          gap={24}
-          size={1}
-          style={{ background: 'var(--sg-bg-canvas)' }}
-        />
+        {/* ─── Shared Atmosphere (CSS Starfield) ─── */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="stars-small" />
+          <div className="stars-medium" />
+          <div className="stars-large" />
+        </div>
+
+        {/* Define Gradient for Edges */}
+        <svg style={{ position: 'absolute', top: 0, left: 0 }}>
+          <defs>
+            <linearGradient id="edge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#22d3ee" />
+              <stop offset="100%" stopColor="#a855f7" />
+            </linearGradient>
+          </defs>
+        </svg>
 
         <Controls
           style={{
             background: 'var(--sg-surface-2)',
-            border: '1px solid var(--sg-border)',
-            color: 'var(--sg-text-primary)'
+            border: '1px solid var(--sg-glass-border)',
+            color: 'var(--sg-text-primary)',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
           }}
         />
 
@@ -345,8 +363,13 @@ export function GraphCanvas() {
             nodeStrokeWidth={3}
             zoomable
             pannable
-            style={{ background: 'var(--sg-surface-2)', border: '1px solid var(--sg-border)' }}
-            maskColor="var(--sg-bg-deep)"
+            style={{
+              background: 'var(--sg-surface-2)',
+              border: '1px solid var(--sg-glass-border)',
+              borderRadius: '12px',
+              overflow: 'hidden'
+            }}
+            maskColor="rgba(2, 6, 23, 0.8)"
             nodeColor={(node) => {
               const n = node.data as unknown as GraphNode;
               return n?.status === 'closed' ? 'var(--sg-text-tertiary)' : 'var(--sg-cyan)';

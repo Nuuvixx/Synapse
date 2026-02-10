@@ -57,8 +57,14 @@ export function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps) {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 20 }}
-      className="w-80 sg-glass rounded-2xl overflow-hidden sg-glow-purple"
-      style={{ boxShadow: 'var(--sg-shadow-xl), var(--sg-glow-purple)' }}
+      className="w-80 rounded-2xl overflow-hidden"
+      style={{
+        background: 'rgba(15, 23, 42, 0.75)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        border: '1px solid var(--sg-glass-border)',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(168, 85, 247, 0.1)'
+      }}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4" style={{ borderBottom: '1px solid var(--sg-border)' }}>

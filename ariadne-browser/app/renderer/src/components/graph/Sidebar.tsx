@@ -47,32 +47,31 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           />
 
           {/* Sidebar */}
+          {/* Sidebar - Floating Command Module */}
           <motion.div
-            initial={{ x: -320 }}
-            animate={{ x: 0 }}
-            exit={{ x: -320 }}
-            className="fixed left-0 top-8 bottom-0 w-80 z-50 flex flex-col"
+            initial={{ x: -340, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -340, opacity: 0 }}
+            className="fixed left-2 top-10 bottom-2 w-80 z-50 flex flex-col rounded-2xl overflow-hidden"
             style={{
-              background: 'var(--sg-surface-1)',
-              borderRight: '1px solid var(--sg-border)',
-              boxShadow: 'var(--sg-shadow-xl)',
+              background: 'rgba(15, 23, 42, 0.6)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
             }}
           >
             {/* Header */}
-            <div className="p-4" style={{ borderBottom: '1px solid var(--sg-border-subtle)' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className="w-10 h-10 rounded-2xl flex items-center justify-center"
-                  style={{
-                    background: 'linear-gradient(135deg, var(--sg-cyan), var(--sg-purple))',
-                    boxShadow: '0 0 16px rgba(34, 211, 238, 0.25)',
-                  }}
-                >
-                  <span className="text-xl">🧭</span>
-                </div>
-                <div>
-                  <h1 className="font-bold" style={{ color: 'var(--sg-text-primary)' }}>Ariadne</h1>
-                  <p className="text-xs" style={{ color: 'var(--sg-text-ghost)' }}>Spatial Web Browser</p>
+            <div className="p-4 space-y-4" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div className="flex items-center justify-between">
+                <h1 className="font-mono text-xs font-bold tracking-widest uppercase"
+                  style={{ color: 'var(--sg-cyan)', textShadow: '0 0 10px rgba(34, 211, 238, 0.5)' }}>
+                  Ariadne // Spatial
+                </h1>
+                <div className="flex gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
                 </div>
               </div>
 
@@ -94,11 +93,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               </div>
             </div>
 
-            {/* Tabs */}
-            <div className="flex" style={{ borderBottom: '1px solid var(--sg-border-subtle)' }}>
-              <SidebarTab active={activeTab === 'sessions'} onClick={() => setActiveTab('sessions')} icon={<History className="w-4 h-4" />} label="Sessions" />
-              <SidebarTab active={activeTab === 'trees'} onClick={() => setActiveTab('trees')} icon={<Bookmark className="w-4 h-4" />} label="Trees" />
-              <SidebarTab active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} icon={<Settings className="w-4 h-4" />} label="Settings" />
+            {/* Segmented Control Tabs */}
+            <div className="px-4 pb-0">
+              <div className="flex p-1 rounded-xl" style={{ background: 'rgba(0, 0, 0, 0.2)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <SidebarTab active={activeTab === 'sessions'} onClick={() => setActiveTab('sessions')} icon={<History className="w-3.5 h-3.5" />} label="Sessions" />
+                <SidebarTab active={activeTab === 'trees'} onClick={() => setActiveTab('trees')} icon={<Bookmark className="w-3.5 h-3.5" />} label="Trees" />
+                <SidebarTab active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} icon={<Settings className="w-3.5 h-3.5" />} label="Config" />
+              </div>
             </div>
 
             {/* Content */}
@@ -120,14 +121,23 @@ function SidebarTab({ active, onClick, icon, label }: { active: boolean; onClick
   return (
     <button
       onClick={onClick}
-      className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all"
+      className="flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-xs font-medium transition-all relative"
       style={{
-        color: active ? 'var(--sg-cyan)' : 'var(--sg-text-tertiary)',
-        borderBottom: active ? '2px solid var(--sg-cyan)' : '2px solid transparent',
+        color: active ? 'var(--sg-text-primary)' : 'var(--sg-text-tertiary)',
       }}
     >
-      {icon}
-      {label}
+      {active && (
+        <motion.div
+          layoutId="sidebarTabBg"
+          className="absolute inset-0 rounded-lg shadow-sm"
+          style={{ background: 'var(--sg-surface-3)' }}
+          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+        />
+      )}
+      <span className="relative z-10 flex items-center gap-2">
+        {icon}
+        {label}
+      </span>
     </button>
   );
 }
@@ -138,82 +148,162 @@ function SessionsTab({ searchQuery }: { searchQuery: string }) {
   const switchSession = useGraphStore(state => state.switchSession);
   const createSession = useGraphStore(state => state.createSession);
   const deleteSession = useGraphStore(state => state.deleteSession);
+
   const [expandedSession, setExpandedSession] = useState<string | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
+  const [newSessionName, setNewSessionName] = useState('');
 
-  const filteredSessions = sessions.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredSessions = sessions.filter(s =>
+    s.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const handleCreateSession = () => {
-    const name = prompt('Enter session name:');
-    if (name) createSession(name);
+  const handleCreateSession = async () => {
+    if (newSessionName.trim()) {
+      await createSession(newSessionName);
+      setNewSessionName('');
+      setIsCreating(false);
+    }
   };
 
   const formatTime = (timestamp: number) => new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   return (
-    <div className="space-y-2">
-      <button
-        onClick={handleCreateSession}
-        className="w-full flex items-center gap-2 px-3 py-2 rounded-xl transition-all text-sm font-medium"
-        style={{
-          background: 'rgba(34, 211, 238, 0.1)',
-          color: 'var(--sg-cyan)',
-          border: '1px solid rgba(34, 211, 238, 0.15)',
-        }}
-      >
-        <Plus className="w-4 h-4" /> New Session
-      </button>
-
-      {filteredSessions.map(session => (
-        <div
-          key={session.id}
-          className="rounded-xl overflow-hidden transition-all"
+    <div className="space-y-3">
+      {!isCreating ? (
+        <button
+          onClick={() => setIsCreating(true)}
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl transition-all group"
           style={{
-            border: session.id === currentSessionId ? '1px solid rgba(34, 211, 238, 0.3)' : '1px solid var(--sg-border-subtle)',
-            background: session.id === currentSessionId ? 'rgba(34, 211, 238, 0.05)' : 'var(--sg-surface-2)',
+            background: 'rgba(34, 211, 238, 0.1)',
+            border: '1px solid rgba(34, 211, 238, 0.2)',
+            color: 'var(--sg-cyan)',
           }}
         >
-          <div
-            className="flex items-center justify-between p-3 cursor-pointer"
-            onClick={() => setExpandedSession(expandedSession === session.id ? null : session.id)}
-          >
-            <div className="flex items-center gap-2">
-              {expandedSession === session.id ? (
-                <ChevronDown className="w-4 h-4" style={{ color: 'var(--sg-text-ghost)' }} />
-              ) : (
-                <ChevronRight className="w-4 h-4" style={{ color: 'var(--sg-text-ghost)' }} />
-              )}
-              <span className="text-sm font-medium" style={{ color: 'var(--sg-text-primary)' }}>{session.name}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs" style={{ color: 'var(--sg-text-ghost)' }}>{formatTime(session.updatedAt)}</span>
-              {session.id === currentSessionId && (
-                <span className="w-2 h-2 rounded-full" style={{ background: 'var(--sg-cyan)', boxShadow: '0 0 6px rgba(34, 211, 238, 0.5)' }} />
-              )}
-            </div>
+          <span className="p-1 rounded-md bg-cyan-500/20 group-hover:bg-cyan-500/30 transition-colors">
+            <Plus className="w-4 h-4" />
+          </span>
+          <span className="text-xs font-bold uppercase tracking-wider">New Session</span>
+        </button>
+      ) : (
+        <div className="p-3 rounded-xl space-y-3 animate-in fade-in slide-in-from-top-2"
+          style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid var(--sg-cyan)' }}>
+          <input
+            autoFocus
+            type="text"
+            placeholder="Session Name..."
+            value={newSessionName}
+            onChange={e => setNewSessionName(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') handleCreateSession();
+              if (e.key === 'Escape') setIsCreating(false);
+            }}
+            className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-slate-600"
+            style={{ color: 'var(--sg-text-primary)' }}
+          />
+          <div className="flex gap-2">
+            <button
+              onClick={handleCreateSession}
+              disabled={!newSessionName.trim()}
+              className="flex-1 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-black hover:bg-cyan-400 transition-colors disabled:opacity-50"
+            >
+              Create
+            </button>
+            <button
+              onClick={() => setIsCreating(false)}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              Cancel
+            </button>
           </div>
+        </div>
+      )}
 
-          {expandedSession === session.id && (
-            <div className="px-3 pb-3 pt-2" style={{ borderTop: '1px solid var(--sg-border-subtle)' }}>
-              <div className="grid grid-cols-2 gap-2 text-xs mb-3" style={{ color: 'var(--sg-text-ghost)' }}>
-                <div><span style={{ color: 'var(--sg-text-secondary)' }}>{session.nodeCount}</span> pages</div>
-                <div><span style={{ color: 'var(--sg-text-secondary)' }}>{session.edgeCount}</span> links</div>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => switchSession(session.id)}
-                  className="flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                  style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-primary)' }}
-                >Switch</button>
-                <button
-                  onClick={() => { if (confirm('Delete this session?')) deleteSession(session.id); }}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                  style={{ background: 'rgba(251, 113, 133, 0.1)', color: 'var(--sg-rose)' }}
-                >Delete</button>
+      <div className="space-y-2">
+        {filteredSessions.map(session => (
+          <div
+            key={session.id}
+            className="rounded-xl overflow-hidden transition-all duration-300 group"
+            style={{
+              border: session.id === currentSessionId
+                ? '1px solid var(--sg-cyan)'
+                : '1px solid rgba(255, 255, 255, 0.05)',
+              background: session.id === currentSessionId
+                ? 'rgba(34, 211, 238, 0.05)'
+                : 'rgba(15, 23, 42, 0.4)',
+              boxShadow: session.id === currentSessionId
+                ? '0 0 15px rgba(34, 211, 238, 0.15)'
+                : 'none',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            <div
+              className="flex items-center justify-between p-3 cursor-pointer"
+              onClick={() => setExpandedSession(expandedSession === session.id ? null : session.id)}
+            >
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  {session.id === currentSessionId && (
+                    <motion.div
+                      layoutId="activeSessionDot"
+                      className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full bg-cyan-500 shadow-[0_0_10px_var(--sg-cyan)]"
+                    />
+                  )}
+                  {expandedSession === session.id ? (
+                    <ChevronDown className="w-4 h-4 text-slate-500" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4 text-slate-500" />
+                  )}
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium leading-none" style={{ color: 'var(--sg-text-primary)' }}>{session.name}</h4>
+                  <p className="text-[10px] font-mono mt-1" style={{ color: 'var(--sg-text-tertiary)' }}>
+                    {formatTime(session.updatedAt)}
+                  </p>
+                </div>
               </div>
             </div>
-          )}
-        </div>
-      ))}
+
+            <AnimatePresence>
+              {expandedSession === session.id && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="px-3 pb-3"
+                >
+                  <div className="grid grid-cols-2 gap-2 mb-3 p-2 rounded-lg bg-black/20">
+                    <div className="text-center">
+                      <span className="block text-xs font-bold text-slate-300">{session.nodeCount}</span>
+                      <span className="text-[9px] uppercase tracking-wider text-slate-500">Pages</span>
+                    </div>
+                    <div className="text-center border-l border-white/5">
+                      <span className="block text-xs font-bold text-purple-400">{session.edgeCount}</span>
+                      <span className="text-[9px] uppercase tracking-wider text-slate-500">Links</span>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => switchSession(session.id)}
+                      className="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-cyan-500/20 hover:text-cyan-300"
+                      style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'var(--sg-text-secondary)' }}
+                    >
+                      Load Matrix
+                    </button>
+                    <button
+                      onClick={() => { if (confirm('Delete this session?')) deleteSession(session.id); }}
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:bg-rose-500/20 hover:text-rose-300"
+                      style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'var(--sg-text-tertiary)' }}
+                    >
+                      Purge
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -228,27 +318,33 @@ function TreesTab({ searchQuery }: { searchQuery: string }) {
   return (
     <div className="space-y-2">
       {filteredTrees.length === 0 ? (
-        <div className="text-center py-8" style={{ color: 'var(--sg-text-ghost)' }}>
-          <FolderTree className="w-12 h-12 mx-auto mb-3 opacity-50" />
-          <p className="text-sm">No saved trees yet</p>
-          <p className="text-xs mt-1">Select nodes and save them as a tree</p>
+        <div className="text-center py-12 rounded-xl border border-dashed border-slate-700/50">
+          <FolderTree className="w-10 h-10 mx-auto mb-3 text-slate-600" />
+          <p className="text-sm text-slate-400">No saved forests</p>
+          <p className="text-[10px] text-slate-600 mt-1">Select nodes → Save Tree</p>
         </div>
       ) : (
         filteredTrees.map(tree => (
           <div
             key={tree.id}
-            className="flex items-center justify-between p-3 rounded-xl transition-all"
-            style={{ background: 'var(--sg-surface-2)', border: '1px solid var(--sg-border-subtle)' }}
+            className="flex items-center justify-between p-3 rounded-xl transition-all hover:bg-white/5 group"
+            style={{
+              background: 'rgba(15, 23, 42, 0.4)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(10px)'
+            }}
           >
             <div>
-              <p className="text-sm font-medium" style={{ color: 'var(--sg-text-primary)' }}>{tree.name}</p>
-              <p className="text-xs" style={{ color: 'var(--sg-text-ghost)' }}>{tree.nodeCount} pages • {formatTime(tree.createdAt)}</p>
+              <p className="text-sm font-medium text-slate-200 group-hover:text-purple-300 transition-colors">{tree.name}</p>
+              <p className="text-[10px] font-mono text-slate-500 mt-0.5">
+                {tree.nodeCount} LOCI • {formatTime(tree.createdAt)}
+              </p>
             </div>
-            <div className="flex gap-1">
-              <button onClick={() => loadTree(tree.id)} className="p-2 rounded-lg transition-all" style={{ color: 'var(--sg-text-tertiary)' }} title="Load tree">
+            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <button onClick={() => loadTree(tree.id)} className="p-1.5 rounded-lg hover:bg-purple-500/20 hover:text-purple-300 text-slate-500 transition-colors" title="Load tree">
                 <ChevronRight className="w-4 h-4" />
               </button>
-              <button onClick={() => { if (confirm('Delete?')) deleteTree(tree.id); }} className="p-2 rounded-lg transition-all" style={{ color: 'var(--sg-text-tertiary)' }} title="Delete">
+              <button onClick={() => { if (confirm('Delete?')) deleteTree(tree.id); }} className="p-1.5 rounded-lg hover:bg-rose-500/20 hover:text-rose-300 text-slate-500 transition-colors" title="Delete">
                 <MoreVertical className="w-4 h-4" />
               </button>
             </div>
@@ -270,33 +366,41 @@ function SettingsTab() {
   const setClusterByDomain = useGraphStore(state => state.setClusterByDomain);
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--sg-text-ghost)' }}>View Options</h3>
-        <ToggleSetting label="Dim closed tabs" checked={dimClosedNodes} onChange={setDimClosedNodes} />
-        <ToggleSetting label="Show thumbnails" checked={showThumbnails} onChange={setShowThumbnails} />
-        <ToggleSetting label="Show favicons" checked={showFavicons} onChange={setShowFavicons} />
-        <ToggleSetting label="Cluster by domain" checked={clusterByDomain} onChange={setClusterByDomain} />
+    <div className="space-y-6">
+      <div className="space-y-4">
+        <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 pl-1">Visual Matrix</h3>
+        <div className="space-y-1">
+          <ToggleSetting label="Dim inactive nodes" checked={dimClosedNodes} onChange={setDimClosedNodes} />
+          <ToggleSetting label="Holographic thumbnails" checked={showThumbnails} onChange={setShowThumbnails} />
+          <ToggleSetting label="Source favicons" checked={showFavicons} onChange={setShowFavicons} />
+          <ToggleSetting label="Cluster by origin" checked={clusterByDomain} onChange={setClusterByDomain} />
+        </div>
       </div>
 
-      <div className="h-px" style={{ background: 'var(--sg-border-subtle)' }} />
+      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="space-y-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--sg-text-ghost)' }}>Keyboard Shortcuts</h3>
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between" style={{ color: 'var(--sg-text-tertiary)' }}>
-            <span>Open graph</span>
-            <kbd className="px-2 py-0.5 rounded-lg text-xs" style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-ghost)' }}>Alt+G</kbd>
-          </div>
-          <div className="flex justify-between" style={{ color: 'var(--sg-text-tertiary)' }}>
-            <span>Fit view</span>
-            <kbd className="px-2 py-0.5 rounded-lg text-xs" style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-ghost)' }}>F</kbd>
-          </div>
-          <div className="flex justify-between" style={{ color: 'var(--sg-text-tertiary)' }}>
-            <span>Reset view</span>
-            <kbd className="px-2 py-0.5 rounded-lg text-xs" style={{ background: 'var(--sg-surface-3)', color: 'var(--sg-text-ghost)' }}>R</kbd>
-          </div>
+      <div className="space-y-4">
+        <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 pl-1">Neural Links</h3>
+        <div className="space-y-2">
+          <ShortcutRow label="Quick Access" keys={['Alt', 'G']} />
+          <ShortcutRow label="Fit Universe" keys={['F']} />
+          <ShortcutRow label="Reset Viewport" keys={['R']} />
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ShortcutRow({ label, keys }: { label: string, keys: string[] }) {
+  return (
+    <div className="flex justify-between items-center px-1">
+      <span className="text-xs text-slate-400">{label}</span>
+      <div className="flex gap-1">
+        {keys.map(k => (
+          <kbd key={k} className="px-1.5 py-0.5 rounded-md text-[10px] font-mono bg-slate-800 border border-slate-700 text-slate-300 shadow-sm">
+            {k}
+          </kbd>
+        ))}
       </div>
     </div>
   );
@@ -304,17 +408,17 @@ function SettingsTab() {
 
 function ToggleSetting({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
   return (
-    <label className="flex items-center justify-between cursor-pointer">
-      <span className="text-sm font-medium" style={{ color: 'var(--sg-text-secondary)' }}>{label}</span>
+    <label className="flex items-center justify-between cursor-pointer py-1.5 px-2 rounded-lg hover:bg-white/5 transition-colors group">
+      <span className="text-sm font-medium text-slate-300 group-hover:text-slate-200">{label}</span>
       <button
         onClick={() => onChange(!checked)}
-        className="w-10 h-5 rounded-full transition-all relative"
+        className="w-9 h-5 rounded-full transition-all relative"
         style={{
-          background: checked ? 'var(--sg-cyan)' : 'var(--sg-surface-3)',
-          boxShadow: checked ? '0 0 10px rgba(34, 211, 238, 0.3)' : 'none',
+          background: checked ? 'var(--sg-cyan)' : 'rgba(255, 255, 255, 0.1)',
+          boxShadow: checked ? '0 0 10px rgba(34, 211, 238, 0.4)' : 'none',
         }}
       >
-        <span className={cn("absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform", checked ? "left-5" : "left-0.5")} />
+        <span className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-transform", checked ? "left-5" : "left-1")} />
       </button>
     </label>
   );
