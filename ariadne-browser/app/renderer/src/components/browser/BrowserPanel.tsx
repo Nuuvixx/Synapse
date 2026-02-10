@@ -118,8 +118,10 @@ export function BrowserPanel({
                                     className={cn(
                                         "group relative flex items-center gap-2 px-6 h-[34px] cursor-pointer transition-all duration-200",
                                         "tab-shape flex-shrink-0 -ml-3 hover:z-20",
+                                        "focus:outline-none focus-visible:outline-none focus:ring-0",
                                         tab.isActive ? "z-30" : "z-10"
                                     )}
+                                    tabIndex={0}
                                     style={{
                                         maxWidth: '240px',
                                         minWidth: '140px',
@@ -158,7 +160,7 @@ export function BrowserPanel({
                                             handleCloseTab(tab.id);
                                         }}
                                         className={cn(
-                                            "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0",
+                                            "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0 focus:outline-none focus-visible:outline-none focus:ring-0",
                                             tab.isActive
                                                 ? "opacity-100"
                                                 : "opacity-0 group-hover:opacity-100"
