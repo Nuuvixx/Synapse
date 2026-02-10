@@ -39,6 +39,7 @@ interface GraphState {
   viewport: ViewportState;
   isLoading: boolean;
   error: string | null;
+  sidebarOpen: boolean;
 
   // View Settings
   dimClosedNodes: boolean;
@@ -89,6 +90,7 @@ interface GraphState {
   setShowThumbnails: (value: boolean) => void;
   setShowFavicons: (value: boolean) => void;
   setClusterByDomain: (value: boolean) => void;
+  setSidebarOpen: (value: boolean) => void;
 
   // Export/Import
   exportSession: () => Promise<void>;
@@ -129,6 +131,7 @@ export const useGraphStore = create<GraphState>()(
       viewport: { x: 0, y: 0, zoom: 1 },
       isLoading: false,
       error: null,
+      sidebarOpen: true,
 
       dimClosedNodes: true,
       showThumbnails: true,
@@ -487,6 +490,7 @@ export const useGraphStore = create<GraphState>()(
       setShowThumbnails: (value: boolean) => set({ showThumbnails: value }),
       setShowFavicons: (value: boolean) => set({ showFavicons: value }),
       setClusterByDomain: (value: boolean) => set({ clusterByDomain: value }),
+      setSidebarOpen: (value: boolean) => set({ sidebarOpen: value }),
 
       // Export session
       exportSession: async () => {

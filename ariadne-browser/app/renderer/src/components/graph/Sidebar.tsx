@@ -18,8 +18,9 @@ import {
   ChevronDown,
   Search
 } from 'lucide-react';
-import { useGraphStore } from '@/store/graphStore';
 import { cn } from '@/lib/utils';
+import { useSynapseClient } from '@/services/SynapseClient';
+import { useGraphStore } from '@/store/graphStore';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -29,8 +30,28 @@ interface SidebarProps {
 type TabType = 'sessions' | 'trees' | 'settings';
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const sidebarOpen = useGraphStore(state => state.sidebarOpen);
   const [activeTab, setActiveTab] = useState<TabType>('sessions');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Synapse Client
+  const { isConnected, connect, capturePage } = useSynapseClient();
+
+  // Auto-connect on mount
+  useState(() => {
+    connect();
+  });
+
+  const handleCapture = () => {
+    if (isConnected) {
+      capturePage({
+        title: document.title || 'Unknown Page',
+        url: window.location.href, // This might be the app URL, not the browser view URL. We need the active tab info.
+        content: 'Snapshot taken from Ariadne', // Placeholder
+        favicon: ''
+      });
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -41,41 +62,56 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={() => useGraphStore.getState().setSidebarOpen(false)}
             className="fixed inset-0 z-40"
             style={{ background: 'rgba(2, 6, 23, 0.6)', backdropFilter: 'blur(4px)' }}
           />
 
-          {/* Sidebar */}
           {/* Sidebar - Floating Command Module */}
           <motion.div
-            initial={{ x: -340, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -340, opacity: 0 }}
-            className="fixed left-2 top-10 bottom-2 w-80 z-50 flex flex-col rounded-2xl overflow-hidden"
+            initial={{ x: -320, opacity: 0 }}
+            animate={{
+              x: sidebarOpen ? 0 : -320,
+              opacity: sidebarOpen ? 1 : 0
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="fixed left-2 top-10 bottom-2 w-80 z-40 flex flex-col rounded-2xl border border-white/10 shadow-2xl overflow-hidden backdrop-blur-2xl"
             style={{
               background: 'rgba(15, 23, 42, 0.6)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+              boxShadow: '0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05)'
             }}
           >
-            {/* Header */}
-            <div className="p-4 space-y-4" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-              <div className="flex items-center justify-between">
-                <h1 className="font-mono text-xs font-bold tracking-widest uppercase"
-                  style={{ color: 'var(--sg-cyan)', textShadow: '0 0 10px rgba(34, 211, 238, 0.5)' }}>
-                  Ariadne // Spatial
+            {/* Header & Branding */}
+            <div className="h-12 flex items-center justify-between px-4 border-b border-white/5 bg-white/5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-50" />
+
+              <div className="flex items-center gap-3 relative z-10">
+                <div
+                  className="w-2 h-2 rounded-full animate-pulse transition-colors duration-500"
+                  style={{
+                    background: isConnected ? 'var(--sg-success)' : 'var(--sg-error)',
+                    boxShadow: isConnected ? '0 0 10px var(--sg-success)' : 'none'
+                  }}
+                  title={isConnected ? "Synapse Linked" : "Neural Link Severed"}
+                />
+                <h1 className="font-mono text-xs font-bold tracking-[0.2em] text-cyan-100/80">
+                  ARIADNE <span className="text-cyan-400">//</span> SPATIAL
                 </h1>
-                <div className="flex gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
-                </div>
               </div>
 
-              {/* Search */}
+              {/* Capture Button (Debug/foundational) */}
+              <button
+                onClick={handleCapture}
+                disabled={!isConnected}
+                className="relative z-10 p-1.5 rounded-md hover:bg-white/10 transition-colors disabled:opacity-30"
+                title="Capture Verification"
+              >
+                <div className="w-3 h-3 border border-current rounded-sm" />
+              </button>
+            </div>
+
+            {/* Search */}
+            <div className="p-4 pb-2">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--sg-text-ghost)' }} />
                 <input
