@@ -18,6 +18,7 @@ export interface Tab {
     url: string;
     title: string;
     favicon: string | null;
+    screenshot: string | null; // Base64 data URL of page screenshot
     isActive: boolean;
 }
 
@@ -27,7 +28,9 @@ export interface TabInfo {
     url: string;
     title: string;
     favicon: string | null;
+    screenshot: string | null;
     isActive: boolean;
+    isLoading: boolean;
 }
 
 const TITLE_BAR_HEIGHT = 32; // Height of custom title bar
@@ -196,6 +199,7 @@ export class TabManager {
             url,
             title: 'Loading...',
             favicon: null,
+            screenshot: null,
             isActive: false
         };
 
@@ -218,6 +222,29 @@ export class TabManager {
         view.webContents.on('did-navigate-in-page', (_event, url) => {
             tab.url = url;
             this.notifyTabUpdate(tab);
+        });
+
+        // Capture screenshot when page finishes loading
+        view.webContents.on('did-finish-load', async () => {
+            try {
+                // Wait a bit for dynamic content to render
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Capture page screenshot (optimized for thumbnails)
+                const image = await view.webContents.capturePage({
+                    x: 0,
+                    y: 0,
+                    width: 1280,
+                    height: 720
+                });
+
+                // Resize to thumbnail size (320x180) to save memory
+                const resized = image.resize({ width: 320, height: 180 });
+                tab.screenshot = resized.toDataURL();
+                this.notifyTabUpdate(tab);
+            } catch (error) {
+                console.error('Failed to capture screenshot:', error);
+            }
         });
 
         // Intercept link clicks that try to open new windows
@@ -368,7 +395,9 @@ export class TabManager {
             url: tab.url,
             title: tab.title,
             favicon: tab.favicon,
-            isActive: tab.isActive
+            screenshot: tab.screenshot,
+            isActive: tab.isActive,
+            isLoading: tab.view.webContents.isLoading()
         };
     }
 

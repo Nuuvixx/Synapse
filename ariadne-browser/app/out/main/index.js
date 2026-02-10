@@ -232,6 +232,7 @@ class TabManager {
       url,
       title: "Loading...",
       favicon: null,
+      screenshot: null,
       isActive: false
     };
     view.webContents.on("page-title-updated", (_event, title) => {
@@ -249,6 +250,22 @@ class TabManager {
     view.webContents.on("did-navigate-in-page", (_event, url2) => {
       tab.url = url2;
       this.notifyTabUpdate(tab);
+    });
+    view.webContents.on("did-finish-load", async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        const image = await view.webContents.capturePage({
+          x: 0,
+          y: 0,
+          width: 1280,
+          height: 720
+        });
+        const resized = image.resize({ width: 320, height: 180 });
+        tab.screenshot = resized.toDataURL();
+        this.notifyTabUpdate(tab);
+      } catch (error) {
+        console.error("Failed to capture screenshot:", error);
+      }
     });
     view.webContents.setWindowOpenHandler(({ url: url2 }) => {
       this.createTab(url2);
@@ -358,7 +375,9 @@ class TabManager {
       url: tab.url,
       title: tab.title,
       favicon: tab.favicon,
-      isActive: tab.isActive
+      screenshot: tab.screenshot,
+      isActive: tab.isActive,
+      isLoading: tab.view.webContents.isLoading()
     };
   }
   /**

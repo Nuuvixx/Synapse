@@ -127,7 +127,9 @@ export interface TabInfo {
   url: string;
   title: string;
   favicon: string | null;
+  screenshot: string | null;
   isActive: boolean;
+  isLoading: boolean;
 }
 
 // Tab API exposed via preload

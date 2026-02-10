@@ -75,6 +75,7 @@ export function useTabNodeSync(options: UseTabNodeSyncOptions = {}): TabNodeSync
                                     url: tabInfo.url,
                                     title: tabInfo.title,
                                     favicon: tabInfo.favicon,
+                                    screenshot: tabInfo.screenshot,
                                     status: tabInfo.isActive ? 'active' as const : n.status,
                                     updatedAt: Date.now(),
                                     lastActive: tabInfo.isActive ? Date.now() : n.lastActive

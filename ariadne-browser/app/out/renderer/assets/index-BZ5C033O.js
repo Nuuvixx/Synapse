@@ -35950,6 +35950,7 @@ function useTabNodeSync(options = {}) {
                 url: tabInfo.url,
                 title: tabInfo.title,
                 favicon: tabInfo.favicon,
+                screenshot: tabInfo.screenshot,
                 status: tabInfo.isActive ? "active" : n.status,
                 updatedAt: Date.now(),
                 lastActive: tabInfo.isActive ? Date.now() : n.lastActive
