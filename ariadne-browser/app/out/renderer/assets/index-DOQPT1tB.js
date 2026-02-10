@@ -28723,26 +28723,16 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$D = [
+const __iconNode$C = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$D);
-const __iconNode$C = [
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$C);
+const __iconNode$B = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$C);
-const __iconNode$B = [
-  [
-    "path",
-    {
-      d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20",
-      key: "k3hazp"
-    }
-  ]
-];
-const Book = createLucideIcon("book", __iconNode$B);
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$B);
 const __iconNode$A = [
   ["path", { d: "m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z", key: "1fy3hk" }]
 ];
@@ -28868,6 +28858,11 @@ const __iconNode$k = [
 ];
 const Link2 = createLucideIcon("link-2", __iconNode$k);
 const __iconNode$j = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+const Lock = createLucideIcon("lock", __iconNode$j);
+const __iconNode$i = [
   [
     "path",
     {
@@ -28878,28 +28873,28 @@ const __iconNode$j = [
   ["path", { d: "M15 5.764v15", key: "1pn4in" }],
   ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$j);
-const __iconNode$i = [
+const Map$1 = createLucideIcon("map", __iconNode$i);
+const __iconNode$h = [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3", key: "1dcmit" }],
   ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
   ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
   ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
 ];
-const Maximize = createLucideIcon("maximize", __iconNode$i);
-const __iconNode$h = [
+const Maximize = createLucideIcon("maximize", __iconNode$h);
+const __iconNode$g = [
   ["path", { d: "M4 5h16", key: "1tepv9" }],
   ["path", { d: "M4 12h16", key: "1lakjw" }],
   ["path", { d: "M4 19h16", key: "1djgab" }]
 ];
-const Menu = createLucideIcon("menu", __iconNode$h);
-const __iconNode$g = [["path", { d: "M5 12h14", key: "1ays0h" }]];
-const Minus = createLucideIcon("minus", __iconNode$g);
-const __iconNode$f = [
+const Menu = createLucideIcon("menu", __iconNode$g);
+const __iconNode$f = [["path", { d: "M5 12h14", key: "1ays0h" }]];
+const Minus = createLucideIcon("minus", __iconNode$f);
+const __iconNode$e = [
   ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1", key: "kaeet6" }],
   ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
 ];
-const Pause = createLucideIcon("pause", __iconNode$f);
-const __iconNode$e = [
+const Pause = createLucideIcon("pause", __iconNode$e);
+const __iconNode$d = [
   [
     "path",
     {
@@ -28908,28 +28903,28 @@ const __iconNode$e = [
     }
   ]
 ];
-const Play = createLucideIcon("play", __iconNode$e);
-const __iconNode$d = [
+const Play = createLucideIcon("play", __iconNode$d);
+const __iconNode$c = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-const Plus = createLucideIcon("plus", __iconNode$d);
-const __iconNode$c = [
+const Plus = createLucideIcon("plus", __iconNode$c);
+const __iconNode$b = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$c);
-const __iconNode$b = [
+const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$b);
+const __iconNode$a = [
   ["path", { d: "M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8", key: "1p45f6" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }]
 ];
-const RotateCw = createLucideIcon("rotate-cw", __iconNode$b);
-const __iconNode$a = [
+const RotateCw = createLucideIcon("rotate-cw", __iconNode$a);
+const __iconNode$9 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const Search = createLucideIcon("search", __iconNode$a);
-const __iconNode$9 = [
+const Search = createLucideIcon("search", __iconNode$9);
+const __iconNode$8 = [
   [
     "path",
     {
@@ -28939,17 +28934,7 @@ const __iconNode$9 = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Settings = createLucideIcon("settings", __iconNode$9);
-const __iconNode$8 = [
-  [
-    "path",
-    {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
-    }
-  ]
-];
-const Shield = createLucideIcon("shield", __iconNode$8);
+const Settings = createLucideIcon("settings", __iconNode$8);
 const __iconNode$7 = [
   [
     "path",
@@ -35468,11 +35453,14 @@ function AddressBar({
   onReload,
   canGoBack,
   canGoForward,
-  isLoading = false
+  isLoading = false,
+  isBookmarked = false,
+  onToggleBookmark,
+  onToggleBookmarksBar,
+  showBookmarksBar = true
 }) {
   const [inputValue, setInputValue] = reactExports.useState("");
   const [isFocused, setIsFocused] = reactExports.useState(false);
-  const [isBookmarked, setIsBookmarked] = reactExports.useState(false);
   const inputRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
     if (activeTab && !isFocused) {
@@ -35503,142 +35491,125 @@ function AddressBar({
     }
   };
   const isSecure = activeTab?.url?.startsWith("https://");
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-10 flex items-center gap-2 px-3 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: onBack,
-          disabled: !canGoBack,
-          className: cn(
-            "p-1.5 rounded-md transition-colors",
-            canGoBack ? "hover:bg-slate-700 text-slate-300 hover:text-white" : "text-slate-600 cursor-not-allowed"
-          ),
-          title: "Go back",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 16 })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: onForward,
-          disabled: !canGoForward,
-          className: cn(
-            "p-1.5 rounded-md transition-colors",
-            canGoForward ? "hover:bg-slate-700 text-slate-300 hover:text-white" : "text-slate-600 cursor-not-allowed"
-          ),
-          title: "Go forward",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { size: 16 })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: onReload,
-          disabled: !activeTab,
-          className: cn(
-            "p-1.5 rounded-md transition-colors",
-            activeTab ? "hover:bg-slate-700 text-slate-300 hover:text-white" : "text-slate-600 cursor-not-allowed"
-          ),
-          title: "Reload",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCw, { size: 16, className: isLoading ? "animate-spin" : "" })
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("form", { onSubmit: handleSubmit, className: "flex-1 relative", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: cn(
-      "flex items-center gap-2 px-3 py-1.5 rounded-full transition-all",
-      "bg-slate-800 border",
-      isFocused ? "border-cyan-500/50 ring-2 ring-cyan-500/20" : "border-slate-700 hover:border-slate-600"
-    ), children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(AnimatePresence, { mode: "wait", children: [
-        activeTab && !isFocused && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.div,
-          {
-            initial: { opacity: 0, scale: 0.8 },
-            animate: { opacity: 1, scale: 1 },
-            exit: { opacity: 0, scale: 0.8 },
-            children: isSecure ? /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { size: 14, className: "text-emerald-400" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { size: 14, className: "text-slate-500" })
-          }
-        ),
-        (!activeTab || isFocused) && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.div,
-          {
-            initial: { opacity: 0, scale: 0.8 },
-            animate: { opacity: 1, scale: 1 },
-            exit: { opacity: 0, scale: 0.8 },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 14, className: "text-slate-500" })
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "input",
-        {
-          ref: inputRef,
-          type: "text",
-          value: isFocused ? inputValue : getDisplayUrl(),
-          onChange: (e) => setInputValue(e.target.value),
-          onFocus: () => {
-            setIsFocused(true);
-            setInputValue(activeTab?.url || "");
-            setTimeout(() => inputRef.current?.select(), 0);
-          },
-          onBlur: () => setIsFocused(false),
-          placeholder: "Search or enter URL...",
-          className: "flex-1 bg-transparent text-sm text-slate-200 placeholder-slate-500 focus:outline-none"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isFocused && inputValue && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        motion.button,
-        {
-          type: "button",
-          initial: { opacity: 0, scale: 0.8 },
-          animate: { opacity: 1, scale: 1 },
-          exit: { opacity: 0, scale: 0.8 },
-          onClick: () => {
-            setInputValue("");
-            inputRef.current?.focus();
-          },
-          className: "p-0.5 hover:bg-slate-600 rounded transition-colors",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 12, className: "text-slate-400" })
-        }
-      ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          type: "button",
-          onClick: () => setIsBookmarked(!isBookmarked),
-          className: cn(
-            "p-1 rounded-full transition-colors mr-1",
-            "hover:bg-slate-700",
-            isBookmarked ? "text-yellow-400" : "text-slate-400 hover:text-slate-200"
-          ),
-          title: isBookmarked ? "Edit Bookmark" : "Bookmark this tab",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { size: 14, fill: isBookmarked ? "currentColor" : "none" })
-        }
-      )
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeTab && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
-      {
-        initial: { opacity: 0, x: 10 },
-        animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: 10 },
-        className: "flex items-center gap-2 max-w-48 overflow-hidden",
-        children: [
-          activeTab.favicon && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "flex items-center gap-2 px-2 no-drag-region",
+      style: {
+        background: "#292b2f",
+        height: "42px",
+        borderBottom: "1px solid #3b3d44"
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-0.5", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
             {
-              src: activeTab.favicon,
-              alt: "",
-              className: "w-4 h-4 rounded",
-              onError: (e) => e.currentTarget.style.display = "none"
+              onClick: onBack,
+              disabled: !canGoBack,
+              className: cn(
+                "p-1.5 rounded-full transition-colors",
+                canGoBack ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white" : "text-[#5f6368] cursor-not-allowed"
+              ),
+              title: "Go back (Alt+←)",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 18 })
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-slate-400 truncate", children: activeTab.title || "Loading..." })
-        ]
-      }
-    ) })
-  ] });
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: onForward,
+              disabled: !canGoForward,
+              className: cn(
+                "p-1.5 rounded-full transition-colors",
+                canGoForward ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white" : "text-[#5f6368] cursor-not-allowed"
+              ),
+              title: "Go forward (Alt+→)",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { size: 18 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: onReload,
+              disabled: !activeTab,
+              className: cn(
+                "p-1.5 rounded-full transition-colors",
+                activeTab ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white" : "text-[#5f6368] cursor-not-allowed"
+              ),
+              title: "Reload (Ctrl+R)",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCw, { size: 16, className: isLoading ? "animate-spin" : "" })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("form", { onSubmit: handleSubmit, className: "flex-1 relative", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: cn(
+          "flex items-center gap-2 px-3 py-1.5 rounded-full transition-all",
+          "border",
+          isFocused ? "bg-[#202124] border-[#8ab4f8] ring-1 ring-[#8ab4f8]/30" : "bg-[#35363a] border-transparent hover:bg-[#3c3d41]"
+        ), children: [
+          activeTab && !isFocused ? isSecure ? /* @__PURE__ */ jsxRuntimeExports.jsx(Lock, { size: 14, className: "text-[#9aa0a6] flex-shrink-0" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 14, className: "text-[#9aa0a6] flex-shrink-0" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 14, className: "text-[#9aa0a6] flex-shrink-0" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              ref: inputRef,
+              type: "text",
+              value: isFocused ? inputValue : getDisplayUrl(),
+              onChange: (e) => setInputValue(e.target.value),
+              onFocus: () => {
+                setIsFocused(true);
+                setInputValue(activeTab?.url || "");
+                setTimeout(() => inputRef.current?.select(), 0);
+              },
+              onBlur: () => setIsFocused(false),
+              placeholder: "Search or enter URL...",
+              className: "flex-1 bg-transparent text-sm text-[#e8eaed] placeholder-[#9aa0a6] focus:outline-none"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isFocused && inputValue && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.button,
+            {
+              type: "button",
+              initial: { opacity: 0, scale: 0.8 },
+              animate: { opacity: 1, scale: 1 },
+              exit: { opacity: 0, scale: 0.8 },
+              onClick: () => {
+                setInputValue("");
+                inputRef.current?.focus();
+              },
+              className: "p-0.5 hover:bg-[#5f6368] rounded-full transition-colors",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14, className: "text-[#9aa0a6]" })
+            }
+          ) }),
+          activeTab && onToggleBookmark && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              type: "button",
+              onClick: onToggleBookmark,
+              className: cn(
+                "p-0.5 rounded-full transition-colors",
+                "hover:bg-[#35363a]",
+                isBookmarked ? "text-[#fbbc04]" : "text-[#9aa0a6] hover:text-white"
+              ),
+              title: isBookmarked ? "Remove bookmark" : "Bookmark this tab",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { size: 16, fill: isBookmarked ? "currentColor" : "none" })
+            }
+          )
+        ] }) }),
+        onToggleBookmarksBar && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: onToggleBookmarksBar,
+            className: cn(
+              "p-1.5 rounded-full transition-colors",
+              showBookmarksBar ? "text-[#8ab4f8] bg-[#8ab4f8]/10" : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
+            ),
+            title: showBookmarksBar ? "Hide bookmarks bar" : "Show bookmarks bar",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Bookmark, { size: 16 })
+          }
+        )
+      ]
+    }
+  );
 }
 function BrowserViewport({
   activeTab,
@@ -36126,6 +36097,56 @@ const useTabNodeSync$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   getTabNodeAssociations,
   useTabNodeSync
 }, Symbol.toStringTag, { value: "Module" }));
+const STORAGE_KEY = "ariadne-bookmarks";
+function loadBookmarks() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+function saveBookmarks(bookmarks) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(bookmarks));
+  } catch (err) {
+    console.error("Failed to save bookmarks:", err);
+  }
+}
+function useBookmarks() {
+  const [bookmarks, setBookmarks] = reactExports.useState(loadBookmarks);
+  reactExports.useEffect(() => {
+    saveBookmarks(bookmarks);
+  }, [bookmarks]);
+  const addBookmark = reactExports.useCallback((url, title, favicon = null) => {
+    setBookmarks((prev) => {
+      if (prev.some((b) => b.url === url)) return prev;
+      return [...prev, { url, title, favicon, addedAt: Date.now() }];
+    });
+  }, []);
+  const removeBookmark = reactExports.useCallback((url) => {
+    setBookmarks((prev) => prev.filter((b) => b.url !== url));
+  }, []);
+  const toggleBookmark = reactExports.useCallback((url, title, favicon = null) => {
+    setBookmarks((prev) => {
+      const exists = prev.some((b) => b.url === url);
+      if (exists) {
+        return prev.filter((b) => b.url !== url);
+      }
+      return [...prev, { url, title, favicon, addedAt: Date.now() }];
+    });
+  }, []);
+  const isBookmarked = reactExports.useCallback((url) => {
+    return bookmarks.some((b) => b.url === url);
+  }, [bookmarks]);
+  return {
+    bookmarks,
+    addBookmark,
+    removeBookmark,
+    toggleBookmark,
+    isBookmarked
+  };
+}
 function BrowserPanel({
   isOpen,
   fullscreen = false,
@@ -36143,6 +36164,8 @@ function BrowserPanel({
     reload
   } = useTabManager();
   const { createTabWithNode, closeTabAndNode } = useTabNodeSync();
+  const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks();
+  const [showBookmarksBar, setShowBookmarksBar] = reactExports.useState(true);
   const canGoBack = true;
   const canGoForward = true;
   const handleNavigate = async (url) => {
@@ -36158,6 +36181,11 @@ function BrowserPanel({
   const handleCloseTab = async (tabId) => {
     await closeTabAndNode(tabId);
   };
+  const handleToggleBookmark = () => {
+    if (activeTab) {
+      toggleBookmark(activeTab.url, activeTab.title, activeTab.favicon);
+    }
+  };
   const panelWidth = fullscreen ? "100%" : "50%";
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
@@ -36167,99 +36195,97 @@ function BrowserPanel({
       exit: { width: 0, opacity: 0 },
       transition: { type: "spring", damping: 25, stiffness: 300 },
       className: cn(
-        "h-full flex flex-col bg-slate-900 overflow-hidden",
-        !fullscreen && "border-l border-slate-800"
+        "h-full flex flex-col overflow-hidden",
+        !fullscreen && "border-l border-[#3b3d44]"
       ),
+      style: { background: "#202124" },
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-10 flex items-center gap-1 px-2 bg-slate-850 border-b border-slate-800", children: [
-          onToggleGraph && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: onToggleGraph,
-              className: cn(
-                "p-2 mr-1 rounded-lg transition-all duration-200",
-                "hover:bg-slate-700/70",
-                showGraph ? "text-emerald-400 bg-emerald-500/10" : "text-slate-400 hover:text-slate-200"
-              ),
-              title: showGraph ? "Hide Graph View (Alt+V)" : "Show Graph View (Alt+V)",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(LayoutGrid, { size: 18 })
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end flex-1 overflow-x-auto min-h-[40px] px-1 no-scrollbar", children: tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              onClick: () => switchTab(tab.id),
-              className: cn(
-                "group relative flex items-center gap-2 px-3 py-2.5 transition-all duration-200",
-                "rounded-t-xl mx-0.5",
-                // More rounded top corners
-                "flex-1 min-w-[30px] max-w-[240px]",
-                // Better sizing behavior
-                tab.isActive ? "bg-slate-900 text-white shadow-sm z-10" : "bg-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
-              ),
-              title: tab.title,
-              children: [
-                tab.favicon ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "img",
-                  {
-                    src: tab.favicon,
-                    alt: "",
-                    className: "w-4 h-4 rounded flex-shrink-0",
-                    onError: (e) => e.currentTarget.style.display = "none"
-                  }
-                ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-4 h-4 rounded bg-slate-600 flex-shrink-0" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: cn(
-                  "text-xs truncate text-left transition-opacity",
-                  // Hide title if tab gets too small, unless hovered
-                  "flex-1"
-                ), children: tab.title || "New Tab" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "span",
-                  {
-                    onClick: (e) => {
-                      e.stopPropagation();
-                      handleCloseTab(tab.id);
-                    },
-                    className: cn(
-                      "p-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all cursor-pointer",
-                      "hover:bg-slate-700 hover:text-white text-slate-400",
-                      // Always show close button on active tab if space permits
-                      tab.isActive && "opacity-100"
-                    ),
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
-                  }
-                ),
-                !tab.isActive && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-0 top-2 bottom-2 w-[1px] bg-slate-700/50 group-hover:hidden" })
-              ]
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "div",
+          {
+            className: "flex items-end px-1 pt-1 no-drag-region",
+            style: {
+              background: "#202124",
+              minHeight: "40px"
             },
-            tab.id
-          )) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 px-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "button",
-              {
-                className: cn(
-                  "p-2 rounded-lg transition-all duration-200",
-                  "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
-                ),
-                title: "Bookmarks",
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Book, { size: 18 })
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "button",
-              {
-                onClick: () => handleCreateTab("https://www.google.com"),
-                className: cn(
-                  "p-2 rounded-full transition-all duration-200",
-                  "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
-                ),
-                title: "New Tab",
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 20 })
-              }
-            )
-          ] })
-        ] }),
+            children: [
+              onToggleGraph && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: onToggleGraph,
+                  className: cn(
+                    "p-1.5 mb-1 mr-1 rounded-md transition-colors flex-shrink-0",
+                    showGraph ? "text-emerald-400 bg-emerald-500/10" : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
+                  ),
+                  title: showGraph ? "Hide Graph (Alt+V)" : "Show Graph (Alt+V)",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(LayoutGrid, { size: 16 })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end flex-1 overflow-x-auto no-scrollbar", children: [
+                tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "div",
+                  {
+                    onClick: () => switchTab(tab.id),
+                    className: cn(
+                      "group relative flex items-center gap-2 px-3 h-[34px] cursor-pointer transition-colors duration-150",
+                      "rounded-t-lg flex-shrink-0",
+                      tab.isActive ? "bg-[#292b2f] text-[#e8eaed]" : "text-[#9aa0a6] hover:bg-[#292b2f]/50 hover:text-[#c4c7cc]"
+                    ),
+                    style: {
+                      maxWidth: "240px",
+                      minWidth: tabs.length > 8 ? "40px" : "120px",
+                      width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`
+                    },
+                    title: tab.title,
+                    children: [
+                      tab.favicon ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "img",
+                        {
+                          src: tab.favicon,
+                          alt: "",
+                          className: "w-4 h-4 rounded-sm flex-shrink-0",
+                          onError: (e) => {
+                            e.currentTarget.style.display = "none";
+                          }
+                        }
+                      ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-4 h-4 rounded-sm flex-shrink-0", style: { background: "#5f6368" } }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[12px] truncate flex-1 text-left leading-none", children: tab.title || "New Tab" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "span",
+                        {
+                          onClick: (e) => {
+                            e.stopPropagation();
+                            handleCloseTab(tab.id);
+                          },
+                          className: cn(
+                            "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0",
+                            "hover:bg-[#5f6368] text-[#9aa0a6] hover:text-white",
+                            tab.isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                          ),
+                          children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
+                        }
+                      ),
+                      !tab.isActive && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-0 top-[6px] bottom-[6px] w-[1px] bg-[#3b3d44] group-hover:opacity-0 transition-opacity" })
+                    ]
+                  },
+                  tab.id
+                )),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "button",
+                  {
+                    onClick: () => handleCreateTab("https://www.google.com"),
+                    className: cn(
+                      "p-1.5 mb-0.5 ml-1 rounded-full transition-colors flex-shrink-0",
+                      "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
+                    ),
+                    title: "New Tab (Ctrl+T)",
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 18 })
+                  }
+                )
+              ] })
+            ]
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           AddressBar,
           {
@@ -36270,9 +36296,51 @@ function BrowserPanel({
             onReload: reload,
             canGoBack,
             canGoForward,
-            isLoading
+            isLoading,
+            isBookmarked: activeTab ? isBookmarked(activeTab.url) : false,
+            onToggleBookmark: handleToggleBookmark,
+            onToggleBookmarksBar: () => setShowBookmarksBar(!showBookmarksBar),
+            showBookmarksBar
           }
         ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: showBookmarksBar && bookmarks.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
+          {
+            initial: { height: 0, opacity: 0 },
+            animate: { height: "auto", opacity: 1 },
+            exit: { height: 0, opacity: 0 },
+            transition: { duration: 0.15 },
+            className: "overflow-hidden border-b border-[#3b3d44]",
+            style: { background: "#292b2f" },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-1 px-3 py-1 overflow-x-auto no-scrollbar", children: bookmarks.map((bm) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                onClick: () => handleNavigate(bm.url),
+                className: cn(
+                  "flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors",
+                  "text-[#c4c7cc] hover:bg-[#35363a] hover:text-white",
+                  "text-[12px] whitespace-nowrap flex-shrink-0"
+                ),
+                title: bm.url,
+                children: [
+                  bm.favicon ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "img",
+                    {
+                      src: bm.favicon,
+                      alt: "",
+                      className: "w-3.5 h-3.5 rounded-sm",
+                      onError: (e) => {
+                        e.currentTarget.style.display = "none";
+                      }
+                    }
+                  ) : /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { size: 12, className: "text-[#9aa0a6] flex-shrink-0" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "max-w-[120px] truncate", children: bm.title || new URL(bm.url).hostname })
+                ]
+              },
+              bm.url
+            )) })
+          }
+        ) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           BrowserViewport,
           {

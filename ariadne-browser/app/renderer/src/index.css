@@ -10,6 +10,16 @@
   -webkit-app-region: no-drag;
 }
 
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 
 /* Ariadne - Spatial Web Browser Styles */
 

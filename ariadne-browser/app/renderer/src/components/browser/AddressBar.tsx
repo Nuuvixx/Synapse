@@ -2,6 +2,7 @@
  * AddressBar Component
  * 
  * URL input and navigation controls for the active browser tab.
+ * Brave-inspired design with bookmark star and clean layout.
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -9,10 +10,11 @@ import {
     ArrowLeft,
     ArrowRight,
     RotateCw,
-    Shield,
+    Lock,
     Search,
     X,
-    Star
+    Star,
+    Bookmark
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -27,6 +29,10 @@ interface AddressBarProps {
     canGoBack: boolean;
     canGoForward: boolean;
     isLoading?: boolean;
+    isBookmarked?: boolean;
+    onToggleBookmark?: () => void;
+    onToggleBookmarksBar?: () => void;
+    showBookmarksBar?: boolean;
 }
 
 export function AddressBar({
@@ -37,11 +43,14 @@ export function AddressBar({
     onReload,
     canGoBack,
     canGoForward,
-    isLoading = false
+    isLoading = false,
+    isBookmarked = false,
+    onToggleBookmark,
+    onToggleBookmarksBar,
+    showBookmarksBar = true
 }: AddressBarProps) {
     const [inputValue, setInputValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
-    const [isBookmarked, setIsBookmarked] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     // Sync input with active tab URL
@@ -84,51 +93,57 @@ export function AddressBar({
         }
     };
 
-    // Check if HTTPS
     const isSecure = activeTab?.url?.startsWith('https://');
 
     return (
-        <div className="h-10 flex items-center gap-2 px-3 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800">
+        <div
+            className="flex items-center gap-2 px-2 no-drag-region"
+            style={{
+                background: '#292b2f',
+                height: '42px',
+                borderBottom: '1px solid #3b3d44'
+            }}
+        >
             {/* Navigation Controls */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-0.5">
                 <button
                     onClick={onBack}
                     disabled={!canGoBack}
                     className={cn(
-                        "p-1.5 rounded-md transition-colors",
+                        "p-1.5 rounded-full transition-colors",
                         canGoBack
-                            ? "hover:bg-slate-700 text-slate-300 hover:text-white"
-                            : "text-slate-600 cursor-not-allowed"
+                            ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white"
+                            : "text-[#5f6368] cursor-not-allowed"
                     )}
-                    title="Go back"
+                    title="Go back (Alt+←)"
                 >
-                    <ArrowLeft size={16} />
+                    <ArrowLeft size={18} />
                 </button>
 
                 <button
                     onClick={onForward}
                     disabled={!canGoForward}
                     className={cn(
-                        "p-1.5 rounded-md transition-colors",
+                        "p-1.5 rounded-full transition-colors",
                         canGoForward
-                            ? "hover:bg-slate-700 text-slate-300 hover:text-white"
-                            : "text-slate-600 cursor-not-allowed"
+                            ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white"
+                            : "text-[#5f6368] cursor-not-allowed"
                     )}
-                    title="Go forward"
+                    title="Go forward (Alt+→)"
                 >
-                    <ArrowRight size={16} />
+                    <ArrowRight size={18} />
                 </button>
 
                 <button
                     onClick={onReload}
                     disabled={!activeTab}
                     className={cn(
-                        "p-1.5 rounded-md transition-colors",
+                        "p-1.5 rounded-full transition-colors",
                         activeTab
-                            ? "hover:bg-slate-700 text-slate-300 hover:text-white"
-                            : "text-slate-600 cursor-not-allowed"
+                            ? "hover:bg-[#35363a] text-[#9aa0a6] hover:text-white"
+                            : "text-[#5f6368] cursor-not-allowed"
                     )}
-                    title="Reload"
+                    title="Reload (Ctrl+R)"
                 >
                     <RotateCw size={16} className={isLoading ? 'animate-spin' : ''} />
                 </button>
@@ -138,36 +153,21 @@ export function AddressBar({
             <form onSubmit={handleSubmit} className="flex-1 relative">
                 <div className={cn(
                     "flex items-center gap-2 px-3 py-1.5 rounded-full transition-all",
-                    "bg-slate-800 border",
+                    "border",
                     isFocused
-                        ? "border-cyan-500/50 ring-2 ring-cyan-500/20"
-                        : "border-slate-700 hover:border-slate-600"
+                        ? "bg-[#202124] border-[#8ab4f8] ring-1 ring-[#8ab4f8]/30"
+                        : "bg-[#35363a] border-transparent hover:bg-[#3c3d41]"
                 )}>
-                    {/* Security Icon */}
-                    <AnimatePresence mode="wait">
-                        {activeTab && !isFocused && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.8 }}
-                            >
-                                {isSecure ? (
-                                    <Shield size={14} className="text-emerald-400" />
-                                ) : (
-                                    <Shield size={14} className="text-slate-500" />
-                                )}
-                            </motion.div>
-                        )}
-                        {(!activeTab || isFocused) && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.8 }}
-                            >
-                                <Search size={14} className="text-slate-500" />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {/* Security / Search Icon */}
+                    {activeTab && !isFocused ? (
+                        isSecure ? (
+                            <Lock size={14} className="text-[#9aa0a6] flex-shrink-0" />
+                        ) : (
+                            <Search size={14} className="text-[#9aa0a6] flex-shrink-0" />
+                        )
+                    ) : (
+                        <Search size={14} className="text-[#9aa0a6] flex-shrink-0" />
+                    )}
 
                     {/* URL Input */}
                     <input
@@ -178,15 +178,14 @@ export function AddressBar({
                         onFocus={() => {
                             setIsFocused(true);
                             setInputValue(activeTab?.url || '');
-                            // Select all on focus
                             setTimeout(() => inputRef.current?.select(), 0);
                         }}
                         onBlur={() => setIsFocused(false)}
                         placeholder="Search or enter URL..."
-                        className="flex-1 bg-transparent text-sm text-slate-200 placeholder-slate-500 focus:outline-none"
+                        className="flex-1 bg-transparent text-sm text-[#e8eaed] placeholder-[#9aa0a6] focus:outline-none"
                     />
 
-                    {/* Clear Button (when focused and has content) */}
+                    {/* Clear Button */}
                     <AnimatePresence>
                         {isFocused && inputValue && (
                             <motion.button
@@ -198,51 +197,46 @@ export function AddressBar({
                                     setInputValue('');
                                     inputRef.current?.focus();
                                 }}
-                                className="p-0.5 hover:bg-slate-600 rounded transition-colors"
+                                className="p-0.5 hover:bg-[#5f6368] rounded-full transition-colors"
                             >
-                                <X size={12} className="text-slate-400" />
+                                <X size={14} className="text-[#9aa0a6]" />
                             </motion.button>
                         )}
                     </AnimatePresence>
-                    {/* Bookmark Button */}
-                    <button
-                        type="button"
-                        onClick={() => setIsBookmarked(!isBookmarked)}
-                        className={cn(
-                            "p-1 rounded-full transition-colors mr-1",
-                            "hover:bg-slate-700",
-                            isBookmarked ? "text-yellow-400" : "text-slate-400 hover:text-slate-200"
-                        )}
-                        title={isBookmarked ? "Edit Bookmark" : "Bookmark this tab"}
-                    >
-                        <Star size={14} fill={isBookmarked ? "currentColor" : "none"} />
-                    </button>
+
+                    {/* Bookmark Star */}
+                    {activeTab && onToggleBookmark && (
+                        <button
+                            type="button"
+                            onClick={onToggleBookmark}
+                            className={cn(
+                                "p-0.5 rounded-full transition-colors",
+                                "hover:bg-[#35363a]",
+                                isBookmarked ? "text-[#fbbc04]" : "text-[#9aa0a6] hover:text-white"
+                            )}
+                            title={isBookmarked ? "Remove bookmark" : "Bookmark this tab"}
+                        >
+                            <Star size={16} fill={isBookmarked ? "currentColor" : "none"} />
+                        </button>
+                    )}
                 </div>
             </form>
 
-            {/* Tab Favicon & Title */}
-            <AnimatePresence>
-                {activeTab && (
-                    <motion.div
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 10 }}
-                        className="flex items-center gap-2 max-w-48 overflow-hidden"
-                    >
-                        {activeTab.favicon && (
-                            <img
-                                src={activeTab.favicon}
-                                alt=""
-                                className="w-4 h-4 rounded"
-                                onError={(e) => e.currentTarget.style.display = 'none'}
-                            />
-                        )}
-                        <span className="text-xs text-slate-400 truncate">
-                            {activeTab.title || 'Loading...'}
-                        </span>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/* Bookmarks Bar Toggle */}
+            {onToggleBookmarksBar && (
+                <button
+                    onClick={onToggleBookmarksBar}
+                    className={cn(
+                        "p-1.5 rounded-full transition-colors",
+                        showBookmarksBar
+                            ? "text-[#8ab4f8] bg-[#8ab4f8]/10"
+                            : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
+                    )}
+                    title={showBookmarksBar ? "Hide bookmarks bar" : "Show bookmarks bar"}
+                >
+                    <Bookmark size={16} />
+                </button>
+            )}
         </div>
     );
 }

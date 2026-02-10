@@ -99,6 +99,7 @@ const optimizer = {
   }
 };
 const icon = join(import.meta.dirname, "../../resources/icon.png");
+const BROWSER_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 const TITLE_BAR_HEIGHT = 32;
 class TabManager {
   constructor() {
@@ -106,6 +107,7 @@ class TabManager {
     this.activeTabId = null;
     this.mainWindow = null;
     this.viewportBounds = null;
+    this.browserSession = null;
   }
   static getInstance() {
     if (!TabManager.instance) {
@@ -118,8 +120,31 @@ class TabManager {
    */
   init(mainWindow) {
     this.mainWindow = mainWindow;
+    this.setupSession();
     this.setupIpcHandlers();
     this.setupWindowListeners();
+  }
+  /**
+   * Set up a persistent session with permission handling
+   */
+  setupSession() {
+    this.browserSession = session.fromPartition("persist:ariadne");
+    this.browserSession.setUserAgent(BROWSER_USER_AGENT);
+    this.browserSession.setPermissionRequestHandler((_webContents, permission, callback) => {
+      const allowedPermissions = [
+        "clipboard-read",
+        "clipboard-sanitized-write",
+        "media",
+        "mediaKeySystem",
+        "geolocation",
+        "notifications",
+        "fullscreen",
+        "pointerLock",
+        "idle-detection",
+        "window-management"
+      ];
+      callback(allowedPermissions.includes(permission));
+    });
   }
   /**
    * Set up IPC handlers for renderer communication
@@ -193,9 +218,12 @@ class TabManager {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        sandbox: true
+        sandbox: false,
+        // Allow modern web APIs (service workers, etc.)
+        ...this.browserSession ? { session: this.browserSession } : {}
       }
     });
+    view.webContents.setUserAgent(BROWSER_USER_AGENT);
     view.webContents.loadURL(url);
     const tab = {
       id,

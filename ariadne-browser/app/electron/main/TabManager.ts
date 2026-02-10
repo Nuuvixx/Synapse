@@ -5,8 +5,11 @@
  * Each graph node can have an associated web view.
  */
 
-import { WebContentsView, BrowserWindow, ipcMain } from 'electron';
+import { WebContentsView, BrowserWindow, ipcMain, session } from 'electron';
 import { v4 as uuidv4 } from 'uuid';
+
+// Chrome-like user agent to avoid degraded experiences on modern sites
+const BROWSER_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
 export interface Tab {
     id: string;
@@ -35,6 +38,7 @@ export class TabManager {
     private activeTabId: string | null = null;
     private mainWindow: BrowserWindow | null = null;
     private viewportBounds: { x: number; y: number; width: number; height: number } | null = null;
+    private browserSession: Electron.Session | null = null;
 
     private constructor() { }
 
@@ -50,8 +54,37 @@ export class TabManager {
      */
     init(mainWindow: BrowserWindow): void {
         this.mainWindow = mainWindow;
+        this.setupSession();
         this.setupIpcHandlers();
         this.setupWindowListeners();
+    }
+
+    /**
+     * Set up a persistent session with permission handling
+     */
+    private setupSession(): void {
+        // Use a persistent partition so logins/cookies survive restarts
+        this.browserSession = session.fromPartition('persist:ariadne');
+
+        // Set a proper user agent so sites like Gemini don't serve degraded UIs
+        this.browserSession.setUserAgent(BROWSER_USER_AGENT);
+
+        // Grant common permissions that modern sites need
+        this.browserSession.setPermissionRequestHandler((_webContents, permission, callback) => {
+            const allowedPermissions = [
+                'clipboard-read',
+                'clipboard-sanitized-write',
+                'media',
+                'mediaKeySystem',
+                'geolocation',
+                'notifications',
+                'fullscreen',
+                'pointerLock',
+                'idle-detection',
+                'window-management'
+            ];
+            callback(allowedPermissions.includes(permission));
+        });
     }
 
     /**
@@ -144,9 +177,13 @@ export class TabManager {
             webPreferences: {
                 nodeIntegration: false,
                 contextIsolation: true,
-                sandbox: true
+                sandbox: false, // Allow modern web APIs (service workers, etc.)
+                ...(this.browserSession ? { session: this.browserSession } : {})
             }
         });
+
+        // Set user agent per-webContents as well
+        view.webContents.setUserAgent(BROWSER_USER_AGENT);
 
         // Load the URL
         view.webContents.loadURL(url);

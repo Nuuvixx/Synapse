@@ -2,15 +2,17 @@
  * BrowserPanel Component
  * 
  * Combines AddressBar and BrowserViewport into a complete browser experience.
- * Features Chrome-like rounded tabs for a modern feel.
+ * Brave-inspired tab styling with inline + button and bookmarks bar.
  */
 
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutGrid, X, Plus, Book } from 'lucide-react';
+import { LayoutGrid, X, Plus, ExternalLink } from 'lucide-react';
 import { AddressBar } from './AddressBar';
 import { BrowserViewport } from './BrowserViewport';
 import { useTabManager } from '@/hooks/useTabManager';
 import { useTabNodeSync } from '@/hooks/useTabNodeSync';
+import { useBookmarks } from '@/hooks/useBookmarks';
 import { cn } from '@/lib/utils';
 
 interface BrowserPanelProps {
@@ -37,14 +39,13 @@ export function BrowserPanel({
         reload
     } = useTabManager();
 
-    // Use tab-node sync for creating tabs with graph nodes
     const { createTabWithNode, closeTabAndNode } = useTabNodeSync();
+    const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks();
+    const [showBookmarksBar, setShowBookmarksBar] = useState(true);
 
-    // Navigation capabilities
     const canGoBack = true;
     const canGoForward = true;
 
-    // Handle navigation
     const handleNavigate = async (url: string) => {
         if (activeTab) {
             await navigate(url);
@@ -53,14 +54,18 @@ export function BrowserPanel({
         }
     };
 
-    // Handle new tab creation
     const handleCreateTab = async (url: string) => {
         await createTabWithNode(url);
     };
 
-    // Handle tab close
     const handleCloseTab = async (tabId: string) => {
         await closeTabAndNode(tabId);
+    };
+
+    const handleToggleBookmark = () => {
+        if (activeTab) {
+            toggleBookmark(activeTab.url, activeTab.title, activeTab.favicon);
+        }
     };
 
     const panelWidth = fullscreen ? '100%' : '50%';
@@ -74,43 +79,53 @@ export function BrowserPanel({
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                     className={cn(
-                        "h-full flex flex-col bg-slate-900 overflow-hidden",
-                        !fullscreen && "border-l border-slate-800"
+                        "h-full flex flex-col overflow-hidden",
+                        !fullscreen && "border-l border-[#3b3d44]"
                     )}
+                    style={{ background: '#202124' }}
                 >
-                    {/* Tab Bar - Chrome-like styling */}
-                    <div className="h-10 flex items-center gap-1 px-2 bg-slate-850 border-b border-slate-800">
-                        {/* Graph View Toggle Button */}
+                    {/* ─── Tab Strip ─── */}
+                    <div
+                        className="flex items-end px-1 pt-1 no-drag-region"
+                        style={{
+                            background: '#202124',
+                            minHeight: '40px'
+                        }}
+                    >
+                        {/* Graph Toggle */}
                         {onToggleGraph && (
                             <button
                                 onClick={onToggleGraph}
                                 className={cn(
-                                    "p-2 mr-1 rounded-lg transition-all duration-200",
-                                    "hover:bg-slate-700/70",
+                                    "p-1.5 mb-1 mr-1 rounded-md transition-colors flex-shrink-0",
                                     showGraph
                                         ? "text-emerald-400 bg-emerald-500/10"
-                                        : "text-slate-400 hover:text-slate-200"
+                                        : "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
                                 )}
-                                title={showGraph ? "Hide Graph View (Alt+V)" : "Show Graph View (Alt+V)"}
+                                title={showGraph ? "Hide Graph (Alt+V)" : "Show Graph (Alt+V)"}
                             >
-                                <LayoutGrid size={18} />
+                                <LayoutGrid size={16} />
                             </button>
                         )}
 
-                        {/* Tab List - Chrome-like rounded tabs */}
-                        <div className="flex items-end flex-1 overflow-x-auto min-h-[40px] px-1 no-scrollbar">
+                        {/* Tabs + New Tab Button (inline, like Brave) */}
+                        <div className="flex items-end flex-1 overflow-x-auto no-scrollbar">
                             {tabs.map(tab => (
-                                <button
+                                <div
                                     key={tab.id}
                                     onClick={() => switchTab(tab.id)}
                                     className={cn(
-                                        "group relative flex items-center gap-2 px-3 py-2.5 transition-all duration-200",
-                                        "rounded-t-xl mx-0.5", // More rounded top corners
-                                        "flex-1 min-w-[30px] max-w-[240px]", // Better sizing behavior
+                                        "group relative flex items-center gap-2 px-3 h-[34px] cursor-pointer transition-colors duration-150",
+                                        "rounded-t-lg flex-shrink-0",
                                         tab.isActive
-                                            ? "bg-slate-900 text-white shadow-sm z-10" // Active: matches address bar, z-index up
-                                            : "bg-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
+                                            ? "bg-[#292b2f] text-[#e8eaed]"
+                                            : "text-[#9aa0a6] hover:bg-[#292b2f]/50 hover:text-[#c4c7cc]"
                                     )}
+                                    style={{
+                                        maxWidth: '240px',
+                                        minWidth: tabs.length > 8 ? '40px' : '120px',
+                                        width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`
+                                    }}
                                     title={tab.title}
                                 >
                                     {/* Favicon */}
@@ -118,74 +133,57 @@ export function BrowserPanel({
                                         <img
                                             src={tab.favicon}
                                             alt=""
-                                            className="w-4 h-4 rounded flex-shrink-0"
-                                            onError={(e) => e.currentTarget.style.display = 'none'}
+                                            className="w-4 h-4 rounded-sm flex-shrink-0"
+                                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                         />
                                     ) : (
-                                        <div className="w-4 h-4 rounded bg-slate-600 flex-shrink-0" />
+                                        <div className="w-4 h-4 rounded-sm flex-shrink-0" style={{ background: '#5f6368' }} />
                                     )}
 
                                     {/* Title */}
-                                    <span className={cn(
-                                        "text-xs truncate text-left transition-opacity",
-                                        // Hide title if tab gets too small, unless hovered
-                                        "flex-1"
-                                    )}>
+                                    <span className="text-[12px] truncate flex-1 text-left leading-none">
                                         {tab.title || 'New Tab'}
                                     </span>
 
-                                    {/* Close Button */}
+                                    {/* Close */}
                                     <span
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             handleCloseTab(tab.id);
                                         }}
                                         className={cn(
-                                            "p-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all cursor-pointer",
-                                            "hover:bg-slate-700 hover:text-white text-slate-400",
-                                            // Always show close button on active tab if space permits
-                                            tab.isActive && "opacity-100"
+                                            "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0",
+                                            "hover:bg-[#5f6368] text-[#9aa0a6] hover:text-white",
+                                            tab.isActive
+                                                ? "opacity-100"
+                                                : "opacity-0 group-hover:opacity-100"
                                         )}
                                     >
                                         <X size={14} />
                                     </span>
 
-                                    {/* Separator for inactive tabs (visual polish) */}
+                                    {/* Right separator for inactive tabs */}
                                     {!tab.isActive && (
-                                        <div className="absolute right-0 top-2 bottom-2 w-[1px] bg-slate-700/50 group-hover:hidden" />
+                                        <div className="absolute right-0 top-[6px] bottom-[6px] w-[1px] bg-[#3b3d44] group-hover:opacity-0 transition-opacity" />
                                     )}
-                                </button>
+                                </div>
                             ))}
-                        </div>
 
-                        {/* Controls Group */}
-                        <div className="flex items-center gap-1 px-2">
-                            {/* Bookmarks Button */}
-                            <button
-                                className={cn(
-                                    "p-2 rounded-lg transition-all duration-200",
-                                    "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
-                                )}
-                                title="Bookmarks"
-                            >
-                                <Book size={18} />
-                            </button>
-
-                            {/* New Tab Button */}
+                            {/* ── + New Tab (inline, right after last tab) ── */}
                             <button
                                 onClick={() => handleCreateTab('https://www.google.com')}
                                 className={cn(
-                                    "p-2 rounded-full transition-all duration-200",
-                                    "text-slate-400 hover:text-slate-200 hover:bg-slate-700/70"
+                                    "p-1.5 mb-0.5 ml-1 rounded-full transition-colors flex-shrink-0",
+                                    "text-[#9aa0a6] hover:text-white hover:bg-[#35363a]"
                                 )}
-                                title="New Tab"
+                                title="New Tab (Ctrl+T)"
                             >
-                                <Plus size={20} />
+                                <Plus size={18} />
                             </button>
                         </div>
                     </div>
 
-                    {/* Address Bar */}
+                    {/* ─── Address Bar ─── */}
                     <AddressBar
                         activeTab={activeTab}
                         onNavigate={handleNavigate}
@@ -195,9 +193,53 @@ export function BrowserPanel({
                         canGoBack={canGoBack}
                         canGoForward={canGoForward}
                         isLoading={isLoading}
+                        isBookmarked={activeTab ? isBookmarked(activeTab.url) : false}
+                        onToggleBookmark={handleToggleBookmark}
+                        onToggleBookmarksBar={() => setShowBookmarksBar(!showBookmarksBar)}
+                        showBookmarksBar={showBookmarksBar}
                     />
 
-                    {/* Browser Viewport */}
+                    {/* ─── Bookmarks Bar ─── */}
+                    <AnimatePresence>
+                        {showBookmarksBar && bookmarks.length > 0 && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.15 }}
+                                className="overflow-hidden border-b border-[#3b3d44]"
+                                style={{ background: '#292b2f' }}
+                            >
+                                <div className="flex items-center gap-1 px-3 py-1 overflow-x-auto no-scrollbar">
+                                    {bookmarks.map(bm => (
+                                        <button
+                                            key={bm.url}
+                                            onClick={() => handleNavigate(bm.url)}
+                                            className={cn(
+                                                "flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors",
+                                                "text-[#c4c7cc] hover:bg-[#35363a] hover:text-white",
+                                                "text-[12px] whitespace-nowrap flex-shrink-0"
+                                            )}
+                                            title={bm.url}
+                                        >
+                                            {bm.favicon ? (
+                                                <img src={bm.favicon} alt="" className="w-3.5 h-3.5 rounded-sm"
+                                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                                />
+                                            ) : (
+                                                <ExternalLink size={12} className="text-[#9aa0a6] flex-shrink-0" />
+                                            )}
+                                            <span className="max-w-[120px] truncate">
+                                                {bm.title || new URL(bm.url).hostname}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* ─── Browser Viewport ─── */}
                     <BrowserViewport
                         activeTab={activeTab}
                         onCreateTab={handleCreateTab}
