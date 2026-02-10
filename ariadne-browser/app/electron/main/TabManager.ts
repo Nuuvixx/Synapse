@@ -5,8 +5,9 @@
  * Each graph node can have an associated web view.
  */
 
-import { WebContentsView, BrowserWindow, ipcMain, session } from 'electron';
+import { WebContentsView, BrowserWindow, ipcMain, session, Menu, clipboard } from 'electron';
 import { v4 as uuidv4 } from 'uuid';
+import WebSocket from 'ws';
 
 // Chrome-like user agent to avoid degraded experiences on modern sites
 const BROWSER_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
@@ -42,6 +43,7 @@ export class TabManager {
     private mainWindow: BrowserWindow | null = null;
     private viewportBounds: { x: number; y: number; width: number; height: number } | null = null;
     private browserSession: Electron.Session | null = null;
+    private synapseConnection: WebSocket | null = null;
 
     private constructor() { }
 
@@ -60,6 +62,7 @@ export class TabManager {
         this.setupSession();
         this.setupIpcHandlers();
         this.setupWindowListeners();
+        this.connectToSynapse();
     }
 
     /**
@@ -88,6 +91,46 @@ export class TabManager {
             ];
             callback(allowedPermissions.includes(permission));
         });
+    }
+
+    /**
+     * Connect to NeuralNotes Synapse server
+     */
+    private connectToSynapse(): void {
+        try {
+            this.synapseConnection = new WebSocket('ws://localhost:9847');
+
+            this.synapseConnection.on('open', () => {
+                console.log('[TabManager] Connected to Synapse');
+            });
+
+            this.synapseConnection.on('close', () => {
+                console.log('[TabManager] Synapse connection closed');
+                // Auto-reconnect after 5 seconds
+                setTimeout(() => this.connectToSynapse(), 5000);
+            });
+
+            this.synapseConnection.on('error', (err) => {
+                console.warn('[TabManager] Synapse connection error:', err.message);
+            });
+        } catch (error) {
+            console.error('[TabManager] Failed to connect to Synapse:', error);
+        }
+    }
+
+    /**
+     * Send content to NeuralNotes via Synapse
+     */
+    private sendToNeuralNotes(data: { title: string; url: string; content: string; type: 'text' | 'link' | 'image' }): void {
+        if (this.synapseConnection?.readyState === WebSocket.OPEN) {
+            this.synapseConnection.send(JSON.stringify({
+                type: 'CAPTURE_PAGE',
+                payload: data
+            }));
+            console.log('[TabManager] Sent to NeuralNotes:', data.title);
+        } else {
+            console.warn('[TabManager] Cannot send to NeuralNotes - Synapse not connected');
+        }
     }
 
     /**
@@ -262,6 +305,11 @@ export class TabManager {
             this.notifyTabUpdate(tab);
         });
 
+        // Setup context menu
+        view.webContents.on('context-menu', (_event, params) => {
+            this.showContextMenu(params, tab);
+        });
+
         this.tabs.set(id, tab);
 
         // Notify renderer
@@ -423,5 +471,154 @@ export class TabManager {
     private notifyTabRemoved(tabId: string): void {
         if (!this.mainWindow) return;
         this.mainWindow.webContents.send('tab:removed', tabId);
+    }
+
+    /**
+     * Show context menu based on what was right-clicked
+     */
+    private showContextMenu(params: Electron.ContextMenuParams, tab: Tab): void {
+        const template: Electron.MenuItemConstructorOptions[] = [];
+
+        // Text selection actions
+        if (params.selectionText) {
+            template.push(
+                {
+                    label: 'Send Selection to NeuralNotes',
+                    click: () => {
+                        this.sendToNeuralNotes({
+                            title: `Selection from ${tab.title}`,
+                            url: tab.url,
+                            content: params.selectionText,
+                            type: 'text'
+                        });
+                    }
+                },
+                { type: 'separator' },
+                {
+                    label: 'Copy',
+                    role: 'copy'
+                },
+                {
+                    label: 'Search Google',
+                    click: () => {
+                        const query = encodeURIComponent(params.selectionText);
+                        this.createTab(`https://www.google.com/search?q=${query}`);
+                    }
+                }
+            );
+        }
+
+        // Link actions  
+        if (params.linkURL) {
+            template.push(
+                {
+                    label: 'Send Link to NeuralNotes',
+                    click: () => {
+                        this.sendToNeuralNotes({
+                            title: params.linkText || 'Link',
+                            url: params.linkURL,
+                            content: params.linkURL,
+                            type: 'link'
+                        });
+                    }
+                },
+                { type: 'separator' },
+                {
+                    label: 'Open Link in New Tab',
+                    click: () => {
+                        this.createTab(params.linkURL);
+                    }
+                },
+                {
+                    label: 'Copy Link Address',
+                    click: () => {
+                        clipboard.writeText(params.linkURL);
+                    }
+                }
+            );
+        }
+
+        // Image actions
+        if (params.mediaType === 'image') {
+            template.push(
+                {
+                    label: 'Send Image to NeuralNotes',
+                    click: () => {
+                        this.sendToNeuralNotes({
+                            title: `Image from ${tab.title}`,
+                            url: tab.url,
+                            content: params.srcURL,
+                            type: 'image'
+                        });
+                    }
+                },
+                { type: 'separator' },
+                {
+                    label: 'Open Image in New Tab',
+                    click: () => {
+                        this.createTab(params.srcURL);
+                    }
+                },
+                {
+                    label: 'Copy Image Address',
+                    click: () => {
+                        clipboard.writeText(params.srcURL);
+                    }
+                }
+            );
+        }
+
+        // Page actions (when nothing specific is clicked)
+        if (template.length === 0) {
+            template.push(
+                {
+                    label: 'Send Page to NeuralNotes',
+                    click: async () => {
+                        try {
+                            const content = await tab.view.webContents.executeJavaScript(`
+                                document.body.innerText || ''
+                            `);
+                            this.sendToNeuralNotes({
+                                title: tab.title,
+                                url: tab.url,
+                                content: content.substring(0, 5000),
+                                type: 'text'
+                            });
+                        } catch (error) {
+                            console.error('Failed to get page content:', error);
+                        }
+                    }
+                }
+            );
+        }
+
+        // Standard page actions
+        template.push(
+            { type: 'separator' },
+            {
+                label: 'Back',
+                enabled: tab.view.webContents.canGoBack(),
+                click: () => tab.view.webContents.goBack()
+            },
+            {
+                label: 'Forward',
+                enabled: tab.view.webContents.canGoForward(),
+                click: () => tab.view.webContents.goForward()
+            },
+            {
+                label: 'Reload',
+                role: 'reload'
+            },
+            { type: 'separator' },
+            {
+                label: 'Inspect Element',
+                click: () => {
+                    tab.view.webContents.inspectElement(params.x, params.y);
+                }
+            }
+        );
+
+        const menu = Menu.buildFromTemplate(template);
+        menu.popup();
     }
 }
