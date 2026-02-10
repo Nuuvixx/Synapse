@@ -28723,54 +28723,76 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$F = [
+const __iconNode$L = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$F);
-const __iconNode$E = [
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$L);
+const __iconNode$K = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$E);
-const __iconNode$D = [
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$K);
+const __iconNode$J = [
   ["path", { d: "m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z", key: "1fy3hk" }]
 ];
-const Bookmark = createLucideIcon("bookmark", __iconNode$D);
-const __iconNode$C = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$C);
-const __iconNode$B = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$B);
-const __iconNode$A = [
+const Bookmark = createLucideIcon("bookmark", __iconNode$J);
+const __iconNode$I = [
+  ["path", { d: "M12 18V5", key: "adv99a" }],
+  ["path", { d: "M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4", key: "1e3is1" }],
+  ["path", { d: "M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5", key: "1gqd8o" }],
+  ["path", { d: "M17.997 5.125a4 4 0 0 1 2.526 5.77", key: "iwvgf7" }],
+  ["path", { d: "M18 18a4 4 0 0 0 2-7.464", key: "efp6ie" }],
+  ["path", { d: "M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517", key: "1gq6am" }],
+  ["path", { d: "M6 18a4 4 0 0 1-2-7.464", key: "k1g0md" }],
+  ["path", { d: "M6.003 5.125a4 4 0 0 0-2.526 5.77", key: "q97ue3" }]
+];
+const Brain = createLucideIcon("brain", __iconNode$I);
+const __iconNode$H = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$H);
+const __iconNode$G = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$G);
+const __iconNode$F = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$A);
-const __iconNode$z = [
+const Clock = createLucideIcon("clock", __iconNode$F);
+const __iconNode$E = [
+  ["path", { d: "m16 18 6-6-6-6", key: "eg8j8" }],
+  ["path", { d: "m8 6-6 6 6 6", key: "ppft3o" }]
+];
+const Code = createLucideIcon("code", __iconNode$E);
+const __iconNode$D = [
+  ["ellipse", { cx: "12", cy: "5", rx: "9", ry: "3", key: "msslwz" }],
+  ["path", { d: "M3 5V19A9 3 0 0 0 21 19V5", key: "1wlel7" }],
+  ["path", { d: "M3 12A9 3 0 0 0 21 12", key: "mv7ke4" }]
+];
+const Database = createLucideIcon("database", __iconNode$D);
+const __iconNode$C = [
   ["path", { d: "M12 15V3", key: "m9g1x1" }],
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
 ];
-const Download = createLucideIcon("download", __iconNode$z);
-const __iconNode$y = [
+const Download = createLucideIcon("download", __iconNode$C);
+const __iconNode$B = [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "12", cy: "5", r: "1", key: "gxeob9" }],
   ["circle", { cx: "12", cy: "19", r: "1", key: "lyex9k" }]
 ];
-const EllipsisVertical = createLucideIcon("ellipsis-vertical", __iconNode$y);
-const __iconNode$x = [
+const EllipsisVertical = createLucideIcon("ellipsis-vertical", __iconNode$B);
+const __iconNode$A = [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
   ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }]
 ];
-const Ellipsis = createLucideIcon("ellipsis", __iconNode$x);
-const __iconNode$w = [
+const Ellipsis = createLucideIcon("ellipsis", __iconNode$A);
+const __iconNode$z = [
   ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
   ["path", { d: "M10 14 21 3", key: "gplh6r" }],
   ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
 ];
-const ExternalLink = createLucideIcon("external-link", __iconNode$w);
-const __iconNode$v = [
+const ExternalLink = createLucideIcon("external-link", __iconNode$z);
+const __iconNode$y = [
   [
     "path",
     {
@@ -28788,8 +28810,8 @@ const __iconNode$v = [
   ],
   ["path", { d: "m2 2 20 20", key: "1ooewy" }]
 ];
-const EyeOff = createLucideIcon("eye-off", __iconNode$v);
-const __iconNode$u = [
+const EyeOff = createLucideIcon("eye-off", __iconNode$y);
+const __iconNode$x = [
   [
     "path",
     {
@@ -28799,8 +28821,8 @@ const __iconNode$u = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Eye = createLucideIcon("eye", __iconNode$u);
-const __iconNode$t = [
+const Eye = createLucideIcon("eye", __iconNode$x);
+const __iconNode$w = [
   [
     "path",
     {
@@ -28818,48 +28840,59 @@ const __iconNode$t = [
   ["path", { d: "M3 5a2 2 0 0 0 2 2h3", key: "f2jnh7" }],
   ["path", { d: "M3 3v13a2 2 0 0 0 2 2h3", key: "k8epm1" }]
 ];
-const FolderTree = createLucideIcon("folder-tree", __iconNode$t);
-const __iconNode$s = [
+const FolderTree = createLucideIcon("folder-tree", __iconNode$w);
+const __iconNode$v = [
+  [
+    "path",
+    {
+      d: "M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4",
+      key: "tonef"
+    }
+  ],
+  ["path", { d: "M9 18c-4.51 2-5-2-7-2", key: "9comsn" }]
+];
+const Github = createLucideIcon("github", __iconNode$v);
+const __iconNode$u = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
   ["path", { d: "M2 12h20", key: "9i4pu4" }]
 ];
-const Globe = createLucideIcon("globe", __iconNode$s);
-const __iconNode$r = [
+const Globe = createLucideIcon("globe", __iconNode$u);
+const __iconNode$t = [
   ["line", { x1: "4", x2: "20", y1: "9", y2: "9", key: "4lhtct" }],
   ["line", { x1: "4", x2: "20", y1: "15", y2: "15", key: "vyu0kd" }],
   ["line", { x1: "10", x2: "8", y1: "3", y2: "21", key: "1ggp8o" }],
   ["line", { x1: "16", x2: "14", y1: "3", y2: "21", key: "weycgp" }]
 ];
-const Hash = createLucideIcon("hash", __iconNode$r);
-const __iconNode$q = [
+const Hash = createLucideIcon("hash", __iconNode$t);
+const __iconNode$s = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }],
   ["path", { d: "M12 7v5l4 2", key: "1fdv2h" }]
 ];
-const History = createLucideIcon("history", __iconNode$q);
-const __iconNode$p = [
+const History = createLucideIcon("history", __iconNode$s);
+const __iconNode$r = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
   ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }],
   ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }]
 ];
-const Image = createLucideIcon("image", __iconNode$p);
-const __iconNode$o = [
+const Image = createLucideIcon("image", __iconNode$r);
+const __iconNode$q = [
   ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
   ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
   ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
   ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
 ];
-const LayoutGrid = createLucideIcon("layout-grid", __iconNode$o);
-const __iconNode$n = [
+const LayoutGrid = createLucideIcon("layout-grid", __iconNode$q);
+const __iconNode$p = [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
 ];
-const Link2 = createLucideIcon("link-2", __iconNode$n);
-const __iconNode$m = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$m);
-const __iconNode$l = [
+const Link2 = createLucideIcon("link-2", __iconNode$p);
+const __iconNode$o = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$o);
+const __iconNode$n = [
   [
     "path",
     {
@@ -28870,28 +28903,38 @@ const __iconNode$l = [
   ["path", { d: "M15 5.764v15", key: "1pn4in" }],
   ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$l);
-const __iconNode$k = [
+const Map$1 = createLucideIcon("map", __iconNode$n);
+const __iconNode$m = [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v3", key: "1dcmit" }],
   ["path", { d: "M21 8V5a2 2 0 0 0-2-2h-3", key: "1e4gt3" }],
   ["path", { d: "M3 16v3a2 2 0 0 0 2 2h3", key: "wsl5sc" }],
   ["path", { d: "M16 21h3a2 2 0 0 0 2-2v-3", key: "18trek" }]
 ];
-const Maximize = createLucideIcon("maximize", __iconNode$k);
-const __iconNode$j = [
+const Maximize = createLucideIcon("maximize", __iconNode$m);
+const __iconNode$l = [
   ["path", { d: "M4 5h16", key: "1tepv9" }],
   ["path", { d: "M4 12h16", key: "1lakjw" }],
   ["path", { d: "M4 19h16", key: "1djgab" }]
 ];
-const Menu = createLucideIcon("menu", __iconNode$j);
-const __iconNode$i = [["path", { d: "M5 12h14", key: "1ays0h" }]];
-const Minus = createLucideIcon("minus", __iconNode$i);
-const __iconNode$h = [
+const Menu = createLucideIcon("menu", __iconNode$l);
+const __iconNode$k = [
+  [
+    "path",
+    {
+      d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719",
+      key: "1sd12s"
+    }
+  ]
+];
+const MessageCircle = createLucideIcon("message-circle", __iconNode$k);
+const __iconNode$j = [["path", { d: "M5 12h14", key: "1ays0h" }]];
+const Minus = createLucideIcon("minus", __iconNode$j);
+const __iconNode$i = [
   ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1", key: "kaeet6" }],
   ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
 ];
-const Pause = createLucideIcon("pause", __iconNode$h);
-const __iconNode$g = [
+const Pause = createLucideIcon("pause", __iconNode$i);
+const __iconNode$h = [
   [
     "path",
     {
@@ -28900,28 +28943,28 @@ const __iconNode$g = [
     }
   ]
 ];
-const Play = createLucideIcon("play", __iconNode$g);
-const __iconNode$f = [
+const Play = createLucideIcon("play", __iconNode$h);
+const __iconNode$g = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-const Plus = createLucideIcon("plus", __iconNode$f);
-const __iconNode$e = [
+const Plus = createLucideIcon("plus", __iconNode$g);
+const __iconNode$f = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$e);
-const __iconNode$d = [
+const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$f);
+const __iconNode$e = [
   ["path", { d: "M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8", key: "1p45f6" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }]
 ];
-const RotateCw = createLucideIcon("rotate-cw", __iconNode$d);
-const __iconNode$c = [
+const RotateCw = createLucideIcon("rotate-cw", __iconNode$e);
+const __iconNode$d = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const Search = createLucideIcon("search", __iconNode$c);
-const __iconNode$b = [
+const Search = createLucideIcon("search", __iconNode$d);
+const __iconNode$c = [
   [
     "path",
     {
@@ -28931,8 +28974,8 @@ const __iconNode$b = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Settings = createLucideIcon("settings", __iconNode$b);
-const __iconNode$a = [
+const Settings = createLucideIcon("settings", __iconNode$c);
+const __iconNode$b = [
   [
     "path",
     {
@@ -28943,8 +28986,8 @@ const __iconNode$a = [
   ["path", { d: "M12 8v4", key: "1got3b" }],
   ["path", { d: "M12 16h.01", key: "1drbdi" }]
 ];
-const ShieldAlert = createLucideIcon("shield-alert", __iconNode$a);
-const __iconNode$9 = [
+const ShieldAlert = createLucideIcon("shield-alert", __iconNode$b);
+const __iconNode$a = [
   [
     "path",
     {
@@ -28954,8 +28997,8 @@ const __iconNode$9 = [
   ],
   ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const ShieldCheck = createLucideIcon("shield-check", __iconNode$9);
-const __iconNode$8 = [
+const ShieldCheck = createLucideIcon("shield-check", __iconNode$a);
+const __iconNode$9 = [
   [
     "path",
     {
@@ -28964,8 +29007,8 @@ const __iconNode$8 = [
     }
   ]
 ];
-const Shield = createLucideIcon("shield", __iconNode$8);
-const __iconNode$7 = [
+const Shield = createLucideIcon("shield", __iconNode$9);
+const __iconNode$8 = [
   [
     "path",
     {
@@ -28975,8 +29018,8 @@ const __iconNode$7 = [
   ],
   ["path", { d: "M3 20V4", key: "1ptbpl" }]
 ];
-const SkipBack = createLucideIcon("skip-back", __iconNode$7);
-const __iconNode$6 = [
+const SkipBack = createLucideIcon("skip-back", __iconNode$8);
+const __iconNode$7 = [
   ["path", { d: "M21 4v16", key: "7j8fe9" }],
   [
     "path",
@@ -28986,12 +29029,12 @@ const __iconNode$6 = [
     }
   ]
 ];
-const SkipForward = createLucideIcon("skip-forward", __iconNode$6);
-const __iconNode$5 = [
+const SkipForward = createLucideIcon("skip-forward", __iconNode$7);
+const __iconNode$6 = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
 ];
-const Square = createLucideIcon("square", __iconNode$5);
-const __iconNode$4 = [
+const Square = createLucideIcon("square", __iconNode$6);
+const __iconNode$5 = [
   [
     "path",
     {
@@ -29000,26 +29043,37 @@ const __iconNode$4 = [
     }
   ]
 ];
-const Star = createLucideIcon("star", __iconNode$4);
-const __iconNode$3 = [
+const Star = createLucideIcon("star", __iconNode$5);
+const __iconNode$4 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-const Trash2 = createLucideIcon("trash-2", __iconNode$3);
-const __iconNode$2 = [
+const Trash2 = createLucideIcon("trash-2", __iconNode$4);
+const __iconNode$3 = [
   ["path", { d: "M12 3v12", key: "1x0j5s" }],
   ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
 ];
-const Upload = createLucideIcon("upload", __iconNode$2);
-const __iconNode$1 = [
+const Upload = createLucideIcon("upload", __iconNode$3);
+const __iconNode$2 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-const X = createLucideIcon("x", __iconNode$1);
+const X = createLucideIcon("x", __iconNode$2);
+const __iconNode$1 = [
+  [
+    "path",
+    {
+      d: "M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17",
+      key: "1q2vi4"
+    }
+  ],
+  ["path", { d: "m10 15 5-3-5-3z", key: "1jp15x" }]
+];
+const Youtube = createLucideIcon("youtube", __iconNode$1);
 const __iconNode = [
   [
     "path",
@@ -35636,7 +35690,7 @@ function BrowserViewport({
       observer.disconnect();
     };
   }, []);
-  const quickLinks = [
+  const quickLinks2 = [
     { name: "Google", url: "https://www.google.com", icon: "🔍" },
     { name: "GitHub", url: "https://github.com", icon: "🐙" },
     { name: "YouTube", url: "https://www.youtube.com", icon: "📺" },
@@ -35696,7 +35750,7 @@ function BrowserViewport({
                   animate: { y: 0, opacity: 1 },
                   transition: { delay: 0.4 },
                   className: "grid grid-cols-3 gap-3 max-w-md",
-                  children: quickLinks.map((link) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  children: quickLinks2.map((link) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
                     "button",
                     {
                       onClick: () => onCreateTab(link.url),
@@ -35747,6 +35801,139 @@ function BrowserViewport({
       ]
     }
   );
+}
+const quickLinks = [
+  { name: "Google", url: "https://www.google.com", icon: Search, color: "cyan" },
+  { name: "GitHub", url: "https://github.com", icon: Github, color: "purple" },
+  { name: "YouTube", url: "https://www.youtube.com", icon: Youtube, color: "cyan" },
+  { name: "ChatGPT", url: "https://chat.openai.com", icon: MessageCircle, color: "purple" },
+  { name: "Stack Overflow", url: "https://stackoverflow.com", icon: Code, color: "cyan" },
+  { name: "Reddit", url: "https://www.reddit.com", icon: Brain, color: "purple" }
+];
+function WelcomePage({ onNavigate }) {
+  const [time2, setTime] = reactExports.useState((/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  reactExports.useEffect(() => {
+    const timer2 = setInterval(() => {
+      setTime((/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+    }, 1e3);
+    return () => clearInterval(timer2);
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "w-full h-full flex flex-col relative overflow-hidden",
+      style: { background: "radial-gradient(ellipse at bottom, #0F172A 0%, #020617 100%)" },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute inset-0 overflow-hidden pointer-events-none", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stars-small" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stars-medium" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stars-large" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center -mt-20 z-10 w-full max-w-5xl mx-auto px-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, y: -20 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 0.6 },
+              className: "text-center mb-12",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-8xl font-thin tracking-tighter text-white/90 mb-2 font-inter", children: time2 }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-cyan-400/80 text-sm uppercase tracking-[0.2em] font-medium", children: "Spatial Browsing Active" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, scale: 0.95 },
+              animate: { opacity: 1, scale: 1 },
+              transition: { duration: 0.5, delay: 0.1 },
+              className: "w-full max-w-2xl mb-12 relative group",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-cyan-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex items-center bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full px-6 py-4 shadow-2xl transition-all group-hover:border-cyan-500/30", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "w-5 h-5 text-gray-400 mr-4" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "input",
+                    {
+                      type: "text",
+                      placeholder: "Search the web or enter URL...",
+                      className: "bg-transparent border-none outline-none text-lg text-white placeholder-gray-500 w-full font-light",
+                      onKeyDown: (e) => {
+                        if (e.key === "Enter") {
+                          onNavigate(e.currentTarget.value);
+                        }
+                      },
+                      autoFocus: true
+                    }
+                  )
+                ] })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 20 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 0.5, delay: 0.2 },
+              className: "grid grid-cols-6 gap-4 w-full",
+              children: quickLinks.map((link) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "button",
+                {
+                  onClick: () => onNavigate(link.url),
+                  className: "group flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-white/5 transition-all duration-300",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "div",
+                      {
+                        className: "w-14 h-14 rounded-2xl flex items-center justify-center bg-slate-800/50 border border-white/5 shadow-lg group-hover:scale-110 group-hover:border-cyan-500/50 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300",
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx(link.icon, { className: `w-6 h-6 text-${link.color === "cyan" ? "cyan-400" : "purple-400"}` })
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-slate-400 font-medium group-hover:text-white transition-colors", children: link.name })
+                  ]
+                },
+                link.name
+              ))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, y: 50 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.7, delay: 0.4 },
+            className: "w-full bg-slate-900/40 backdrop-blur-md border-t border-white/5 py-4 px-8 flex justify-center gap-16",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Shield, value: "142", label: "Trackers Blocked", color: "text-orange-400" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Database, value: "48MB", label: "Data Saved", color: "text-cyan-400" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Zap, value: "1.2s", label: "Time Saved", color: "text-purple-400" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
+        .stars-small, .stars-medium, .stars-large {
+           position: absolute;
+           top: 0; left: 0; right: 0; bottom: 0;
+           background: transparent;
+        }
+        /* CSS-only star generation would go here or via background-image */
+      ` })
+      ]
+    }
+  );
+}
+function StatItem({ icon: Icon2, value, label, color: color2 }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center group cursor-default", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-2xl font-bold ${color2} mb-0.5 group-hover:scale-110 transition-transform`, children: value }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "w-3 h-3 text-slate-300" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] uppercase tracking-widest text-slate-300 font-semibold", children: label })
+    ] })
+  ] });
 }
 function useTabManager() {
   const [state, setState] = reactExports.useState({
@@ -36221,17 +36408,18 @@ function BrowserPanel({
                   {
                     onClick: () => switchTab(tab.id),
                     className: cn(
-                      "group relative flex items-center gap-2 px-3 h-[36px] cursor-pointer transition-all duration-200",
-                      "rounded-t-xl flex-shrink-0"
+                      "group relative flex items-center gap-2 px-6 h-[34px] cursor-pointer transition-all duration-200",
+                      "tab-shape flex-shrink-0 -ml-3 hover:z-20",
+                      tab.isActive ? "z-30" : "z-10"
                     ),
                     style: {
                       maxWidth: "240px",
-                      minWidth: tabs.length > 8 ? "40px" : "120px",
-                      width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`,
-                      background: tab.isActive ? "var(--sg-surface-1)" : "transparent",
-                      color: tab.isActive ? "var(--sg-text-primary)" : "var(--sg-text-tertiary)",
-                      borderTop: tab.isActive ? "2px solid var(--sg-cyan)" : "2px solid transparent",
-                      boxShadow: tab.isActive ? "0 -2px 10px rgba(34, 211, 238, 0.1)" : "none"
+                      minWidth: "140px",
+                      width: `${Math.min(240, Math.max(140, (window.innerWidth - 300) / Math.max(tabs.length, 1)))}px`,
+                      background: tab.isActive ? "var(--sg-surface-1)" : "rgba(15, 23, 42, 0.4)",
+                      color: tab.isActive ? "var(--sg-text-primary)" : "var(--sg-text-secondary)",
+                      borderTop: tab.isActive ? "2px solid var(--sg-cyan)" : "none",
+                      boxShadow: tab.isActive ? "0 -4px 20px rgba(34, 211, 238, 0.15)" : "none"
                     },
                     title: tab.title,
                     children: [
@@ -36369,7 +36557,7 @@ function BrowserPanel({
             )) })
           }
         ) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
+        tabs.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(WelcomePage, { onNavigate: handleCreateTab }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
           BrowserViewport,
           {
             activeTab,

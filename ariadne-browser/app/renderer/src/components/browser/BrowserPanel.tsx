@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutGrid, X, Plus, ExternalLink } from 'lucide-react';
 import { AddressBar } from './AddressBar';
 import { BrowserViewport } from './BrowserViewport';
+import { WelcomePage } from './WelcomePage';
 import { useTabManager } from '@/hooks/useTabManager';
 import { useTabNodeSync } from '@/hooks/useTabNodeSync';
 import { useBookmarks } from '@/hooks/useBookmarks';
@@ -115,17 +116,18 @@ export function BrowserPanel({
                                     key={tab.id}
                                     onClick={() => switchTab(tab.id)}
                                     className={cn(
-                                        "group relative flex items-center gap-2 px-3 h-[36px] cursor-pointer transition-all duration-200",
-                                        "rounded-t-xl flex-shrink-0"
+                                        "group relative flex items-center gap-2 px-6 h-[34px] cursor-pointer transition-all duration-200",
+                                        "tab-shape flex-shrink-0 -ml-3 hover:z-20",
+                                        tab.isActive ? "z-30" : "z-10"
                                     )}
                                     style={{
                                         maxWidth: '240px',
-                                        minWidth: tabs.length > 8 ? '40px' : '120px',
-                                        width: `${Math.min(240, Math.max(120, (window.innerWidth - 200) / Math.max(tabs.length, 1)))}px`,
-                                        background: tab.isActive ? 'var(--sg-surface-1)' : 'transparent',
-                                        color: tab.isActive ? 'var(--sg-text-primary)' : 'var(--sg-text-tertiary)',
-                                        borderTop: tab.isActive ? '2px solid var(--sg-cyan)' : '2px solid transparent',
-                                        boxShadow: tab.isActive ? '0 -2px 10px rgba(34, 211, 238, 0.1)' : 'none',
+                                        minWidth: '140px',
+                                        width: `${Math.min(240, Math.max(140, (window.innerWidth - 300) / Math.max(tabs.length, 1)))}px`,
+                                        background: tab.isActive ? 'var(--sg-surface-1)' : 'rgba(15, 23, 42, 0.4)',
+                                        color: tab.isActive ? 'var(--sg-text-primary)' : 'var(--sg-text-secondary)',
+                                        borderTop: tab.isActive ? '2px solid var(--sg-cyan)' : 'none',
+                                        boxShadow: tab.isActive ? '0 -4px 20px rgba(34, 211, 238, 0.15)' : 'none',
                                     }}
                                     title={tab.title}
                                 >
@@ -265,12 +267,16 @@ export function BrowserPanel({
                         )}
                     </AnimatePresence>
 
-                    {/* ─── Browser Viewport ─── */}
-                    <BrowserViewport
-                        activeTab={activeTab}
-                        onCreateTab={handleCreateTab}
-                        isLoading={isLoading}
-                    />
+                    {/* ─── Browser Content ─── */}
+                    {tabs.length === 0 ? (
+                        <WelcomePage onNavigate={handleCreateTab} />
+                    ) : (
+                        <BrowserViewport
+                            activeTab={activeTab}
+                            onCreateTab={handleCreateTab}
+                            isLoading={isLoading}
+                        />
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>

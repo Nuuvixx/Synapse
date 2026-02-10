@@ -425,3 +425,73 @@ body {
     display: none !important;
   }
 }
+
+/* ─── Starfield Background (CSS Optimized) ─── */
+.stars-small {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 100px 200px #fff, 400px 300px #fff, 800px 100px #fff, 1200px 500px #fff, 300px 600px #fff, 700px 800px #fff, 1000px 200px #fff, 200px 400px #fff, 500px 100px #fff, 900px 600px #fff;
+  animation: animStar 50s linear infinite;
+}
+
+.stars-small::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 100px 200px #fff, 400px 300px #fff, 800px 100px #fff, 1200px 500px #fff, 300px 600px #fff, 700px 800px #fff, 1000px 200px #fff, 200px 400px #fff, 500px 100px #fff, 900px 600px #fff;
+}
+
+.stars-medium {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 200px 400px #fff, 600px 200px #fff, 100px 700px #fff, 1100px 300px #fff, 500px 800px #fff;
+  animation: animStar 100s linear infinite;
+}
+
+.stars-medium::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 200px 400px #fff, 600px 200px #fff, 100px 700px #fff, 1100px 300px #fff, 500px 800px #fff;
+}
+
+.stars-large {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 300px 600px #fff, 800px 400px #fff, 100px 200px #fff;
+  animation: animStar 150s linear infinite;
+}
+
+.stars-large::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 300px 600px #fff, 800px 400px #fff, 100px 200px #fff;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-2000px);
+  }
+}
+
+/* Chrome-like Tab Clip Path */
+.tab-shape {
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+}
