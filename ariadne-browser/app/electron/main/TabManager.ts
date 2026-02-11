@@ -597,13 +597,13 @@ export class TabManager {
             { type: 'separator' },
             {
                 label: 'Back',
-                enabled: tab.view.webContents.canGoBack(),
-                click: () => tab.view.webContents.goBack()
+                enabled: tab.view.webContents.navigationHistory.canGoBack(),
+                click: () => tab.view.webContents.navigationHistory.goBack()
             },
             {
                 label: 'Forward',
-                enabled: tab.view.webContents.canGoForward(),
-                click: () => tab.view.webContents.goForward()
+                enabled: tab.view.webContents.navigationHistory.canGoForward(),
+                click: () => tab.view.webContents.navigationHistory.goForward()
             },
             {
                 label: 'Reload',
