@@ -1,6 +1,7 @@
-import { app, session, ipcMain, BrowserWindow, WebContentsView, shell } from "electron";
+import { app, session, ipcMain, BrowserWindow, WebContentsView, Menu, clipboard, shell } from "electron";
 import { join } from "path";
 import { v4 } from "uuid";
+import WebSocket from "ws";
 import __cjs_mod__ from "node:module";
 const __filename = import.meta.filename;
 const __dirname = import.meta.dirname;
@@ -108,6 +109,7 @@ class TabManager {
     this.mainWindow = null;
     this.viewportBounds = null;
     this.browserSession = null;
+    this.synapseConnection = null;
   }
   static getInstance() {
     if (!TabManager.instance) {
@@ -123,6 +125,7 @@ class TabManager {
     this.setupSession();
     this.setupIpcHandlers();
     this.setupWindowListeners();
+    this.connectToSynapse();
   }
   /**
    * Set up a persistent session with permission handling
@@ -145,6 +148,40 @@ class TabManager {
       ];
       callback(allowedPermissions.includes(permission));
     });
+  }
+  /**
+   * Connect to NeuralNotes Synapse server
+   */
+  connectToSynapse() {
+    try {
+      this.synapseConnection = new WebSocket("ws://localhost:9847");
+      this.synapseConnection.on("open", () => {
+        console.log("[TabManager] Connected to Synapse");
+      });
+      this.synapseConnection.on("close", () => {
+        console.log("[TabManager] Synapse connection closed");
+        setTimeout(() => this.connectToSynapse(), 5e3);
+      });
+      this.synapseConnection.on("error", (err) => {
+        console.warn("[TabManager] Synapse connection error:", err.message);
+      });
+    } catch (error) {
+      console.error("[TabManager] Failed to connect to Synapse:", error);
+    }
+  }
+  /**
+   * Send content to NeuralNotes via Synapse
+   */
+  sendToNeuralNotes(data) {
+    if (this.synapseConnection?.readyState === WebSocket.OPEN) {
+      this.synapseConnection.send(JSON.stringify({
+        type: "CAPTURE_PAGE",
+        payload: data
+      }));
+      console.log("[TabManager] Sent to NeuralNotes:", data.title);
+    } else {
+      console.warn("[TabManager] Cannot send to NeuralNotes - Synapse not connected");
+    }
   }
   /**
    * Set up IPC handlers for renderer communication
@@ -275,6 +312,9 @@ class TabManager {
       tab.url = url2;
       this.notifyTabUpdate(tab);
     });
+    view.webContents.on("context-menu", (_event, params) => {
+      this.showContextMenu(params, tab);
+    });
     this.tabs.set(id, tab);
     this.notifyTabCreated(tab);
     this.switchTab(id);
@@ -400,6 +440,165 @@ class TabManager {
   notifyTabRemoved(tabId) {
     if (!this.mainWindow) return;
     this.mainWindow.webContents.send("tab:removed", tabId);
+  }
+  /**
+   * Show context menu based on what was right-clicked
+   */
+  showContextMenu(params, tab) {
+    const template = [];
+    if (params.selectionText) {
+      template.push(
+        {
+          label: "Send Selection to NeuralNotes",
+          click: async () => {
+            try {
+              const extraction = await tab.view.webContents.executeJavaScript(`
+                                window.api.extractSelection()
+                            `);
+              if (extraction) {
+                this.sendToNeuralNotes({
+                  title: extraction.title ? `Selection from ${extraction.title}` : `Selection from ${tab.title}`,
+                  url: tab.url,
+                  content: extraction.content,
+                  type: "text"
+                });
+              } else {
+                this.sendToNeuralNotes({
+                  title: `Selection from ${tab.title}`,
+                  url: tab.url,
+                  content: params.selectionText,
+                  type: "text"
+                });
+              }
+            } catch (e) {
+              console.error("Failed to extract selection:", e);
+              this.sendToNeuralNotes({
+                title: `Selection from ${tab.title}`,
+                url: tab.url,
+                content: params.selectionText,
+                type: "text"
+              });
+            }
+          }
+        },
+        { type: "separator" },
+        {
+          label: "Copy",
+          role: "copy"
+        },
+        {
+          label: "Search Google",
+          click: () => {
+            const query = encodeURIComponent(params.selectionText);
+            this.createTab(`https://www.google.com/search?q=${query}`);
+          }
+        }
+      );
+    }
+    if (params.linkURL) {
+      template.push(
+        {
+          label: "Send Link to NeuralNotes",
+          click: () => {
+            this.sendToNeuralNotes({
+              title: params.linkText || "Link",
+              url: params.linkURL,
+              content: `[${params.linkText || "Link"}](${params.linkURL})`,
+              type: "link"
+            });
+          }
+        },
+        { type: "separator" },
+        {
+          label: "Open Link in New Tab",
+          click: () => {
+            this.createTab(params.linkURL);
+          }
+        },
+        {
+          label: "Copy Link Address",
+          click: () => {
+            clipboard.writeText(params.linkURL);
+          }
+        }
+      );
+    }
+    if (params.mediaType === "image") {
+      template.push(
+        {
+          label: "Send Image to NeuralNotes",
+          click: () => {
+            this.sendToNeuralNotes({
+              title: `Image from ${tab.title}`,
+              url: tab.url,
+              content: `![Image](${params.srcURL})`,
+              type: "image"
+            });
+          }
+        },
+        { type: "separator" },
+        {
+          label: "Open Image in New Tab",
+          click: () => {
+            this.createTab(params.srcURL);
+          }
+        },
+        {
+          label: "Copy Image Address",
+          click: () => {
+            clipboard.writeText(params.srcURL);
+          }
+        }
+      );
+    }
+    if (!params.selectionText && !params.linkURL && params.mediaType !== "image") {
+      template.push(
+        {
+          label: "Send Page to NeuralNotes",
+          click: async () => {
+            try {
+              const extraction = await tab.view.webContents.executeJavaScript(`
+                                window.api.extractContent()
+                            `);
+              this.sendToNeuralNotes({
+                title: extraction.title,
+                url: extraction.url,
+                content: extraction.content,
+                type: "text"
+              });
+            } catch (error) {
+              console.error("Failed to get page content:", error);
+            }
+          }
+        }
+      );
+    }
+    template.push(
+      { type: "separator" },
+      {
+        label: "Back",
+        enabled: tab.view.webContents.navigationHistory.canGoBack(),
+        click: () => tab.view.webContents.navigationHistory.goBack()
+      },
+      {
+        label: "Forward",
+        enabled: tab.view.webContents.navigationHistory.canGoForward(),
+        click: () => tab.view.webContents.navigationHistory.goForward()
+      },
+      {
+        label: "Reload",
+        role: "reload"
+      },
+      { type: "separator" },
+      {
+        label: "Inspect Element",
+        click: () => {
+          tab.view.webContents.inspectElement(params.x, params.y);
+        }
+      }
+    );
+    const menu = Menu.buildFromTemplate(template);
+    menu.popup();
   }
 }
 function createWindow() {

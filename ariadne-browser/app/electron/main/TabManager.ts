@@ -484,13 +484,39 @@ export class TabManager {
             template.push(
                 {
                     label: 'Send Selection to NeuralNotes',
-                    click: () => {
-                        this.sendToNeuralNotes({
-                            title: `Selection from ${tab.title}`,
-                            url: tab.url,
-                            content: params.selectionText,
-                            type: 'text'
-                        });
+                    click: async () => {
+                        try {
+                            // Try to get rich markdown selection
+                            const extraction = await tab.view.webContents.executeJavaScript(`
+                                window.api.extractSelection()
+                            `);
+
+                            if (extraction) {
+                                this.sendToNeuralNotes({
+                                    title: extraction.title ? `Selection from ${extraction.title}` : `Selection from ${tab.title}`,
+                                    url: tab.url,
+                                    content: extraction.content,
+                                    type: 'text'
+                                });
+                            } else {
+                                // Fallback to plain text
+                                this.sendToNeuralNotes({
+                                    title: `Selection from ${tab.title}`,
+                                    url: tab.url,
+                                    content: params.selectionText,
+                                    type: 'text'
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Failed to extract selection:', e);
+                            // Fallback
+                            this.sendToNeuralNotes({
+                                title: `Selection from ${tab.title}`,
+                                url: tab.url,
+                                content: params.selectionText,
+                                type: 'text'
+                            });
+                        }
                     }
                 },
                 { type: 'separator' },
@@ -517,7 +543,7 @@ export class TabManager {
                         this.sendToNeuralNotes({
                             title: params.linkText || 'Link',
                             url: params.linkURL,
-                            content: params.linkURL,
+                            content: `[${params.linkText || 'Link'}](${params.linkURL})`,
                             type: 'link'
                         });
                     }
@@ -547,7 +573,7 @@ export class TabManager {
                         this.sendToNeuralNotes({
                             title: `Image from ${tab.title}`,
                             url: tab.url,
-                            content: params.srcURL,
+                            content: `![Image](${params.srcURL})`,
                             type: 'image'
                         });
                     }
@@ -569,19 +595,26 @@ export class TabManager {
         }
 
         // Page actions (when nothing specific is clicked)
-        if (template.length === 0) {
+        // If template has items (e.g. standard actions added later), we still want "Send Page"
+        // But the previous logic was "if template.length === 0". 
+        // We should add "Send Page" ALWAYS as an option in the page context?
+        // Or strictly when no selection/link/image.
+        // The previous logic was: if (template.length === 0) -> Send Page.
+        // Usage: user clicks on blank space.
+
+        if (!params.selectionText && !params.linkURL && params.mediaType !== 'image') {
             template.push(
                 {
                     label: 'Send Page to NeuralNotes',
                     click: async () => {
                         try {
-                            const content = await tab.view.webContents.executeJavaScript(`
-                                document.body.innerText || ''
+                            const extraction = await tab.view.webContents.executeJavaScript(`
+                                window.api.extractContent()
                             `);
                             this.sendToNeuralNotes({
-                                title: tab.title,
-                                url: tab.url,
-                                content: content.substring(0, 5000),
+                                title: extraction.title,
+                                url: extraction.url,
+                                content: extraction.content,
                                 type: 'text'
                             });
                         } catch (error) {

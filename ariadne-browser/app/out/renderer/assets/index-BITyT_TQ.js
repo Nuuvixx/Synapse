@@ -19992,16 +19992,16 @@ function EdgeUpdateAnchors({ isReconnectable, reconnectRadius, edge, sourceX, so
   const onReconnectMouseOut = () => setUpdateHover(false);
   return jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [(isReconnectable === true || isReconnectable === "source") && jsxRuntimeExports.jsx(EdgeAnchor, { position: sourcePosition, centerX: sourceX, centerY: sourceY, radius: reconnectRadius, onMouseDown: onReconnectSourceMouseDown, onMouseEnter: onReconnectMouseEnter, onMouseOut: onReconnectMouseOut, type: "source" }), (isReconnectable === true || isReconnectable === "target") && jsxRuntimeExports.jsx(EdgeAnchor, { position: targetPosition, centerX: targetX, centerY: targetY, radius: reconnectRadius, onMouseDown: onReconnectTargetMouseDown, onMouseEnter: onReconnectMouseEnter, onMouseOut: onReconnectMouseOut, type: "target" })] });
 }
-function EdgeWrapper({ id: id2, edgesFocusable, edgesReconnectable, elementsSelectable, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseMove, onMouseLeave, reconnectRadius, onReconnect, onReconnectStart, onReconnectEnd, rfId, edgeTypes, noPanClassName, onError, disableKeyboardA11y }) {
+function EdgeWrapper({ id: id2, edgesFocusable, edgesReconnectable, elementsSelectable, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseMove, onMouseLeave, reconnectRadius, onReconnect, onReconnectStart, onReconnectEnd, rfId, edgeTypes: edgeTypes2, noPanClassName, onError, disableKeyboardA11y }) {
   let edge = useStore$1((s) => s.edgeLookup.get(id2));
   const defaultEdgeOptions = useStore$1((s) => s.defaultEdgeOptions);
   edge = defaultEdgeOptions ? { ...defaultEdgeOptions, ...edge } : edge;
   let edgeType = edge.type || "default";
-  let EdgeComponent = edgeTypes?.[edgeType] || builtinEdgeTypes[edgeType];
+  let EdgeComponent = edgeTypes2?.[edgeType] || builtinEdgeTypes[edgeType];
   if (EdgeComponent === void 0) {
     onError?.("011", errorMessages["error011"](edgeType));
     edgeType = "default";
-    EdgeComponent = edgeTypes?.["default"] || builtinEdgeTypes.default;
+    EdgeComponent = edgeTypes2?.["default"] || builtinEdgeTypes.default;
   }
   const isFocusable = !!(edge.focusable || edgesFocusable && typeof edge.focusable === "undefined");
   const isReconnectable = typeof onReconnect !== "undefined" && (edge.reconnectable || edgesReconnectable && typeof edge.reconnectable === "undefined");
@@ -20110,11 +20110,11 @@ const selector$a = (s) => ({
   connectionMode: s.connectionMode,
   onError: s.onError
 });
-function EdgeRendererComponent({ defaultMarkerColor, onlyRenderVisibleElements, rfId, edgeTypes, noPanClassName, onReconnect, onEdgeContextMenu, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, onEdgeClick, reconnectRadius, onEdgeDoubleClick, onReconnectStart, onReconnectEnd, disableKeyboardA11y }) {
+function EdgeRendererComponent({ defaultMarkerColor, onlyRenderVisibleElements, rfId, edgeTypes: edgeTypes2, noPanClassName, onReconnect, onEdgeContextMenu, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, onEdgeClick, reconnectRadius, onEdgeDoubleClick, onReconnectStart, onReconnectEnd, disableKeyboardA11y }) {
   const { edgesFocusable, edgesReconnectable, elementsSelectable, onError } = useStore$1(selector$a, shallow$1);
   const edgeIds = useVisibleEdgeIds(onlyRenderVisibleElements);
   return jsxRuntimeExports.jsxs("div", { className: "react-flow__edges", children: [jsxRuntimeExports.jsx(MarkerDefinitions$1, { defaultColor: defaultMarkerColor, rfId }), edgeIds.map((id2) => {
-    return jsxRuntimeExports.jsx(EdgeWrapper$1, { id: id2, edgesFocusable, edgesReconnectable, elementsSelectable, noPanClassName, onReconnect, onContextMenu: onEdgeContextMenu, onMouseEnter: onEdgeMouseEnter, onMouseMove: onEdgeMouseMove, onMouseLeave: onEdgeMouseLeave, onClick: onEdgeClick, reconnectRadius, onDoubleClick: onEdgeDoubleClick, onReconnectStart, onReconnectEnd, rfId, onError, edgeTypes, disableKeyboardA11y }, id2);
+    return jsxRuntimeExports.jsx(EdgeWrapper$1, { id: id2, edgesFocusable, edgesReconnectable, elementsSelectable, noPanClassName, onReconnect, onContextMenu: onEdgeContextMenu, onMouseEnter: onEdgeMouseEnter, onMouseMove: onEdgeMouseMove, onMouseLeave: onEdgeMouseLeave, onClick: onEdgeClick, reconnectRadius, onDoubleClick: onEdgeDoubleClick, onReconnectStart, onReconnectEnd, rfId, onError, edgeTypes: edgeTypes2, disableKeyboardA11y }, id2);
   })] });
 }
 EdgeRendererComponent.displayName = "EdgeRenderer";
@@ -20223,13 +20223,13 @@ function useStylesLoadedWarning() {
   reactExports.useEffect(() => {
   }, []);
 }
-function GraphViewComponent({ nodeTypes: nodeTypes2, edgeTypes, onInit, onNodeClick, onEdgeClick, onNodeDoubleClick, onEdgeDoubleClick, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, onSelectionContextMenu, onSelectionStart, onSelectionEnd, connectionLineType, connectionLineStyle, connectionLineComponent, connectionLineContainerStyle, selectionKeyCode, selectionOnDrag, selectionMode, multiSelectionKeyCode, panActivationKeyCode, zoomActivationKeyCode, deleteKeyCode, onlyRenderVisibleElements, elementsSelectable, defaultViewport: defaultViewport2, translateExtent, minZoom, maxZoom, preventScrolling, defaultMarkerColor, zoomOnScroll, zoomOnPinch, panOnScroll, panOnScrollSpeed, panOnScrollMode, zoomOnDoubleClick, panOnDrag, onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneScroll, onPaneContextMenu, paneClickDistance, nodeClickDistance, onEdgeContextMenu, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius, onReconnect, onReconnectStart, onReconnectEnd, noDragClassName, noWheelClassName, noPanClassName, disableKeyboardA11y, nodeExtent, rfId, viewport, onViewportChange }) {
+function GraphViewComponent({ nodeTypes: nodeTypes2, edgeTypes: edgeTypes2, onInit, onNodeClick, onEdgeClick, onNodeDoubleClick, onEdgeDoubleClick, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, onSelectionContextMenu, onSelectionStart, onSelectionEnd, connectionLineType, connectionLineStyle, connectionLineComponent, connectionLineContainerStyle, selectionKeyCode, selectionOnDrag, selectionMode, multiSelectionKeyCode, panActivationKeyCode, zoomActivationKeyCode, deleteKeyCode, onlyRenderVisibleElements, elementsSelectable, defaultViewport: defaultViewport2, translateExtent, minZoom, maxZoom, preventScrolling, defaultMarkerColor, zoomOnScroll, zoomOnPinch, panOnScroll, panOnScrollSpeed, panOnScrollMode, zoomOnDoubleClick, panOnDrag, onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneScroll, onPaneContextMenu, paneClickDistance, nodeClickDistance, onEdgeContextMenu, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius, onReconnect, onReconnectStart, onReconnectEnd, noDragClassName, noWheelClassName, noPanClassName, disableKeyboardA11y, nodeExtent, rfId, viewport, onViewportChange }) {
   useNodeOrEdgeTypesWarning(nodeTypes2);
-  useNodeOrEdgeTypesWarning(edgeTypes);
+  useNodeOrEdgeTypesWarning(edgeTypes2);
   useStylesLoadedWarning();
   useOnInitHandler(onInit);
   useViewportSync(viewport);
-  return jsxRuntimeExports.jsx(FlowRenderer, { onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneContextMenu, onPaneScroll, paneClickDistance, deleteKeyCode, selectionKeyCode, selectionOnDrag, selectionMode, onSelectionStart, onSelectionEnd, multiSelectionKeyCode, panActivationKeyCode, zoomActivationKeyCode, elementsSelectable, zoomOnScroll, zoomOnPinch, zoomOnDoubleClick, panOnScroll, panOnScrollSpeed, panOnScrollMode, panOnDrag, defaultViewport: defaultViewport2, translateExtent, minZoom, maxZoom, onSelectionContextMenu, preventScrolling, noDragClassName, noWheelClassName, noPanClassName, disableKeyboardA11y, onViewportChange, isControlledViewport: !!viewport, children: jsxRuntimeExports.jsxs(Viewport, { children: [jsxRuntimeExports.jsx(EdgeRenderer, { edgeTypes, onEdgeClick, onEdgeDoubleClick, onReconnect, onReconnectStart, onReconnectEnd, onlyRenderVisibleElements, onEdgeContextMenu, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius, defaultMarkerColor, noPanClassName, disableKeyboardA11y, rfId }), jsxRuntimeExports.jsx(ConnectionLineWrapper, { style: connectionLineStyle, type: connectionLineType, component: connectionLineComponent, containerStyle: connectionLineContainerStyle }), jsxRuntimeExports.jsx("div", { className: "react-flow__edgelabel-renderer" }), jsxRuntimeExports.jsx(NodeRenderer, { nodeTypes: nodeTypes2, onNodeClick, onNodeDoubleClick, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, nodeClickDistance, onlyRenderVisibleElements, noPanClassName, noDragClassName, disableKeyboardA11y, nodeExtent, rfId }), jsxRuntimeExports.jsx("div", { className: "react-flow__viewport-portal" })] }) });
+  return jsxRuntimeExports.jsx(FlowRenderer, { onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneContextMenu, onPaneScroll, paneClickDistance, deleteKeyCode, selectionKeyCode, selectionOnDrag, selectionMode, onSelectionStart, onSelectionEnd, multiSelectionKeyCode, panActivationKeyCode, zoomActivationKeyCode, elementsSelectable, zoomOnScroll, zoomOnPinch, zoomOnDoubleClick, panOnScroll, panOnScrollSpeed, panOnScrollMode, panOnDrag, defaultViewport: defaultViewport2, translateExtent, minZoom, maxZoom, onSelectionContextMenu, preventScrolling, noDragClassName, noWheelClassName, noPanClassName, disableKeyboardA11y, onViewportChange, isControlledViewport: !!viewport, children: jsxRuntimeExports.jsxs(Viewport, { children: [jsxRuntimeExports.jsx(EdgeRenderer, { edgeTypes: edgeTypes2, onEdgeClick, onEdgeDoubleClick, onReconnect, onReconnectStart, onReconnectEnd, onlyRenderVisibleElements, onEdgeContextMenu, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius, defaultMarkerColor, noPanClassName, disableKeyboardA11y, rfId }), jsxRuntimeExports.jsx(ConnectionLineWrapper, { style: connectionLineStyle, type: connectionLineType, component: connectionLineComponent, containerStyle: connectionLineContainerStyle }), jsxRuntimeExports.jsx("div", { className: "react-flow__edgelabel-renderer" }), jsxRuntimeExports.jsx(NodeRenderer, { nodeTypes: nodeTypes2, onNodeClick, onNodeDoubleClick, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, nodeClickDistance, onlyRenderVisibleElements, noPanClassName, noDragClassName, disableKeyboardA11y, nodeExtent, rfId }), jsxRuntimeExports.jsx("div", { className: "react-flow__viewport-portal" })] }) });
 }
 GraphViewComponent.displayName = "GraphView";
 const GraphView = reactExports.memo(GraphViewComponent);
@@ -20615,14 +20615,14 @@ const wrapperStyle = {
   position: "relative",
   zIndex: 0
 };
-function ReactFlow({ nodes, edges, defaultNodes, defaultEdges, className, nodeTypes: nodeTypes2, edgeTypes, onNodeClick, onEdgeClick, onInit, onMove, onMoveStart, onMoveEnd, onConnect, onConnectStart, onConnectEnd, onClickConnectStart, onClickConnectEnd, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, onNodeDoubleClick, onNodeDragStart, onNodeDrag, onNodeDragStop, onNodesDelete, onEdgesDelete, onDelete, onSelectionChange, onSelectionDragStart, onSelectionDrag, onSelectionDragStop, onSelectionContextMenu, onSelectionStart, onSelectionEnd, onBeforeDelete, connectionMode, connectionLineType = ConnectionLineType.Bezier, connectionLineStyle, connectionLineComponent, connectionLineContainerStyle, deleteKeyCode = "Backspace", selectionKeyCode = "Shift", selectionOnDrag = false, selectionMode = SelectionMode.Full, panActivationKeyCode = "Space", multiSelectionKeyCode = isMacOs() ? "Meta" : "Control", zoomActivationKeyCode = isMacOs() ? "Meta" : "Control", snapToGrid, snapGrid, onlyRenderVisibleElements = false, selectNodesOnDrag, nodesDraggable, autoPanOnNodeFocus, nodesConnectable, nodesFocusable, nodeOrigin = defaultNodeOrigin, edgesFocusable, edgesReconnectable, elementsSelectable = true, defaultViewport: defaultViewport$1 = defaultViewport, minZoom = 0.5, maxZoom = 2, translateExtent = infiniteExtent, preventScrolling = true, nodeExtent, defaultMarkerColor = "#b1b1b7", zoomOnScroll = true, zoomOnPinch = true, panOnScroll = false, panOnScrollSpeed = 0.5, panOnScrollMode = PanOnScrollMode.Free, zoomOnDoubleClick = true, panOnDrag = true, onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneScroll, onPaneContextMenu, paneClickDistance = 1, nodeClickDistance = 0, children: children2, onReconnect, onReconnectStart, onReconnectEnd, onEdgeContextMenu, onEdgeDoubleClick, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius = 10, onNodesChange, onEdgesChange, noDragClassName = "nodrag", noWheelClassName = "nowheel", noPanClassName = "nopan", fitView, fitViewOptions, connectOnClick, attributionPosition, proOptions, defaultEdgeOptions, elevateNodesOnSelect = true, elevateEdgesOnSelect = false, disableKeyboardA11y = false, autoPanOnConnect, autoPanOnNodeDrag, autoPanSpeed, connectionRadius, isValidConnection, onError, style: style2, id: id2, nodeDragThreshold, connectionDragThreshold, viewport, onViewportChange, width, height, colorMode = "light", debug, onScroll, ariaLabelConfig, zIndexMode = "basic", ...rest }, ref) {
+function ReactFlow({ nodes, edges, defaultNodes, defaultEdges, className, nodeTypes: nodeTypes2, edgeTypes: edgeTypes2, onNodeClick, onEdgeClick, onInit, onMove, onMoveStart, onMoveEnd, onConnect, onConnectStart, onConnectEnd, onClickConnectStart, onClickConnectEnd, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, onNodeDoubleClick, onNodeDragStart, onNodeDrag, onNodeDragStop, onNodesDelete, onEdgesDelete, onDelete, onSelectionChange, onSelectionDragStart, onSelectionDrag, onSelectionDragStop, onSelectionContextMenu, onSelectionStart, onSelectionEnd, onBeforeDelete, connectionMode, connectionLineType = ConnectionLineType.Bezier, connectionLineStyle, connectionLineComponent, connectionLineContainerStyle, deleteKeyCode = "Backspace", selectionKeyCode = "Shift", selectionOnDrag = false, selectionMode = SelectionMode.Full, panActivationKeyCode = "Space", multiSelectionKeyCode = isMacOs() ? "Meta" : "Control", zoomActivationKeyCode = isMacOs() ? "Meta" : "Control", snapToGrid, snapGrid, onlyRenderVisibleElements = false, selectNodesOnDrag, nodesDraggable, autoPanOnNodeFocus, nodesConnectable, nodesFocusable, nodeOrigin = defaultNodeOrigin, edgesFocusable, edgesReconnectable, elementsSelectable = true, defaultViewport: defaultViewport$1 = defaultViewport, minZoom = 0.5, maxZoom = 2, translateExtent = infiniteExtent, preventScrolling = true, nodeExtent, defaultMarkerColor = "#b1b1b7", zoomOnScroll = true, zoomOnPinch = true, panOnScroll = false, panOnScrollSpeed = 0.5, panOnScrollMode = PanOnScrollMode.Free, zoomOnDoubleClick = true, panOnDrag = true, onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneScroll, onPaneContextMenu, paneClickDistance = 1, nodeClickDistance = 0, children: children2, onReconnect, onReconnectStart, onReconnectEnd, onEdgeContextMenu, onEdgeDoubleClick, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius = 10, onNodesChange, onEdgesChange, noDragClassName = "nodrag", noWheelClassName = "nowheel", noPanClassName = "nopan", fitView, fitViewOptions, connectOnClick, attributionPosition, proOptions, defaultEdgeOptions, elevateNodesOnSelect = true, elevateEdgesOnSelect = false, disableKeyboardA11y = false, autoPanOnConnect, autoPanOnNodeDrag, autoPanSpeed, connectionRadius, isValidConnection, onError, style: style2, id: id2, nodeDragThreshold, connectionDragThreshold, viewport, onViewportChange, width, height, colorMode = "light", debug, onScroll, ariaLabelConfig, zIndexMode = "basic", ...rest }, ref) {
   const rfId = id2 || "1";
   const colorModeClassName = useColorModeClass(colorMode);
   const wrapperOnScroll = reactExports.useCallback((e) => {
     e.currentTarget.scrollTo({ top: 0, left: 0, behavior: "instant" });
     onScroll?.(e);
   }, [onScroll]);
-  return jsxRuntimeExports.jsx("div", { "data-testid": "rf__wrapper", ...rest, onScroll: wrapperOnScroll, style: { ...style2, ...wrapperStyle }, ref, className: cc(["react-flow", className, colorModeClassName]), id: id2, role: "application", children: jsxRuntimeExports.jsxs(Wrapper, { nodes, edges, width, height, fitView, fitViewOptions, minZoom, maxZoom, nodeOrigin, nodeExtent, zIndexMode, children: [jsxRuntimeExports.jsx(GraphView, { onInit, onNodeClick, onEdgeClick, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, onNodeDoubleClick, nodeTypes: nodeTypes2, edgeTypes, connectionLineType, connectionLineStyle, connectionLineComponent, connectionLineContainerStyle, selectionKeyCode, selectionOnDrag, selectionMode, deleteKeyCode, multiSelectionKeyCode, panActivationKeyCode, zoomActivationKeyCode, onlyRenderVisibleElements, defaultViewport: defaultViewport$1, translateExtent, minZoom, maxZoom, preventScrolling, zoomOnScroll, zoomOnPinch, zoomOnDoubleClick, panOnScroll, panOnScrollSpeed, panOnScrollMode, panOnDrag, onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneScroll, onPaneContextMenu, paneClickDistance, nodeClickDistance, onSelectionContextMenu, onSelectionStart, onSelectionEnd, onReconnect, onReconnectStart, onReconnectEnd, onEdgeContextMenu, onEdgeDoubleClick, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius, defaultMarkerColor, noDragClassName, noWheelClassName, noPanClassName, rfId, disableKeyboardA11y, nodeExtent, viewport, onViewportChange }), jsxRuntimeExports.jsx(StoreUpdater, { nodes, edges, defaultNodes, defaultEdges, onConnect, onConnectStart, onConnectEnd, onClickConnectStart, onClickConnectEnd, nodesDraggable, autoPanOnNodeFocus, nodesConnectable, nodesFocusable, edgesFocusable, edgesReconnectable, elementsSelectable, elevateNodesOnSelect, elevateEdgesOnSelect, minZoom, maxZoom, nodeExtent, onNodesChange, onEdgesChange, snapToGrid, snapGrid, connectionMode, translateExtent, connectOnClick, defaultEdgeOptions, fitView, fitViewOptions, onNodesDelete, onEdgesDelete, onDelete, onNodeDragStart, onNodeDrag, onNodeDragStop, onSelectionDrag, onSelectionDragStart, onSelectionDragStop, onMove, onMoveStart, onMoveEnd, noPanClassName, nodeOrigin, rfId, autoPanOnConnect, autoPanOnNodeDrag, autoPanSpeed, onError, connectionRadius, isValidConnection, selectNodesOnDrag, nodeDragThreshold, connectionDragThreshold, onBeforeDelete, debug, ariaLabelConfig, zIndexMode }), jsxRuntimeExports.jsx(SelectionListener, { onSelectionChange }), children2, jsxRuntimeExports.jsx(Attribution, { proOptions, position: attributionPosition }), jsxRuntimeExports.jsx(A11yDescriptions, { rfId, disableKeyboardA11y })] }) });
+  return jsxRuntimeExports.jsx("div", { "data-testid": "rf__wrapper", ...rest, onScroll: wrapperOnScroll, style: { ...style2, ...wrapperStyle }, ref, className: cc(["react-flow", className, colorModeClassName]), id: id2, role: "application", children: jsxRuntimeExports.jsxs(Wrapper, { nodes, edges, width, height, fitView, fitViewOptions, minZoom, maxZoom, nodeOrigin, nodeExtent, zIndexMode, children: [jsxRuntimeExports.jsx(GraphView, { onInit, onNodeClick, onEdgeClick, onNodeMouseEnter, onNodeMouseMove, onNodeMouseLeave, onNodeContextMenu, onNodeDoubleClick, nodeTypes: nodeTypes2, edgeTypes: edgeTypes2, connectionLineType, connectionLineStyle, connectionLineComponent, connectionLineContainerStyle, selectionKeyCode, selectionOnDrag, selectionMode, deleteKeyCode, multiSelectionKeyCode, panActivationKeyCode, zoomActivationKeyCode, onlyRenderVisibleElements, defaultViewport: defaultViewport$1, translateExtent, minZoom, maxZoom, preventScrolling, zoomOnScroll, zoomOnPinch, zoomOnDoubleClick, panOnScroll, panOnScrollSpeed, panOnScrollMode, panOnDrag, onPaneClick, onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave, onPaneScroll, onPaneContextMenu, paneClickDistance, nodeClickDistance, onSelectionContextMenu, onSelectionStart, onSelectionEnd, onReconnect, onReconnectStart, onReconnectEnd, onEdgeContextMenu, onEdgeDoubleClick, onEdgeMouseEnter, onEdgeMouseMove, onEdgeMouseLeave, reconnectRadius, defaultMarkerColor, noDragClassName, noWheelClassName, noPanClassName, rfId, disableKeyboardA11y, nodeExtent, viewport, onViewportChange }), jsxRuntimeExports.jsx(StoreUpdater, { nodes, edges, defaultNodes, defaultEdges, onConnect, onConnectStart, onConnectEnd, onClickConnectStart, onClickConnectEnd, nodesDraggable, autoPanOnNodeFocus, nodesConnectable, nodesFocusable, edgesFocusable, edgesReconnectable, elementsSelectable, elevateNodesOnSelect, elevateEdgesOnSelect, minZoom, maxZoom, nodeExtent, onNodesChange, onEdgesChange, snapToGrid, snapGrid, connectionMode, translateExtent, connectOnClick, defaultEdgeOptions, fitView, fitViewOptions, onNodesDelete, onEdgesDelete, onDelete, onNodeDragStart, onNodeDrag, onNodeDragStop, onSelectionDrag, onSelectionDragStart, onSelectionDragStop, onMove, onMoveStart, onMoveEnd, noPanClassName, nodeOrigin, rfId, autoPanOnConnect, autoPanOnNodeDrag, autoPanSpeed, onError, connectionRadius, isValidConnection, selectNodesOnDrag, nodeDragThreshold, connectionDragThreshold, onBeforeDelete, debug, ariaLabelConfig, zIndexMode }), jsxRuntimeExports.jsx(SelectionListener, { onSelectionChange }), children2, jsxRuntimeExports.jsx(Attribution, { proOptions, position: attributionPosition }), jsxRuntimeExports.jsx(A11yDescriptions, { rfId, disableKeyboardA11y })] }) });
 }
 var index$1 = fixedForwardRef(ReactFlow);
 function useNodesState(initialNodes) {
@@ -20691,7 +20691,7 @@ function BackgroundComponent({
   }, ref, "data-testid": "rf__background", children: [jsxRuntimeExports.jsx("pattern", { id: _patternId, x: transform2[0] % scaledGap[0], y: transform2[1] % scaledGap[1], width: scaledGap[0], height: scaledGap[1], patternUnits: "userSpaceOnUse", patternTransform: `translate(-${scaledOffset[0]},-${scaledOffset[1]})`, children: isDots ? jsxRuntimeExports.jsx(DotPattern, { radius: scaledSize / 2, className: patternClassName }) : jsxRuntimeExports.jsx(LinePattern, { dimensions: patternDimensions, lineWidth, variant, className: patternClassName }) }), jsxRuntimeExports.jsx("rect", { x: "0", y: "0", width: "100%", height: "100%", fill: `url(#${_patternId})` })] });
 }
 BackgroundComponent.displayName = "Background";
-const Background = reactExports.memo(BackgroundComponent);
+reactExports.memo(BackgroundComponent);
 function PlusIcon() {
   return jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 32 32", children: jsxRuntimeExports.jsx("path", { d: "M32 18.133H18.133V32h-4.266V18.133H0v-4.266h13.867V0h4.266v13.867H32z" }) });
 }
@@ -29183,7 +29183,7 @@ const createImpl = (createState2) => {
   Object.assign(useBoundStore, api);
   return useBoundStore;
 };
-const create = ((createState2) => createImpl);
+const create = ((createState2) => createState2 ? createImpl(createState2) : createImpl);
 function createJSONStorage(getStorage, options) {
   let storage;
   try {
@@ -29688,6 +29688,24 @@ const demoTimeline = {
   startTime: Date.now() - 36e5,
   endTime: Date.now()
 };
+const demoSavedTrees = [
+  {
+    id: "tree-1",
+    name: "React Ecosystem",
+    nodes: demoNodes.filter((n) => ["tab-8", "tab-10"].includes(n.id)),
+    edges: demoEdges.filter((e) => e.source === "tab-8" && e.target === "tab-10"),
+    createdAt: Date.now() - 1e5,
+    nodeCount: 2
+  },
+  {
+    id: "tree-2",
+    name: "StackOverflow Threads",
+    nodes: demoNodes.filter((n) => ["tab-3", "tab-6", "tab-7"].includes(n.id)),
+    edges: demoEdges.filter((e) => ["edge-3-6", "edge-3-7"].includes(e.id)),
+    createdAt: Date.now() - 5e5,
+    nodeCount: 3
+  }
+];
 const isExtensionMode = () => {
   return typeof chrome !== "undefined" && !!chrome.runtime && !!chrome.runtime.id;
 };
@@ -29717,6 +29735,7 @@ const useGraphStore = create()(
       viewport: { x: 0, y: 0, zoom: 1 },
       isLoading: false,
       error: null,
+      sidebarOpen: true,
       dimClosedNodes: true,
       showThumbnails: true,
       showFavicons: true,
@@ -29770,7 +29789,7 @@ const useGraphStore = create()(
       // Load saved trees
       loadSavedTrees: async () => {
         if (!isExtensionMode()) {
-          set2({ savedTrees: [] });
+          set2({ savedTrees: demoSavedTrees });
           return;
         }
         try {
@@ -30027,6 +30046,7 @@ const useGraphStore = create()(
       setShowThumbnails: (value) => set2({ showThumbnails: value }),
       setShowFavicons: (value) => set2({ showFavicons: value }),
       setClusterByDomain: (value) => set2({ clusterByDomain: value }),
+      setSidebarOpen: (value) => set2({ sidebarOpen: value }),
       // Export session
       exportSession: async () => {
         const data = {
@@ -30106,7 +30126,6 @@ const NodeCard = reactExports.memo(function NodeCard2({
 }) {
   const [imageError, setImageError] = reactExports.useState(false);
   const [isHovered, setIsHovered] = reactExports.useState(false);
-  const showThumbnails = useGraphStore((state) => state.showThumbnails);
   const showFavicons = useGraphStore((state) => state.showFavicons);
   const dimClosedNodes = useGraphStore((state) => state.dimClosedNodes);
   const isClosed = node.status === "closed";
@@ -30139,132 +30158,59 @@ const NodeCard = reactExports.memo(function NodeCard2({
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
     {
-      className: "relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 ease-out",
+      className: "relative rounded-[24px] overflow-hidden cursor-pointer group",
       style: {
-        width: 200,
-        minHeight: showThumbnails && node.screenshot && !imageError ? 150 : 60,
-        background: "var(--sg-glass-bg)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        border: selected2 ? "1.5px solid var(--sg-cyan)" : isHovered ? "1.5px solid var(--sg-border-glow-cyan)" : "1.5px solid var(--sg-glass-border)",
-        boxShadow: selected2 ? "var(--sg-glow-cyan-intense)" : isHovered ? "var(--sg-glow-cyan)" : "var(--sg-shadow-md)",
-        opacity: shouldDim ? 0.35 : 1,
-        filter: shouldDim ? "grayscale(0.6)" : "none"
+        width: 180,
+        height: 54,
+        background: "rgba(15, 23, 42, 0.6)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        border: selected2 ? "1.5px solid var(--sg-cyan)" : isHovered ? "1.5px solid var(--sg-cyan)" : "1.5px solid rgba(148, 163, 184, 0.2)",
+        boxShadow: selected2 ? "0 0 20px rgba(34, 211, 238, 0.4)" : isHovered ? "0 0 15px rgba(34, 211, 238, 0.2)" : "0 4px 12px rgba(0, 0, 0, 0.3)",
+        opacity: shouldDim ? 0.5 : 1,
+        filter: shouldDim ? "grayscale(0.8)" : "none"
       },
       onClick,
       onDoubleClick,
       onMouseEnter: () => setIsHovered(true),
       onMouseLeave: () => setIsHovered(false),
-      whileHover: { scale: 1.03, y: -2 },
-      whileTap: { scale: 0.97 },
+      whileHover: { scale: 1.05, y: -2 },
+      whileTap: { scale: 0.98 },
       layout: true,
       children: [
-        showThumbnails && node.screenshot && !imageError && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-full h-24 overflow-hidden", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
-            {
-              src: node.screenshot,
-              alt: node.title,
-              className: "w-full h-full object-cover",
-              onError: () => setImageError(true)
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "div",
-            {
-              className: "absolute inset-0",
-              style: { background: "linear-gradient(to top, var(--sg-surface-1) 0%, transparent 60%)" }
-            }
-          )
-        ] }),
-        (!showThumbnails || !node.screenshot || imageError) && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",
           {
-            className: "w-full h-16 flex items-center justify-center",
-            style: { background: placeholderGradient },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white/80 text-xs font-medium px-2 text-center", children: domain.substring(0, 20) })
+            className: "absolute bottom-0 left-0 right-0 h-[2px]",
+            style: {
+              background: node.status === "active" ? "linear-gradient(90deg, transparent, var(--sg-cyan), transparent)" : "transparent"
+            }
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
-            showFavicons && node.favicon && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center h-full px-3 gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-slate-800/80 border border-white/10 shadow-inner group-hover:border-cyan-500/50 transition-colors", children: [
+            showFavicons && node.favicon && !imageError ? /* @__PURE__ */ jsxRuntimeExports.jsx(
               "img",
               {
                 src: node.favicon,
-                alt: "",
-                className: "w-4 h-4 mt-0.5 flex-shrink-0 rounded-sm",
-                onError: (e) => {
-                  e.target.style.display = "none";
-                }
+                className: "w-4 h-4 rounded-sm",
+                onError: () => setImageError(true),
+                alt: ""
+              }
+            ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: "w-2 h-2 rounded-full",
+                style: { background: placeholderGradient }
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "p",
-              {
-                className: "text-xs leading-tight line-clamp-2 flex-1 font-medium",
-                style: { color: "var(--sg-text-primary)" },
-                children: truncatedTitle
-              }
-            )
+            node.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-cyan-500 border-2 border-slate-900 animate-pulse" })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "p",
-            {
-              className: "text-[10px] mt-1 truncate",
-              style: { color: "var(--sg-text-ghost)" },
-              children: domain
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute top-2 right-2 flex gap-1", children: [
-          isClosed && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "span",
-            {
-              className: "w-2.5 h-2.5 rounded-full",
-              style: { background: "var(--sg-text-ghost)" },
-              title: "Closed"
-            }
-          ),
-          node.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "span",
-            {
-              className: "w-2.5 h-2.5 rounded-full animate-pulse",
-              style: {
-                background: "var(--sg-emerald)",
-                boxShadow: "0 0 8px rgba(52, 211, 153, 0.5)"
-              },
-              title: "Active"
-            }
-          )
-        ] }),
-        isHovered && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.div,
-          {
-            initial: { opacity: 0 },
-            animate: { opacity: 1 },
-            className: "absolute inset-0 flex items-center justify-center gap-2",
-            style: {
-              background: "rgba(2, 6, 23, 0.85)",
-              backdropFilter: "blur(4px)"
-            },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "button",
-              {
-                className: "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all",
-                style: {
-                  background: "var(--sg-cyan)",
-                  color: "#020617",
-                  boxShadow: "0 0 16px rgba(34, 211, 238, 0.3)"
-                },
-                onClick: (e) => {
-                  e.stopPropagation();
-                  onDoubleClick();
-                },
-                children: isClosed ? "Reopen" : "Focus"
-              }
-            )
-          }
-        )
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0 flex flex-col justify-center", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-[12px] font-semibold text-slate-200 truncate leading-tight group-hover:text-cyan-100 transition-colors", children: truncatedTitle }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[9px] text-slate-500 truncate font-mono mt-0.5 group-hover:text-slate-400", children: domain })
+          ] })
+        ] })
       ]
     }
   );
@@ -33674,7 +33620,8 @@ function TimelineSlider({ onClose }) {
               className: "absolute inset-y-0 left-0",
               style: {
                 width: `${progress2 * 100}%`,
-                background: "linear-gradient(90deg, rgba(34, 211, 238, 0.15) 0%, rgba(34, 211, 238, 0.05) 100%)"
+                background: "linear-gradient(90deg, rgba(34, 211, 238, 0.4) 0%, rgba(34, 211, 238, 0.1) 100%)",
+                boxShadow: "0 0 15px rgba(34, 211, 238, 0.2)"
               },
               layoutId: "timelineProgress"
             }
@@ -33682,17 +33629,20 @@ function TimelineSlider({ onClose }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             motion.div,
             {
-              className: "absolute top-0 bottom-0 w-1",
+              className: "absolute top-0 bottom-0 w-0.5 z-20",
               style: {
                 left: `${progress2 * 100}%`,
                 background: "var(--sg-cyan)",
-                boxShadow: "0 0 12px rgba(34, 211, 238, 0.6)"
+                boxShadow: "0 0 10px var(--sg-cyan)"
               },
               children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "div",
                 {
-                  className: "absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full",
-                  style: { background: "var(--sg-cyan)", boxShadow: "0 0 8px rgba(34, 211, 238, 0.5)" }
+                  className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-white",
+                  style: {
+                    background: "var(--sg-cyan)",
+                    boxShadow: "0 0 15px var(--sg-cyan), inset 0 0 6px white"
+                  }
                 }
               )
             }
@@ -33764,8 +33714,14 @@ function NodeDetailPanel({ node, onClose }) {
       initial: { opacity: 0, x: 20 },
       animate: { opacity: 1, x: 0 },
       exit: { opacity: 0, x: 20 },
-      className: "w-80 sg-glass rounded-2xl overflow-hidden sg-glow-purple",
-      style: { boxShadow: "var(--sg-shadow-xl), var(--sg-glow-purple)" },
+      className: "w-80 rounded-2xl overflow-hidden",
+      style: {
+        background: "rgba(15, 23, 42, 0.75)",
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
+        border: "1px solid var(--sg-glass-border)",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(168, 85, 247, 0.1)"
+      },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4", style: { borderBottom: "1px solid var(--sg-border)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold", style: { color: "var(--sg-text-primary)" }, children: "Page Details" }),
@@ -34758,6 +34714,33 @@ function useForceSimulation(options) {
     simulation: simulationRef.current
   };
 }
+function CustomEdge({
+  id: id2,
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+  sourcePosition,
+  targetPosition,
+  style: style2 = {},
+  markerEnd
+}) {
+  const [edgePath] = getBezierPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition
+  });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BaseEdge, { path: edgePath, markerEnd, style: style2 }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { r: "3", fill: "#22d3ee", children: /* @__PURE__ */ jsxRuntimeExports.jsx("animateMotion", { dur: "2s", repeatCount: "indefinite", path: edgePath, children: /* @__PURE__ */ jsxRuntimeExports.jsx("mpath", { href: `#${id2}` }) }) })
+  ] });
+}
+const edgeTypes = {
+  default: CustomEdge
+};
 const nodeTypes = {
   pageNode: ({ data, selected: selected2 }) => {
     const selectNode = useGraphStore((state) => state.selectNode);
@@ -34822,16 +34805,17 @@ const convertToFlowEdges = (edges) => {
     source: edge.source,
     target: edge.target,
     type: "default",
-    animated: true,
+    animated: false,
+    // Animation is handled by CustomEdge now
     style: {
-      stroke: "var(--sg-cyan)",
+      stroke: "url(#edge-gradient)",
+      // We'll define this SVG gradient in the component
       strokeWidth: 2,
-      opacity: 0.4,
-      filter: "drop-shadow(0 0 3px rgba(34, 211, 238, 0.5))"
+      opacity: 0.8
     },
     markerEnd: {
       type: MarkerType.ArrowClosed,
-      color: "var(--sg-cyan)"
+      color: "var(--sg-purple)"
     }
   }));
 };
@@ -34913,6 +34897,7 @@ function GraphCanvas() {
         };
       }
     }
+    return void 0;
   }, [hasInitialized, loadGraphData]);
   reactExports.useEffect(() => {
     if (usePhysics && storeNodes.length > 0) {
@@ -34930,6 +34915,7 @@ function GraphCanvas() {
       const timer2 = setTimeout(() => fitView({ padding: 0.3, duration: 500 }), 500);
       return () => clearTimeout(timer2);
     }
+    return void 0;
   }, [hasInitialized, nodes.length, fitView]);
   const handleNodesChange = reactExports.useCallback((changes) => {
     onNodesChange(changes);
@@ -34974,133 +34960,232 @@ function GraphCanvas() {
   }, [usePhysics, stopSimulation, restartSimulation]);
   const selectedNode = selectedNodeIds.length === 1 ? storeNodes.find((n) => n.id === selectedNodeIds[0]) : null;
   const isLoading = !hasInitialized && storeNodes.length === 0;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: canvasRef, className: "w-full h-full relative overflow-hidden", style: { background: "var(--sg-bg-canvas)" }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isLoading && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
-      {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        className: "absolute inset-0 z-50 flex items-center justify-center flex-col gap-4",
-        style: { background: "var(--sg-bg-deep)", backdropFilter: "blur(4px)" },
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "div",
-            {
-              className: "w-12 h-12 border-4 rounded-full animate-spin",
-              style: { borderColor: "var(--sg-cyan)", borderTopColor: "transparent" }
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { color: "var(--sg-cyan)" }, children: "Loading your browsing graph..." })
-        ]
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      index$1,
-      {
-        nodes,
-        edges,
-        onNodesChange: handleNodesChange,
-        onEdgesChange,
-        onSelectionChange: handleSelectionChange,
-        onConnect: handleConnect,
-        onNodeDragStart: handleDragStart,
-        onNodeDrag: handleDrag,
-        onNodeDragStop: handleDragEnd,
-        nodeTypes,
-        fitView: true,
-        fitViewOptions: { padding: 0.3 },
-        minZoom: 0.1,
-        maxZoom: 2,
-        proOptions: { hideAttribution: true },
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Background,
-            {
-              color: "var(--sg-border)",
-              gap: 24,
-              size: 1,
-              style: { background: "var(--sg-bg-canvas)" }
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Controls,
-            {
-              style: {
-                background: "var(--sg-surface-2)",
-                border: "1px solid var(--sg-border)",
-                color: "var(--sg-text-primary)"
-              }
-            }
-          ),
-          showMinimap && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            MiniMap,
-            {
-              nodeStrokeWidth: 3,
-              zoomable: true,
-              pannable: true,
-              style: { background: "var(--sg-surface-2)", border: "1px solid var(--sg-border)" },
-              maskColor: "var(--sg-bg-deep)",
-              nodeColor: (node) => {
-                const n = node.data;
-                return n?.status === "closed" ? "var(--sg-text-tertiary)" : "var(--sg-cyan)";
-              }
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, { position: "top-left", className: "m-4 mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            GraphToolbar,
-            {
-              onFitView: () => fitView({ padding: 0.3, duration: 300 }),
-              onResetView: () => setViewport({ x: 0, y: 0, zoom: 1 }),
-              onToggleTimeline: () => setShowTimeline(!showTimeline),
-              onToggleMinimap: () => setShowMinimap(!showMinimap),
-              onTogglePhysics: handleTogglePhysics,
-              showTimeline,
-              showMinimap,
-              usePhysics
-            }
-          ) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, { position: "top-right", className: "m-4 mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sg-glass rounded-xl p-4 sg-glow-purple", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs uppercase tracking-wider mb-2", style: { color: "var(--sg-text-ghost)" }, children: "Session Stats" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold", style: { color: "var(--sg-cyan)" }, children: storeNodes.length }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-secondary)" }, children: "Pages" })
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      ref: canvasRef,
+      className: "w-full h-full relative overflow-hidden",
+      style: { background: "radial-gradient(ellipse at bottom, #0F172A 0%, #020617 100%)" },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isLoading && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+            className: "absolute inset-0 z-50 flex items-center justify-center flex-col gap-4",
+            style: { background: "var(--sg-bg-deep)", backdropFilter: "blur(4px)" },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  className: "w-12 h-12 border-4 rounded-full animate-spin",
+                  style: { borderColor: "var(--sg-cyan)", borderTopColor: "transparent" }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { color: "var(--sg-cyan)" }, children: "Loading your browsing graph..." })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          index$1,
+          {
+            nodes,
+            edges,
+            onNodesChange: handleNodesChange,
+            onEdgesChange,
+            onSelectionChange: handleSelectionChange,
+            onConnect: handleConnect,
+            onNodeDragStart: handleDragStart,
+            onNodeDrag: handleDrag,
+            onNodeDragStop: handleDragEnd,
+            nodeTypes,
+            edgeTypes,
+            fitView: true,
+            fitViewOptions: { padding: 0.3 },
+            proOptions: { hideAttribution: true },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute inset-0 overflow-hidden pointer-events-none -z-10", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stars-small" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stars-medium" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stars-large" })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold", style: { color: "var(--sg-purple)" }, children: storeEdges.length }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-secondary)" }, children: "Links" })
-              ] })
-            ] })
-          ] }) })
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: showTimeline && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      motion.div,
-      {
-        initial: { y: 100, opacity: 0 },
-        animate: { y: 0, opacity: 1 },
-        exit: { y: 100, opacity: 0 },
-        className: "absolute bottom-0 left-0 right-0 z-10",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(TimelineSlider, { onClose: () => setShowTimeline(false) })
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: selectedNode && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      motion.div,
-      {
-        initial: { x: 300, opacity: 0 },
-        animate: { x: 0, opacity: 1 },
-        exit: { x: 300, opacity: 0 },
-        className: "absolute top-20 right-4 z-10",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(NodeDetailPanel, { node: selectedNode, onClose: () => selectNode(null) })
-      }
-    ) })
-  ] });
+              /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { style: { position: "absolute", top: 0, left: 0 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("defs", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("linearGradient", { id: "edge-gradient", x1: "0%", y1: "0%", x2: "100%", y2: "0%", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "0%", stopColor: "#22d3ee" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("stop", { offset: "100%", stopColor: "#a855f7" })
+              ] }) }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Controls,
+                {
+                  style: {
+                    background: "var(--sg-surface-2)",
+                    border: "1px solid var(--sg-glass-border)",
+                    color: "var(--sg-text-primary)",
+                    borderRadius: "8px",
+                    overflow: "hidden",
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.5)"
+                  }
+                }
+              ),
+              showMinimap && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                MiniMap,
+                {
+                  nodeStrokeWidth: 3,
+                  zoomable: true,
+                  pannable: true,
+                  style: {
+                    background: "var(--sg-surface-2)",
+                    border: "1px solid var(--sg-glass-border)",
+                    borderRadius: "12px",
+                    overflow: "hidden"
+                  },
+                  maskColor: "rgba(2, 6, 23, 0.8)",
+                  nodeColor: (node) => {
+                    const n = node.data;
+                    return n?.status === "closed" ? "var(--sg-text-tertiary)" : "var(--sg-cyan)";
+                  }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, { position: "top-left", className: "m-4 mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                GraphToolbar,
+                {
+                  onFitView: () => fitView({ padding: 0.3, duration: 300 }),
+                  onResetView: () => setViewport({ x: 0, y: 0, zoom: 1 }),
+                  onToggleTimeline: () => setShowTimeline(!showTimeline),
+                  onToggleMinimap: () => setShowMinimap(!showMinimap),
+                  onTogglePhysics: handleTogglePhysics,
+                  showTimeline,
+                  showMinimap,
+                  usePhysics
+                }
+              ) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, { position: "top-right", className: "m-4 mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sg-glass rounded-xl p-4 sg-glow-purple", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs uppercase tracking-wider mb-2", style: { color: "var(--sg-text-ghost)" }, children: "Session Stats" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold", style: { color: "var(--sg-cyan)" }, children: storeNodes.length }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-secondary)" }, children: "Pages" })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold", style: { color: "var(--sg-purple)" }, children: storeEdges.length }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-secondary)" }, children: "Links" })
+                  ] })
+                ] })
+              ] }) })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: showTimeline && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
+          {
+            initial: { y: 100, opacity: 0 },
+            animate: { y: 0, opacity: 1 },
+            exit: { y: 100, opacity: 0 },
+            className: "absolute bottom-0 left-0 right-0 z-10",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(TimelineSlider, { onClose: () => setShowTimeline(false) })
+          }
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: selectedNode && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
+          {
+            initial: { x: 300, opacity: 0 },
+            animate: { x: 0, opacity: 1 },
+            exit: { x: 300, opacity: 0 },
+            className: "absolute top-20 right-4 z-10",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(NodeDetailPanel, { node: selectedNode, onClose: () => selectNode(null) })
+          }
+        ) })
+      ]
+    }
+  );
 }
+const RECONNECT_INTERVAL = 5e3;
+const PING_INTERVAL = 3e4;
+const useSynapseClient = create((set2, get2) => {
+  let ws = null;
+  let reconnectTimer = null;
+  let pingTimer = null;
+  const connect = () => {
+    if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+    try {
+      ws = new WebSocket("ws://localhost:9847");
+      ws.onopen = () => {
+        console.log("[Synapse] Connected to NeuralLink");
+        set2({ isConnected: true });
+        if (pingTimer) clearInterval(pingTimer);
+        pingTimer = setInterval(() => {
+          if (ws?.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: "PING" }));
+          }
+        }, PING_INTERVAL);
+      };
+      ws.onclose = () => {
+        console.log("[Synapse] Disconnected");
+        set2({ isConnected: false });
+        ws = null;
+        if (!reconnectTimer) {
+          reconnectTimer = setTimeout(() => {
+            reconnectTimer = null;
+            connect();
+          }, RECONNECT_INTERVAL);
+        }
+      };
+      ws.onerror = (err) => {
+        console.warn("[Synapse] Connection error:", err);
+        ws?.close();
+      };
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === "PONG") {
+            set2({ lastPing: Date.now() });
+          } else if (data.type === "CAPTURE_SUCCESS") {
+            console.log("[Synapse] Capture confirmed:", data.message);
+          }
+        } catch (e) {
+          console.error("[Synapse] Error parsing message", e);
+        }
+      };
+    } catch (err) {
+      console.error("[Synapse] Setup error:", err);
+    }
+  };
+  return {
+    isConnected: false,
+    lastPing: 0,
+    connect,
+    capturePage: (payload) => {
+      if (ws?.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: "CAPTURE_PAGE",
+          payload
+        }));
+      } else {
+        console.warn("[Synapse] Cannot capture, offline");
+      }
+    }
+  };
+});
 function Sidebar({ isOpen, onClose }) {
+  const sidebarOpen = useGraphStore((state) => state.sidebarOpen);
   const [activeTab, setActiveTab] = reactExports.useState("sessions");
   const [searchQuery, setSearchQuery] = reactExports.useState("");
+  const { isConnected, connect, capturePage } = useSynapseClient();
+  reactExports.useState(() => {
+    connect();
+  });
+  const handleCapture = () => {
+    if (isConnected) {
+      capturePage({
+        title: document.title || "Unknown Page",
+        url: window.location.href,
+        // This might be the app URL, not the browser view URL. We need the active tab info.
+        content: "Snapshot taken from Ariadne",
+        // Placeholder
+        favicon: ""
+      });
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isOpen && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       motion.div,
@@ -35108,7 +35193,7 @@ function Sidebar({ isOpen, onClose }) {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
-        onClick: onClose,
+        onClick: () => useGraphStore.getState().setSidebarOpen(false),
         className: "fixed inset-0 z-40",
         style: { background: "rgba(2, 6, 23, 0.6)", backdropFilter: "blur(4px)" }
       }
@@ -35116,58 +35201,72 @@ function Sidebar({ isOpen, onClose }) {
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       motion.div,
       {
-        initial: { x: -320 },
-        animate: { x: 0 },
-        exit: { x: -320 },
-        className: "fixed left-0 top-8 bottom-0 w-80 z-50 flex flex-col",
+        initial: { x: -320, opacity: 0 },
+        animate: {
+          x: sidebarOpen ? 0 : -320,
+          opacity: sidebarOpen ? 1 : 0
+        },
+        transition: { type: "spring", stiffness: 300, damping: 30 },
+        className: "fixed left-2 top-10 bottom-2 w-80 z-40 flex flex-col rounded-2xl border border-white/10 shadow-2xl overflow-hidden backdrop-blur-2xl",
         style: {
-          background: "var(--sg-surface-1)",
-          borderRight: "1px solid var(--sg-border)",
-          boxShadow: "var(--sg-shadow-xl)"
+          background: "rgba(15, 23, 42, 0.6)",
+          boxShadow: "0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05)"
         },
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", style: { borderBottom: "1px solid var(--sg-border-subtle)" }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-12 flex items-center justify-between px-4 border-b border-white/5 bg-white/5 relative overflow-hidden", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-50" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 relative z-10", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "div",
                 {
-                  className: "w-10 h-10 rounded-2xl flex items-center justify-center",
+                  className: "w-2 h-2 rounded-full animate-pulse transition-colors duration-500",
                   style: {
-                    background: "linear-gradient(135deg, var(--sg-cyan), var(--sg-purple))",
-                    boxShadow: "0 0 16px rgba(34, 211, 238, 0.25)"
+                    background: isConnected ? "var(--sg-success)" : "var(--sg-error)",
+                    boxShadow: isConnected ? "0 0 10px var(--sg-success)" : "none"
                   },
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: "🧭" })
+                  title: isConnected ? "Synapse Linked" : "Neural Link Severed"
                 }
               ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-bold", style: { color: "var(--sg-text-primary)" }, children: "Ariadne" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: "Spatial Web Browser" })
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "font-mono text-xs font-bold tracking-[0.2em] text-cyan-100/80", children: [
+                "ARIADNE ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-cyan-400", children: "//" }),
+                " SPATIAL"
               ] })
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4", style: { color: "var(--sg-text-ghost)" } }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "input",
-                {
-                  type: "text",
-                  placeholder: "Search pages...",
-                  value: searchQuery,
-                  onChange: (e) => setSearchQuery(e.target.value),
-                  className: "w-full pl-9 pr-4 py-2 rounded-xl text-sm outline-none transition-all",
-                  style: {
-                    background: "var(--sg-surface-2)",
-                    border: "1px solid var(--sg-border-subtle)",
-                    color: "var(--sg-text-primary)"
-                  }
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: handleCapture,
+                disabled: !isConnected,
+                className: "relative z-10 p-1.5 rounded-md hover:bg-white/10 transition-colors disabled:opacity-30",
+                title: "Capture Verification",
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 border border-current rounded-sm" })
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4", style: { color: "var(--sg-text-ghost)" } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                type: "text",
+                placeholder: "Search pages...",
+                value: searchQuery,
+                onChange: (e) => setSearchQuery(e.target.value),
+                className: "w-full pl-9 pr-4 py-2 rounded-xl text-sm outline-none transition-all",
+                style: {
+                  background: "var(--sg-surface-2)",
+                  border: "1px solid var(--sg-border-subtle)",
+                  color: "var(--sg-text-primary)"
                 }
-              )
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex", style: { borderBottom: "1px solid var(--sg-border-subtle)" }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "sessions", onClick: () => setActiveTab("sessions"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(History, { className: "w-4 h-4" }), label: "Sessions" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "trees", onClick: () => setActiveTab("trees"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Bookmark, { className: "w-4 h-4" }), label: "Trees" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "settings", onClick: () => setActiveTab("settings"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-4 h-4" }), label: "Settings" })
-          ] }),
+              }
+            )
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 pb-0", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex p-1 rounded-xl", style: { background: "rgba(0, 0, 0, 0.2)", border: "1px solid rgba(255, 255, 255, 0.05)" }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "sessions", onClick: () => setActiveTab("sessions"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(History, { className: "w-3.5 h-3.5" }), label: "Sessions" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "trees", onClick: () => setActiveTab("trees"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Bookmark, { className: "w-3.5 h-3.5" }), label: "Trees" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SidebarTab, { active: activeTab === "settings", onClick: () => setActiveTab("settings"), icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-3.5 h-3.5" }), label: "Config" })
+          ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto p-4", children: [
             activeTab === "sessions" && /* @__PURE__ */ jsxRuntimeExports.jsx(SessionsTab, { searchQuery }),
             activeTab === "trees" && /* @__PURE__ */ jsxRuntimeExports.jsx(TreesTab, { searchQuery }),
@@ -35183,14 +35282,24 @@ function SidebarTab({ active, onClick, icon, label }) {
     "button",
     {
       onClick,
-      className: "flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all",
+      className: "flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-xs font-medium transition-all relative",
       style: {
-        color: active ? "var(--sg-cyan)" : "var(--sg-text-tertiary)",
-        borderBottom: active ? "2px solid var(--sg-cyan)" : "2px solid transparent"
+        color: active ? "var(--sg-text-primary)" : "var(--sg-text-tertiary)"
       },
       children: [
-        icon,
-        label
+        active && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
+          {
+            layoutId: "sidebarTabBg",
+            className: "absolute inset-0 rounded-lg shadow-sm",
+            style: { background: "var(--sg-surface-3)" },
+            transition: { type: "spring", bounce: 0.2, duration: 0.6 }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "relative z-10 flex items-center gap-2", children: [
+          icon,
+          label
+        ] })
       ]
     }
   );
@@ -35202,93 +35311,160 @@ function SessionsTab({ searchQuery }) {
   const createSession = useGraphStore((state) => state.createSession);
   const deleteSession = useGraphStore((state) => state.deleteSession);
   const [expandedSession, setExpandedSession] = reactExports.useState(null);
-  const filteredSessions = sessions.filter((s) => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
-  const handleCreateSession = () => {
-    const name = prompt("Enter session name:");
-    if (name) createSession(name);
+  const [isCreating, setIsCreating] = reactExports.useState(false);
+  const [newSessionName, setNewSessionName] = reactExports.useState("");
+  const filteredSessions = sessions.filter(
+    (s) => s.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const handleCreateSession = async () => {
+    if (newSessionName.trim()) {
+      await createSession(newSessionName);
+      setNewSessionName("");
+      setIsCreating(false);
+    }
   };
   const formatTime = (timestamp) => new Date(timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+    !isCreating ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
       {
-        onClick: handleCreateSession,
-        className: "w-full flex items-center gap-2 px-3 py-2 rounded-xl transition-all text-sm font-medium",
+        onClick: () => setIsCreating(true),
+        className: "w-full flex items-center justify-center gap-2 py-3 rounded-xl transition-all group",
         style: {
           background: "rgba(34, 211, 238, 0.1)",
-          color: "var(--sg-cyan)",
-          border: "1px solid rgba(34, 211, 238, 0.15)"
+          border: "1px solid rgba(34, 211, 238, 0.2)",
+          color: "var(--sg-cyan)"
         },
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { className: "w-4 h-4" }),
-          " New Session"
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "p-1 rounded-md bg-cyan-500/20 group-hover:bg-cyan-500/30 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { className: "w-4 h-4" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-bold uppercase tracking-wider", children: "New Session" })
+        ]
+      }
+    ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "p-3 rounded-xl space-y-3 animate-in fade-in slide-in-from-top-2",
+        style: { background: "rgba(15, 23, 42, 0.6)", border: "1px solid var(--sg-cyan)" },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              autoFocus: true,
+              type: "text",
+              placeholder: "Session Name...",
+              value: newSessionName,
+              onChange: (e) => setNewSessionName(e.target.value),
+              onKeyDown: (e) => {
+                if (e.key === "Enter") handleCreateSession();
+                if (e.key === "Escape") setIsCreating(false);
+              },
+              className: "w-full bg-transparent text-sm font-medium outline-none placeholder:text-slate-600",
+              style: { color: "var(--sg-text-primary)" }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: handleCreateSession,
+                disabled: !newSessionName.trim(),
+                className: "flex-1 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-black hover:bg-cyan-400 transition-colors disabled:opacity-50",
+                children: "Create"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: () => setIsCreating(false),
+                className: "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-colors",
+                children: "Cancel"
+              }
+            )
+          ] })
         ]
       }
     ),
-    filteredSessions.map((session) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: filteredSessions.map((session) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
       {
-        className: "rounded-xl overflow-hidden transition-all",
+        className: "rounded-xl overflow-hidden transition-all duration-300 group",
         style: {
-          border: session.id === currentSessionId ? "1px solid rgba(34, 211, 238, 0.3)" : "1px solid var(--sg-border-subtle)",
-          background: session.id === currentSessionId ? "rgba(34, 211, 238, 0.05)" : "var(--sg-surface-2)"
+          border: session.id === currentSessionId ? "1px solid var(--sg-cyan)" : "1px solid rgba(255, 255, 255, 0.05)",
+          background: session.id === currentSessionId ? "rgba(34, 211, 238, 0.05)" : "rgba(15, 23, 42, 0.4)",
+          boxShadow: session.id === currentSessionId ? "0 0 15px rgba(34, 211, 238, 0.15)" : "none",
+          backdropFilter: "blur(10px)"
         },
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
             "div",
             {
               className: "flex items-center justify-between p-3 cursor-pointer",
               onClick: () => setExpandedSession(expandedSession === session.id ? null : session.id),
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                  expandedSession === session.id ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { className: "w-4 h-4", style: { color: "var(--sg-text-ghost)" } }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4", style: { color: "var(--sg-text-ghost)" } }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", style: { color: "var(--sg-text-primary)" }, children: session.name })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+                  session.id === currentSessionId && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    motion.div,
+                    {
+                      layoutId: "activeSessionDot",
+                      className: "absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full bg-cyan-500 shadow-[0_0_10px_var(--sg-cyan)]"
+                    }
+                  ),
+                  expandedSession === session.id ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { className: "w-4 h-4 text-slate-500" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4 text-slate-500" })
                 ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: formatTime(session.updatedAt) }),
-                  session.id === currentSessionId && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-2 h-2 rounded-full", style: { background: "var(--sg-cyan)", boxShadow: "0 0 6px rgba(34, 211, 238, 0.5)" } })
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm font-medium leading-none", style: { color: "var(--sg-text-primary)" }, children: session.name }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[10px] font-mono mt-1", style: { color: "var(--sg-text-tertiary)" }, children: formatTime(session.updatedAt) })
+                ] })
+              ] })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: expandedSession === session.id && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { height: 0, opacity: 0 },
+              animate: { height: "auto", opacity: 1 },
+              exit: { height: 0, opacity: 0 },
+              className: "px-3 pb-3",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-2 mb-3 p-2 rounded-lg bg-black/20", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block text-xs font-bold text-slate-300", children: session.nodeCount }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[9px] uppercase tracking-wider text-slate-500", children: "Pages" })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center border-l border-white/5", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block text-xs font-bold text-purple-400", children: session.edgeCount }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[9px] uppercase tracking-wider text-slate-500", children: "Links" })
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: () => switchSession(session.id),
+                      className: "flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all hover:bg-cyan-500/20 hover:text-cyan-300",
+                      style: { background: "rgba(255, 255, 255, 0.05)", color: "var(--sg-text-secondary)" },
+                      children: "Load Matrix"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: () => {
+                        if (confirm("Delete this session?")) deleteSession(session.id);
+                      },
+                      className: "px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:bg-rose-500/20 hover:text-rose-300",
+                      style: { background: "rgba(255, 255, 255, 0.05)", color: "var(--sg-text-tertiary)" },
+                      children: "Purge"
+                    }
+                  )
                 ] })
               ]
             }
-          ),
-          expandedSession === session.id && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-3 pb-3 pt-2", style: { borderTop: "1px solid var(--sg-border-subtle)" }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-2 text-xs mb-3", style: { color: "var(--sg-text-ghost)" }, children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-secondary)" }, children: session.nodeCount }),
-                " pages"
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "var(--sg-text-secondary)" }, children: session.edgeCount }),
-                " links"
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  onClick: () => switchSession(session.id),
-                  className: "flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                  style: { background: "var(--sg-surface-3)", color: "var(--sg-text-primary)" },
-                  children: "Switch"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  onClick: () => {
-                    if (confirm("Delete this session?")) deleteSession(session.id);
-                  },
-                  className: "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                  style: { background: "rgba(251, 113, 133, 0.1)", color: "var(--sg-rose)" },
-                  children: "Delete"
-                }
-              )
-            ] })
-          ] })
+          ) })
         ]
       },
       session.id
-    ))
+    )) })
   ] });
 }
 function TreesTab({ searchQuery }) {
@@ -35297,29 +35473,33 @@ function TreesTab({ searchQuery }) {
   const deleteTree = useGraphStore((state) => state.deleteTree);
   const filteredTrees = savedTrees.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const formatTime = (timestamp) => new Date(timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: filteredTrees.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-8", style: { color: "var(--sg-text-ghost)" }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(FolderTree, { className: "w-12 h-12 mx-auto mb-3 opacity-50" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm", children: "No saved trees yet" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs mt-1", children: "Select nodes and save them as a tree" })
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: filteredTrees.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-12 rounded-xl border border-dashed border-slate-700/50", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FolderTree, { className: "w-10 h-10 mx-auto mb-3 text-slate-600" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-slate-400", children: "No saved forests" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[10px] text-slate-600 mt-1", children: "Select nodes → Save Tree" })
   ] }) : filteredTrees.map((tree) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
-      className: "flex items-center justify-between p-3 rounded-xl transition-all",
-      style: { background: "var(--sg-surface-2)", border: "1px solid var(--sg-border-subtle)" },
+      className: "flex items-center justify-between p-3 rounded-xl transition-all hover:bg-white/5 group",
+      style: {
+        background: "rgba(15, 23, 42, 0.4)",
+        border: "1px solid rgba(255, 255, 255, 0.05)",
+        backdropFilter: "blur(10px)"
+      },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium", style: { color: "var(--sg-text-primary)" }, children: tree.name }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs", style: { color: "var(--sg-text-ghost)" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-slate-200 group-hover:text-purple-300 transition-colors", children: tree.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-[10px] font-mono text-slate-500 mt-0.5", children: [
             tree.nodeCount,
-            " pages • ",
+            " LOCI • ",
             formatTime(tree.createdAt)
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => loadTree(tree.id), className: "p-2 rounded-lg transition-all", style: { color: "var(--sg-text-tertiary)" }, title: "Load tree", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => loadTree(tree.id), className: "p-1.5 rounded-lg hover:bg-purple-500/20 hover:text-purple-300 text-slate-500 transition-colors", title: "Load tree", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { className: "w-4 h-4" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
             if (confirm("Delete?")) deleteTree(tree.id);
-          }, className: "p-2 rounded-lg transition-all", style: { color: "var(--sg-text-tertiary)" }, title: "Delete", children: /* @__PURE__ */ jsxRuntimeExports.jsx(EllipsisVertical, { className: "w-4 h-4" }) })
+          }, className: "p-1.5 rounded-lg hover:bg-rose-500/20 hover:text-rose-300 text-slate-500 transition-colors", title: "Delete", children: /* @__PURE__ */ jsxRuntimeExports.jsx(EllipsisVertical, { className: "w-4 h-4" }) })
         ] })
       ]
     },
@@ -35335,47 +35515,46 @@ function SettingsTab() {
   const setShowThumbnails = useGraphStore((state) => state.setShowThumbnails);
   const setShowFavicons = useGraphStore((state) => state.setShowFavicons);
   const setClusterByDomain = useGraphStore((state) => state.setClusterByDomain);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs font-semibold uppercase tracking-wider", style: { color: "var(--sg-text-ghost)" }, children: "View Options" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Dim closed tabs", checked: dimClosedNodes, onChange: setDimClosedNodes }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Show thumbnails", checked: showThumbnails, onChange: setShowThumbnails }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Show favicons", checked: showFavicons, onChange: setShowFavicons }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Cluster by domain", checked: clusterByDomain, onChange: setClusterByDomain })
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-[10px] font-bold uppercase tracking-widest text-slate-500 pl-1", children: "Visual Matrix" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Dim inactive nodes", checked: dimClosedNodes, onChange: setDimClosedNodes }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Holographic thumbnails", checked: showThumbnails, onChange: setShowThumbnails }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Source favicons", checked: showFavicons, onChange: setShowFavicons }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleSetting, { label: "Cluster by origin", checked: clusterByDomain, onChange: setClusterByDomain })
+      ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-px", style: { background: "var(--sg-border-subtle)" } }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xs font-semibold uppercase tracking-wider", style: { color: "var(--sg-text-ghost)" }, children: "Keyboard Shortcuts" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2 text-sm", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between", style: { color: "var(--sg-text-tertiary)" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Open graph" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 rounded-lg text-xs", style: { background: "var(--sg-surface-3)", color: "var(--sg-text-ghost)" }, children: "Alt+G" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between", style: { color: "var(--sg-text-tertiary)" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Fit view" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 rounded-lg text-xs", style: { background: "var(--sg-surface-3)", color: "var(--sg-text-ghost)" }, children: "F" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between", style: { color: "var(--sg-text-tertiary)" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Reset view" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-2 py-0.5 rounded-lg text-xs", style: { background: "var(--sg-surface-3)", color: "var(--sg-text-ghost)" }, children: "R" })
-        ] })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-[10px] font-bold uppercase tracking-widest text-slate-500 pl-1", children: "Neural Links" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ShortcutRow, { label: "Quick Access", keys: ["Alt", "G"] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ShortcutRow, { label: "Fit Universe", keys: ["F"] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ShortcutRow, { label: "Reset Viewport", keys: ["R"] })
       ] })
     ] })
   ] });
 }
+function ShortcutRow({ label, keys }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center px-1", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-slate-400", children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1", children: keys.map((k) => /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { className: "px-1.5 py-0.5 rounded-md text-[10px] font-mono bg-slate-800 border border-slate-700 text-slate-300 shadow-sm", children: k }, k)) })
+  ] });
+}
 function ToggleSetting({ label, checked, onChange }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center justify-between cursor-pointer", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", style: { color: "var(--sg-text-secondary)" }, children: label }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center justify-between cursor-pointer py-1.5 px-2 rounded-lg hover:bg-white/5 transition-colors group", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium text-slate-300 group-hover:text-slate-200", children: label }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         onClick: () => onChange(!checked),
-        className: "w-10 h-5 rounded-full transition-all relative",
+        className: "w-9 h-5 rounded-full transition-all relative",
         style: {
-          background: checked ? "var(--sg-cyan)" : "var(--sg-surface-3)",
-          boxShadow: checked ? "0 0 10px rgba(34, 211, 238, 0.3)" : "none"
+          background: checked ? "var(--sg-cyan)" : "rgba(255, 255, 255, 0.1)",
+          boxShadow: checked ? "0 0 10px rgba(34, 211, 238, 0.4)" : "none"
         },
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: cn("absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform", checked ? "left-5" : "left-0.5") })
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-transform", checked ? "left-5" : "left-1") })
       }
     )
   ] });
@@ -35812,6 +35991,11 @@ const quickLinks = [
 ];
 function WelcomePage({ onNavigate }) {
   const [time2, setTime] = reactExports.useState((/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  const nodes = useGraphStore((state) => state.nodes);
+  const edges = useGraphStore((state) => state.edges);
+  const screenshotsCount = nodes.filter((n) => n.screenshot).length;
+  const nodesCount = nodes.length;
+  const edgesCount = edges.length;
   reactExports.useEffect(() => {
     const timer2 = setInterval(() => {
       setTime((/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
@@ -35859,7 +36043,7 @@ function WelcomePage({ onNavigate }) {
                     {
                       type: "text",
                       placeholder: "Search the web or enter URL...",
-                      className: "bg-transparent border-none outline-none text-lg text-white placeholder-gray-500 w-full font-light",
+                      className: "bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 text-lg text-white placeholder-gray-500 w-full font-light",
                       onKeyDown: (e) => {
                         if (e.key === "Enter") {
                           onNavigate(e.currentTarget.value);
@@ -35908,9 +36092,9 @@ function WelcomePage({ onNavigate }) {
             transition: { duration: 0.7, delay: 0.4 },
             className: "w-full bg-slate-900/40 backdrop-blur-md border-t border-white/5 py-4 px-8 flex justify-center gap-16",
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Shield, value: "142", label: "Trackers Blocked", color: "text-orange-400" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Database, value: "48MB", label: "Data Saved", color: "text-cyan-400" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Zap, value: "1.2s", label: "Time Saved", color: "text-purple-400" })
+              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Database, value: nodesCount.toString(), label: "Nodes Explored", color: "text-cyan-400" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Zap, value: edgesCount.toString(), label: "Connections", color: "text-purple-400" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(StatItem, { icon: Shield, value: screenshotsCount.toString(), label: "Pages Captured", color: "text-orange-400" })
             ]
           }
         ),
@@ -36410,8 +36594,10 @@ function BrowserPanel({
                     className: cn(
                       "group relative flex items-center gap-2 px-6 h-[34px] cursor-pointer transition-all duration-200",
                       "tab-shape flex-shrink-0 -ml-3 hover:z-20",
+                      "focus:outline-none focus-visible:outline-none focus:ring-0",
                       tab.isActive ? "z-30" : "z-10"
                     ),
+                    tabIndex: 0,
                     style: {
                       maxWidth: "240px",
                       minWidth: "140px",
@@ -36449,7 +36635,7 @@ function BrowserPanel({
                             handleCloseTab(tab.id);
                           },
                           className: cn(
-                            "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0",
+                            "p-0.5 rounded-full transition-all cursor-pointer flex-shrink-0 focus:outline-none focus-visible:outline-none focus:ring-0",
                             tab.isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                           ),
                           style: { color: "var(--sg-text-tertiary)" },

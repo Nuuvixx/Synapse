@@ -46,8 +46,43 @@ const tabApi = {
     }
 }
 
+import { ContentExtractor } from './ContentExtractor'
+
+let extractor: ContentExtractor | null = null;
+try {
+    extractor = new ContentExtractor();
+} catch (e) {
+    console.error('Failed to initialize ContentExtractor:', e);
+}
+
 // Custom APIs for renderer
 const api = {
+    extractContent: () => {
+        if (!extractor) throw new Error('ContentExtractor not initialized');
+        try {
+            return extractor.extract(document, window.location.href)
+        } catch (e) {
+            console.error('Content extraction failed:', e);
+            throw e;
+        }
+    },
+    extractSelection: () => {
+        if (!extractor) throw new Error('ContentExtractor not initialized');
+        try {
+            const selection = window.getSelection();
+            if (selection && selection.rangeCount > 0) {
+                const container = document.createElement('div');
+                for (let i = 0; i < selection.rangeCount; i++) {
+                    container.appendChild(selection.getRangeAt(i).cloneContents());
+                }
+                return extractor.extractSelection(document, window.location.href, container.innerHTML);
+            }
+            return null;
+        } catch (e) {
+            console.error('Selection extraction failed:', e);
+            throw e;
+        }
+    },
     tab: tabApi
 }
 
