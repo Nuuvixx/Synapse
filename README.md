@@ -117,11 +117,10 @@ npm run dev
 
 ## 🗺️ Roadmap
 
--   [x] **Phase 1**: Core Architecture (Electron/React/SQLite)
--   [x] **Phase 2**: Synapse Bridge (WebSocket Communication)
--   [x] **Phase 3**: Intelligence Layer (Readability & Markdown Parsing)
--   [ ] **Phase 4**: Cloud Sync (Cross-device knowledge graph)
--   [ ] **Phase 5**: Local LLM (Ollama Integration)
+-   **Cloud Sync**: Access your Second Brain from any device.
+-   **Local LLM**: Chat with your knowledge graph using privacy-focused AI (Ollama).
+-   **Deep Search**: Semantic search across all your browsed history and notes.
+-   **Mobile Companion**: Capture thoughts on the go.
 
 ---
 
