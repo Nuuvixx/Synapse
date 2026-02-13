@@ -196,6 +196,15 @@ class TabManager {
     ipcMain.handle("tab:close", async (_event, tabId) => {
       return this.closeTab(tabId);
     });
+    ipcMain.handle("capture-selection-from-fab", async (_event, data) => {
+      this.sendToNeuralNotes({
+        title: data.title ? `Selection from ${data.title}` : "Selection",
+        url: data.url,
+        content: data.content,
+        type: "text"
+      });
+      return { success: true };
+    });
     ipcMain.handle("tab:navigate", async (_event, tabId, url) => {
       return this.navigateTab(tabId, url);
     });

@@ -86,6 +86,30 @@ const api = {
     tab: tabApi
 }
 
+let fabManager: FABManager | null = null;
+try {
+    fabManager = new FABManager();
+
+    // Listen for custom event from FAB
+    window.addEventListener('synapse-capture-trigger', () => {
+        try {
+            const data = api.extractSelection();
+            if (data) {
+                ipcRenderer.invoke('capture-selection-from-fab', data);
+            }
+        } catch (error) {
+            console.error('Failed to capture from FAB:', error);
+        }
+    });
+
+} catch (e) {
+    console.error('Failed to initialize FABManager:', e);
+}
+
+if (fabManager) {
+    console.log('FABManager initialized');
+}
+
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.

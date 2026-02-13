@@ -149,6 +149,18 @@ export class TabManager {
             return this.closeTab(tabId);
         });
 
+        // Handle capture from FAB
+        ipcMain.handle('capture-selection-from-fab', async (_event, data: any) => {
+            // data is { title, content, url, type }
+            this.sendToNeuralNotes({
+                title: data.title ? `Selection from ${data.title}` : 'Selection',
+                url: data.url,
+                content: data.content,
+                type: 'text'
+            });
+            return { success: true };
+        });
+
         ipcMain.handle('tab:navigate', async (_event, tabId: string, url: string) => {
             return this.navigateTab(tabId, url);
         });

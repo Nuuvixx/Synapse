@@ -1,6 +1,7 @@
 import { webUtils, webFrame, ipcRenderer, contextBridge } from "electron";
 import { Readability } from "@mozilla/readability";
 import TurndownService from "turndown";
+import { gfm } from "turndown-plugin-gfm";
 const electronAPI = {
   ipcRenderer: {
     send(channel, ...args) {
@@ -85,6 +86,7 @@ class ContentExtractor {
       headingStyle: "atx",
       codeBlockStyle: "fenced"
     });
+    this.turndown.use(gfm);
   }
   extract(doc, url) {
     const isChatGPT = url.includes("chatgpt.com") || url.includes("chat.openai.com");
@@ -108,18 +110,18 @@ class ContentExtractor {
     const article = reader.parse();
     if (!article) {
       return {
-        title: doc.title,
-        content: this.turndown.turndown(doc.body.innerHTML),
+        title: doc.title || "Untitled",
+        content: this.turndown.turndown(doc.body ? doc.body.innerHTML : ""),
         url,
         type: "unknown"
       };
     }
-    const markdown = this.turndown.turndown(article.content);
+    const markdown = this.turndown.turndown(article.content || "");
     return {
-      title: article.title,
+      title: article.title || "Untitled",
       content: markdown,
-      excerpt: article.excerpt,
-      byline: article.byline,
+      excerpt: article.excerpt || void 0,
+      byline: article.byline || void 0,
       url,
       type: "article"
     };
@@ -129,9 +131,9 @@ class ContentExtractor {
     const turns = doc.querySelectorAll("div[data-message-author-role]");
     if (turns.length > 0) {
       turns.forEach((turn) => {
-        const role = turn.getAttribute("data-message-author-role");
-        const text = turn.innerText;
-        content += `**${role?.toUpperCase()}**:
+        const role = turn.getAttribute("data-message-author-role") || "unknown";
+        const text = turn.innerText || "";
+        content += `**${role.toUpperCase()}**:
 ${text}
 
 ---
@@ -139,7 +141,7 @@ ${text}
 `;
       });
     } else {
-      content = this.turndown.turndown(doc.body.innerHTML);
+      content = this.turndown.turndown(doc.body ? doc.body.innerHTML : "");
     }
     return {
       title: doc.title || "ChatGPT Conversation",
@@ -214,6 +216,25 @@ const api = {
   },
   tab: tabApi
 };
+let fabManager = null;
+try {
+  fabManager = new FABManager();
+  window.addEventListener("synapse-capture-trigger", () => {
+    try {
+      const data = api.extractSelection();
+      if (data) {
+        ipcRenderer.invoke("capture-selection-from-fab", data);
+      }
+    } catch (error) {
+      console.error("Failed to capture from FAB:", error);
+    }
+  });
+} catch (e) {
+  console.error("Failed to initialize FABManager:", e);
+}
+if (fabManager) {
+  console.log("FABManager initialized");
+}
 if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld("electron", electronAPI);

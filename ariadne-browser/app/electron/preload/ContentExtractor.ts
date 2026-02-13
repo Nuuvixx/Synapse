@@ -1,5 +1,7 @@
 import { Readability } from '@mozilla/readability';
 import TurndownService from 'turndown';
+// @ts-ignore
+import { gfm } from 'turndown-plugin-gfm';
 
 interface ExtractedContent {
     title: string;
@@ -18,6 +20,7 @@ export class ContentExtractor {
             headingStyle: 'atx',
             codeBlockStyle: 'fenced'
         });
+        this.turndown.use(gfm);
     }
 
     public extract(doc: Document, url: string): ExtractedContent {
@@ -56,20 +59,20 @@ export class ContentExtractor {
         if (!article) {
             // Fallback
             return {
-                title: doc.title,
-                content: this.turndown.turndown(doc.body.innerHTML),
+                title: doc.title || 'Untitled',
+                content: this.turndown.turndown(doc.body ? doc.body.innerHTML : ''),
                 url,
                 type: 'unknown'
             };
         }
 
-        const markdown = this.turndown.turndown(article.content);
+        const markdown = this.turndown.turndown(article.content || '');
 
         return {
-            title: article.title,
+            title: article.title || 'Untitled',
             content: markdown,
-            excerpt: article.excerpt,
-            byline: article.byline,
+            excerpt: article.excerpt || undefined,
+            byline: article.byline || undefined,
             url,
             type: 'article'
         };
@@ -93,13 +96,13 @@ export class ContentExtractor {
 
         if (turns.length > 0) {
             turns.forEach(turn => {
-                const role = turn.getAttribute('data-message-author-role'); // 'user' or 'assistant'
-                const text = (turn as HTMLElement).innerText;
-                content += `**${role?.toUpperCase()}**:\n${text}\n\n---\n\n`;
+                const role = turn.getAttribute('data-message-author-role') || 'unknown'; // 'user' or 'assistant'
+                const text = (turn as HTMLElement).innerText || '';
+                content += `**${role.toUpperCase()}**:\n${text}\n\n---\n\n`;
             });
         } else {
             // Fallback: just dump body text but formatted
-            content = this.turndown.turndown(doc.body.innerHTML);
+            content = this.turndown.turndown(doc.body ? doc.body.innerHTML : '');
         }
 
         return {
