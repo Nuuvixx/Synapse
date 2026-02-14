@@ -136,6 +136,25 @@ export class TabManager {
     /**
      * Set up IPC handlers for renderer communication
      */
+    /**
+     * Generate a smart title from selected text
+     */
+    private generateTitleFromText(text: string, pageTitle?: string): string {
+        if (!text) return pageTitle ? `Selection from ${pageTitle}` : 'Selection';
+
+        // Take first 50 chars
+        let title = text.trim().substring(0, 50).replace(/\n/g, ' ');
+        if (text.length > 50) title += '...';
+
+        // Remove markdown chars if any
+        title = title.replace(/[#*`_]/g, '');
+
+        return title;
+    }
+
+    /**
+     * Set up IPC handlers for renderer communication
+     */
     private setupIpcHandlers(): void {
         ipcMain.handle('tab:create', async (_event, url: string, nodeId?: string) => {
             return this.createTab(url, nodeId);
@@ -152,8 +171,10 @@ export class TabManager {
         // Handle capture from FAB
         ipcMain.handle('capture-selection-from-fab', async (_event, data: any) => {
             // data is { title, content, url, type }
+            const smartTitle = this.generateTitleFromText(data.content, data.title);
+
             this.sendToNeuralNotes({
-                title: data.title ? `Selection from ${data.title}` : 'Selection',
+                title: smartTitle,
                 url: data.url,
                 content: data.content,
                 type: 'text'
@@ -505,7 +526,7 @@ export class TabManager {
 
                             if (extraction) {
                                 this.sendToNeuralNotes({
-                                    title: extraction.title ? `Selection from ${extraction.title}` : `Selection from ${tab.title}`,
+                                    title: this.generateTitleFromText(extraction.content, extraction.title || tab.title),
                                     url: tab.url,
                                     content: extraction.content,
                                     type: 'text'
@@ -513,7 +534,7 @@ export class TabManager {
                             } else {
                                 // Fallback to plain text
                                 this.sendToNeuralNotes({
-                                    title: `Selection from ${tab.title}`,
+                                    title: this.generateTitleFromText(params.selectionText, tab.title),
                                     url: tab.url,
                                     content: params.selectionText,
                                     type: 'text'
@@ -523,7 +544,7 @@ export class TabManager {
                             console.error('Failed to extract selection:', e);
                             // Fallback
                             this.sendToNeuralNotes({
-                                title: `Selection from ${tab.title}`,
+                                title: this.generateTitleFromText(params.selectionText, tab.title),
                                 url: tab.url,
                                 content: params.selectionText,
                                 type: 'text'
