@@ -29,10 +29,13 @@ interface SidebarProps {
 
 type TabType = 'sessions' | 'trees' | 'settings';
 
+import { v4 as uuidv4 } from 'uuid';
+
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const sidebarOpen = useGraphStore(state => state.sidebarOpen);
   const [activeTab, setActiveTab] = useState<TabType>('sessions');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
   // Synapse Client
   const { isConnected, connect, capturePage } = useSynapseClient();
@@ -41,6 +44,29 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   useState(() => {
     connect();
   });
+
+  const toggleSession = async () => {
+    if (activeSessionId) {
+      // Stop Session
+      await window.api.tab.setSession(null);
+      setActiveSessionId(null);
+    } else {
+      // Start Session
+      const newId = uuidv4();
+      await window.api.tab.setSession(newId);
+      setActiveSessionId(newId);
+
+      // Initial capture to create the note
+      if (isConnected) {
+        capturePage({
+          title: `Research Session: ${new Date().toLocaleString()}`,
+          url: window.location.href,
+          content: `### Session Started\nTopic: General Research`,
+          favicon: ''
+        });
+      }
+    }
+  };
 
   const handleCapture = () => {
     if (isConnected) {
@@ -99,15 +125,32 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 </h1>
               </div>
 
-              {/* Capture Button (Debug/foundational) */}
-              <button
-                onClick={handleCapture}
-                disabled={!isConnected}
-                className="relative z-10 p-1.5 rounded-md hover:bg-white/10 transition-colors disabled:opacity-30"
-                title="Capture Verification"
-              >
-                <div className="w-3 h-3 border border-current rounded-sm" />
-              </button>
+              <div className="flex items-center gap-2 relative z-10">
+                {/* Session Toggle */}
+                <button
+                  onClick={toggleSession}
+                  className={cn(
+                    "flex items-center gap-2 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all",
+                    activeSessionId ? "bg-red-500/20 text-red-400 border border-red-500/50" : "hover:bg-white/10 text-slate-400"
+                  )}
+                  title={activeSessionId ? "Stop Recording Session" : "Start Research Session"}
+                >
+                  {activeSessionId && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse shadow-[0_0_8px_rgba(248,113,113,0.8)]" />
+                  )}
+                  {activeSessionId ? "REC" : "REC"}
+                </button>
+
+                {/* Capture Button */}
+                <button
+                  onClick={handleCapture}
+                  disabled={!isConnected}
+                  className="p-1.5 rounded-md hover:bg-white/10 transition-colors disabled:opacity-30"
+                  title="Capture Verification"
+                >
+                  <div className="w-3 h-3 border border-current rounded-sm" />
+                </button>
+              </div>
             </div>
 
             {/* Search */}

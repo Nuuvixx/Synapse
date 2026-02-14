@@ -43,10 +43,15 @@ const tabApi = {
         const listener = (_event: Electron.IpcRendererEvent, tabId: string) => callback(tabId)
         ipcRenderer.on('tab:removed', listener)
         return () => ipcRenderer.removeListener('tab:removed', listener)
-    }
+    },
+
+    // Session
+    setSession: (sessionId: string | null) =>
+        ipcRenderer.invoke('session:setActive', sessionId)
 }
 
 import { ContentExtractor } from './ContentExtractor'
+import { FABManager } from './FABManager'
 
 let extractor: ContentExtractor | null = null;
 try {

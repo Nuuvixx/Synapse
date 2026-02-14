@@ -146,6 +146,7 @@ export interface TabApi {
   onTabUpdated: (callback: (tabInfo: TabInfo) => void) => () => void;
   onTabCreated: (callback: (tabInfo: TabInfo) => void) => () => void;
   onTabRemoved: (callback: (tabId: string) => void) => () => void;
+  setSession: (sessionId: string | null) => Promise<boolean>;
 }
 
 // Global window.api declaration

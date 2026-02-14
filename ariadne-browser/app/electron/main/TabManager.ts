@@ -44,6 +44,7 @@ export class TabManager {
     private viewportBounds: { x: number; y: number; width: number; height: number } | null = null;
     private browserSession: Electron.Session | null = null;
     private synapseConnection: WebSocket | null = null;
+    private activeSessionId: string | null = null;
 
     private constructor() { }
 
@@ -125,17 +126,17 @@ export class TabManager {
         if (this.synapseConnection?.readyState === WebSocket.OPEN) {
             this.synapseConnection.send(JSON.stringify({
                 type: 'CAPTURE_PAGE',
-                payload: data
+                payload: {
+                    ...data,
+                    sessionId: this.activeSessionId // Inject Session ID if active
+                }
             }));
-            console.log('[TabManager] Sent to NeuralNotes:', data.title);
+            console.log('[TabManager] Sent to NeuralNotes:', data.title, this.activeSessionId ? `(Session: ${this.activeSessionId})` : '');
         } else {
             console.warn('[TabManager] Cannot send to NeuralNotes - Synapse not connected');
         }
     }
 
-    /**
-     * Set up IPC handlers for renderer communication
-     */
     /**
      * Generate a smart title from selected text
      */
