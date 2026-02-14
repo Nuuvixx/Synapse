@@ -9,90 +9,29 @@ import { WebContentsView, BrowserWindow, ipcMain, session, Menu, clipboard } fro
 import { v4 as uuidv4 } from 'uuid';
 import WebSocket from 'ws';
 
+import { LLMController } from './LLMController';
+
 // Chrome-like user agent to avoid degraded experiences on modern sites
 const BROWSER_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
-export interface Tab {
-    id: string;
-    nodeId: string | null; // Associated graph node
-    view: WebContentsView;
-    url: string;
-    title: string;
-    favicon: string | null;
-    screenshot: string | null; // Base64 data URL of page screenshot
-    isActive: boolean;
-}
-
-export interface TabInfo {
-    id: string;
-    nodeId: string | null;
-    url: string;
-    title: string;
-    favicon: string | null;
-    screenshot: string | null;
-    isActive: boolean;
-    isLoading: boolean;
-}
-
-const TITLE_BAR_HEIGHT = 32; // Height of custom title bar
+// ... interfaces ...
 
 export class TabManager {
-    private static instance: TabManager;
-    private tabs: Map<string, Tab> = new Map();
-    private activeTabId: string | null = null;
-    private mainWindow: BrowserWindow | null = null;
-    private viewportBounds: { x: number; y: number; width: number; height: number } | null = null;
-    private browserSession: Electron.Session | null = null;
-    private synapseConnection: WebSocket | null = null;
-    private activeSessionId: string | null = null;
+    // ... props ...
+    private llmController: LLMController | null = null;
 
-    private constructor() { }
+    // ... constructor ...
 
-    static getInstance(): TabManager {
-        if (!TabManager.instance) {
-            TabManager.instance = new TabManager();
-        }
-        return TabManager.instance;
-    }
-
-    /**
-     * Initialize the TabManager with the main window
-     */
     init(mainWindow: BrowserWindow): void {
         this.mainWindow = mainWindow;
         this.setupSession();
         this.setupIpcHandlers();
         this.setupWindowListeners();
+        this.llmController = new LLMController(this); // Initialize Controller
         this.connectToSynapse();
     }
 
-    /**
-     * Set up a persistent session with permission handling
-     */
-    private setupSession(): void {
-        // Use a persistent partition so logins/cookies survive restarts
-        this.browserSession = session.fromPartition('persist:ariadne');
-
-        // Set a proper user agent so sites like Gemini don't serve degraded UIs
-        this.browserSession.setUserAgent(BROWSER_USER_AGENT);
-
-        // Grant common permissions that modern sites need
-        this.browserSession.setPermissionRequestHandler((_webContents, permission, callback) => {
-            const allowedPermissions = [
-                'clipboard-read',
-                'clipboard-sanitized-write',
-                'media',
-                'mediaKeySystem',
-                'geolocation',
-                'notifications',
-                'fullscreen',
-                'pointerLock',
-                'idle-detection',
-                'window-management'
-            ];
-            callback(allowedPermissions.includes(permission));
-        });
-    }
+    // ... setupSession ...
 
     /**
      * Connect to NeuralNotes Synapse server
@@ -103,6 +42,18 @@ export class TabManager {
 
             this.synapseConnection.on('open', () => {
                 console.log('[TabManager] Connected to Synapse');
+            });
+
+            this.synapseConnection.on('message', (message: string) => {
+                try {
+                    const data = JSON.parse(message.toString());
+
+                    if (data.type === 'EXECUTE_PROMPT' && this.llmController) {
+                        this.llmController.execute(data.payload);
+                    }
+                } catch (error) {
+                    console.error('[TabManager] Failed to parse Synapse message:', error);
+                }
             });
 
             this.synapseConnection.on('close', () => {
@@ -134,6 +85,16 @@ export class TabManager {
             console.log('[TabManager] Sent to NeuralNotes:', data.title, this.activeSessionId ? `(Session: ${this.activeSessionId})` : '');
         } else {
             console.warn('[TabManager] Cannot send to NeuralNotes - Synapse not connected');
+        }
+    }
+
+    public sendLLMResponse(payload: any): void {
+        if (this.synapseConnection?.readyState === WebSocket.OPEN) {
+            this.synapseConnection.send(JSON.stringify({
+                type: 'LLM_RESPONSE',
+                payload
+            }));
+            console.log('[TabManager] Sent LLM Response');
         }
     }
 
@@ -418,274 +379,289 @@ export class TabManager {
     /**
      * Navigate a tab to a new URL
      */
-    navigateTab(tabId: string, url: string): boolean {
-        const tab = this.tabs.get(tabId);
-        if (!tab) return false;
-
         tab.view.webContents.loadURL(url);
         tab.url = url;
         return true;
     }
 
     /**
+     * Find a tab by partial URL match
+     */
+    public findTabByUrl(urlPart: string): Tab | undefined {
+    for (const tab of this.tabs.values()) {
+        if (tab.url.includes(urlPart)) {
+            return tab;
+        }
+    }
+    return undefined;
+}
+
+    /**
+     * Get a tab by ID
+     */
+    public getTab(tabId: string): Tab | undefined {
+    return this.tabs.get(tabId);
+}
+
+    /**
      * Resize the active view to fit the viewport bounds
      */
     private resizeActiveView(): void {
-        if (!this.mainWindow || !this.activeTabId) return;
+    if(!this.mainWindow || !this.activeTabId) return;
 
-        const tab = this.tabs.get(this.activeTabId);
-        if (!tab) return;
+    const tab = this.tabs.get(this.activeTabId);
+    if(!tab) return;
 
-        // Use viewport bounds if available, otherwise fallback to full window
-        if (this.viewportBounds) {
-            tab.view.setBounds(this.viewportBounds);
-        } else {
-            // Fallback: use full window bounds minus title bar
-            const bounds = this.mainWindow.getBounds();
-            tab.view.setBounds({
-                x: 0,
-                y: TITLE_BAR_HEIGHT,
-                width: bounds.width,
-                height: bounds.height - TITLE_BAR_HEIGHT
-            });
-        }
+    // Use viewport bounds if available, otherwise fallback to full window
+    if(this.viewportBounds) {
+    tab.view.setBounds(this.viewportBounds);
+} else {
+    // Fallback: use full window bounds minus title bar
+    const bounds = this.mainWindow.getBounds();
+    tab.view.setBounds({
+        x: 0,
+        y: TITLE_BAR_HEIGHT,
+        width: bounds.width,
+        height: bounds.height - TITLE_BAR_HEIGHT
+    });
+}
     }
 
-    /**
-     * Get info for all tabs
-     */
-    getAllTabInfo(): TabInfo[] {
-        return Array.from(this.tabs.values()).map(tab => this.tabToInfo(tab));
-    }
+/**
+ * Get info for all tabs
+ */
+getAllTabInfo(): TabInfo[] {
+    return Array.from(this.tabs.values()).map(tab => this.tabToInfo(tab));
+}
 
-    /**
-     * Get info for the active tab
-     */
-    getActiveTabInfo(): TabInfo | null {
-        if (!this.activeTabId) return null;
-        const tab = this.tabs.get(this.activeTabId);
-        return tab ? this.tabToInfo(tab) : null;
-    }
+/**
+ * Get info for the active tab
+ */
+getActiveTabInfo(): TabInfo | null {
+    if (!this.activeTabId) return null;
+    const tab = this.tabs.get(this.activeTabId);
+    return tab ? this.tabToInfo(tab) : null;
+}
 
     /**
      * Convert Tab to TabInfo (without the view)
      */
     private tabToInfo(tab: Tab): TabInfo {
-        return {
-            id: tab.id,
-            nodeId: tab.nodeId,
-            url: tab.url,
-            title: tab.title,
-            favicon: tab.favicon,
-            screenshot: tab.screenshot,
-            isActive: tab.isActive,
-            isLoading: tab.view.webContents.isLoading()
-        };
-    }
+    return {
+        id: tab.id,
+        nodeId: tab.nodeId,
+        url: tab.url,
+        title: tab.title,
+        favicon: tab.favicon,
+        screenshot: tab.screenshot,
+        isActive: tab.isActive,
+        isLoading: tab.view.webContents.isLoading()
+    };
+}
 
     /**
      * Notify renderer of tab updates
      */
     private notifyTabUpdate(tab: Tab): void {
-        if (!this.mainWindow) return;
-        this.mainWindow.webContents.send('tab:updated', this.tabToInfo(tab));
-    }
+    if(!this.mainWindow) return;
+    this.mainWindow.webContents.send('tab:updated', this.tabToInfo(tab));
+}
 
     /**
      * Notify renderer of tab creation
      */
     private notifyTabCreated(tab: Tab): void {
-        if (!this.mainWindow) return;
-        this.mainWindow.webContents.send('tab:created', this.tabToInfo(tab));
-    }
+    if(!this.mainWindow) return;
+    this.mainWindow.webContents.send('tab:created', this.tabToInfo(tab));
+}
 
     /**
      * Notify renderer of tab removal
      */
     private notifyTabRemoved(tabId: string): void {
-        if (!this.mainWindow) return;
-        this.mainWindow.webContents.send('tab:removed', tabId);
-    }
+    if(!this.mainWindow) return;
+    this.mainWindow.webContents.send('tab:removed', tabId);
+}
 
     /**
      * Show context menu based on what was right-clicked
      */
     private showContextMenu(params: Electron.ContextMenuParams, tab: Tab): void {
-        const template: Electron.MenuItemConstructorOptions[] = [];
+    const template: Electron.MenuItemConstructorOptions[] = [];
 
-        // Text selection actions
-        if (params.selectionText) {
-            template.push(
-                {
-                    label: 'Send Selection to NeuralNotes',
-                    click: async () => {
-                        try {
-                            // Try to get rich markdown selection
-                            const extraction = await tab.view.webContents.executeJavaScript(`
+    // Text selection actions
+    if(params.selectionText) {
+    template.push(
+        {
+            label: 'Send Selection to NeuralNotes',
+            click: async () => {
+                try {
+                    // Try to get rich markdown selection
+                    const extraction = await tab.view.webContents.executeJavaScript(`
                                 window.api.extractSelection()
                             `);
 
-                            if (extraction) {
-                                this.sendToNeuralNotes({
-                                    title: this.generateTitleFromText(extraction.content, extraction.title || tab.title),
-                                    url: tab.url,
-                                    content: extraction.content,
-                                    type: 'text'
-                                });
-                            } else {
-                                // Fallback to plain text
-                                this.sendToNeuralNotes({
-                                    title: this.generateTitleFromText(params.selectionText, tab.title),
-                                    url: tab.url,
-                                    content: params.selectionText,
-                                    type: 'text'
-                                });
-                            }
-                        } catch (e) {
-                            console.error('Failed to extract selection:', e);
-                            // Fallback
-                            this.sendToNeuralNotes({
-                                title: this.generateTitleFromText(params.selectionText, tab.title),
-                                url: tab.url,
-                                content: params.selectionText,
-                                type: 'text'
-                            });
-                        }
-                    }
-                },
-                { type: 'separator' },
-                {
-                    label: 'Copy',
-                    role: 'copy'
-                },
-                {
-                    label: 'Search Google',
-                    click: () => {
-                        const query = encodeURIComponent(params.selectionText);
-                        this.createTab(`https://www.google.com/search?q=${query}`);
-                    }
-                }
-            );
-        }
-
-        // Link actions  
-        if (params.linkURL) {
-            template.push(
-                {
-                    label: 'Send Link to NeuralNotes',
-                    click: () => {
+                    if (extraction) {
                         this.sendToNeuralNotes({
-                            title: params.linkText || 'Link',
-                            url: params.linkURL,
-                            content: `[${params.linkText || 'Link'}](${params.linkURL})`,
-                            type: 'link'
-                        });
-                    }
-                },
-                { type: 'separator' },
-                {
-                    label: 'Open Link in New Tab',
-                    click: () => {
-                        this.createTab(params.linkURL);
-                    }
-                },
-                {
-                    label: 'Copy Link Address',
-                    click: () => {
-                        clipboard.writeText(params.linkURL);
-                    }
-                }
-            );
-        }
-
-        // Image actions
-        if (params.mediaType === 'image') {
-            template.push(
-                {
-                    label: 'Send Image to NeuralNotes',
-                    click: () => {
-                        this.sendToNeuralNotes({
-                            title: `Image from ${tab.title}`,
+                            title: this.generateTitleFromText(extraction.content, extraction.title || tab.title),
                             url: tab.url,
-                            content: `![Image](${params.srcURL})`,
-                            type: 'image'
+                            content: extraction.content,
+                            type: 'text'
+                        });
+                    } else {
+                        // Fallback to plain text
+                        this.sendToNeuralNotes({
+                            title: this.generateTitleFromText(params.selectionText, tab.title),
+                            url: tab.url,
+                            content: params.selectionText,
+                            type: 'text'
                         });
                     }
-                },
-                { type: 'separator' },
-                {
-                    label: 'Open Image in New Tab',
-                    click: () => {
-                        this.createTab(params.srcURL);
-                    }
-                },
-                {
-                    label: 'Copy Image Address',
-                    click: () => {
-                        clipboard.writeText(params.srcURL);
-                    }
-                }
-            );
-        }
-
-        // Page actions (when nothing specific is clicked)
-        // If template has items (e.g. standard actions added later), we still want "Send Page"
-        // But the previous logic was "if template.length === 0". 
-        // We should add "Send Page" ALWAYS as an option in the page context?
-        // Or strictly when no selection/link/image.
-        // The previous logic was: if (template.length === 0) -> Send Page.
-        // Usage: user clicks on blank space.
-
-        if (!params.selectionText && !params.linkURL && params.mediaType !== 'image') {
-            template.push(
-                {
-                    label: 'Send Page to NeuralNotes',
-                    click: async () => {
-                        try {
-                            const extraction = await tab.view.webContents.executeJavaScript(`
-                                window.api.extractContent()
-                            `);
-                            this.sendToNeuralNotes({
-                                title: extraction.title,
-                                url: extraction.url,
-                                content: extraction.content,
-                                type: 'text'
-                            });
-                        } catch (error) {
-                            console.error('Failed to get page content:', error);
-                        }
-                    }
-                }
-            );
-        }
-
-        // Standard page actions
-        template.push(
-            { type: 'separator' },
-            {
-                label: 'Back',
-                enabled: tab.view.webContents.navigationHistory.canGoBack(),
-                click: () => tab.view.webContents.navigationHistory.goBack()
-            },
-            {
-                label: 'Forward',
-                enabled: tab.view.webContents.navigationHistory.canGoForward(),
-                click: () => tab.view.webContents.navigationHistory.goForward()
-            },
-            {
-                label: 'Reload',
-                role: 'reload'
-            },
-            { type: 'separator' },
-            {
-                label: 'Inspect Element',
-                click: () => {
-                    tab.view.webContents.inspectElement(params.x, params.y);
+                } catch (e) {
+                    console.error('Failed to extract selection:', e);
+                    // Fallback
+                    this.sendToNeuralNotes({
+                        title: this.generateTitleFromText(params.selectionText, tab.title),
+                        url: tab.url,
+                        content: params.selectionText,
+                        type: 'text'
+                    });
                 }
             }
-        );
+        },
+        { type: 'separator' },
+        {
+            label: 'Copy',
+            role: 'copy'
+        },
+        {
+            label: 'Search Google',
+            click: () => {
+                const query = encodeURIComponent(params.selectionText);
+                this.createTab(`https://www.google.com/search?q=${query}`);
+            }
+        }
+    );
+}
 
-        const menu = Menu.buildFromTemplate(template);
-        menu.popup();
+// Link actions  
+if (params.linkURL) {
+    template.push(
+        {
+            label: 'Send Link to NeuralNotes',
+            click: () => {
+                this.sendToNeuralNotes({
+                    title: params.linkText || 'Link',
+                    url: params.linkURL,
+                    content: `[${params.linkText || 'Link'}](${params.linkURL})`,
+                    type: 'link'
+                });
+            }
+        },
+        { type: 'separator' },
+        {
+            label: 'Open Link in New Tab',
+            click: () => {
+                this.createTab(params.linkURL);
+            }
+        },
+        {
+            label: 'Copy Link Address',
+            click: () => {
+                clipboard.writeText(params.linkURL);
+            }
+        }
+    );
+}
+
+// Image actions
+if (params.mediaType === 'image') {
+    template.push(
+        {
+            label: 'Send Image to NeuralNotes',
+            click: () => {
+                this.sendToNeuralNotes({
+                    title: `Image from ${tab.title}`,
+                    url: tab.url,
+                    content: `![Image](${params.srcURL})`,
+                    type: 'image'
+                });
+            }
+        },
+        { type: 'separator' },
+        {
+            label: 'Open Image in New Tab',
+            click: () => {
+                this.createTab(params.srcURL);
+            }
+        },
+        {
+            label: 'Copy Image Address',
+            click: () => {
+                clipboard.writeText(params.srcURL);
+            }
+        }
+    );
+}
+
+// Page actions (when nothing specific is clicked)
+// If template has items (e.g. standard actions added later), we still want "Send Page"
+// But the previous logic was "if template.length === 0". 
+// We should add "Send Page" ALWAYS as an option in the page context?
+// Or strictly when no selection/link/image.
+// The previous logic was: if (template.length === 0) -> Send Page.
+// Usage: user clicks on blank space.
+
+if (!params.selectionText && !params.linkURL && params.mediaType !== 'image') {
+    template.push(
+        {
+            label: 'Send Page to NeuralNotes',
+            click: async () => {
+                try {
+                    const extraction = await tab.view.webContents.executeJavaScript(`
+                                window.api.extractContent()
+                            `);
+                    this.sendToNeuralNotes({
+                        title: extraction.title,
+                        url: extraction.url,
+                        content: extraction.content,
+                        type: 'text'
+                    });
+                } catch (error) {
+                    console.error('Failed to get page content:', error);
+                }
+            }
+        }
+    );
+}
+
+// Standard page actions
+template.push(
+    { type: 'separator' },
+    {
+        label: 'Back',
+        enabled: tab.view.webContents.navigationHistory.canGoBack(),
+        click: () => tab.view.webContents.navigationHistory.goBack()
+    },
+    {
+        label: 'Forward',
+        enabled: tab.view.webContents.navigationHistory.canGoForward(),
+        click: () => tab.view.webContents.navigationHistory.goForward()
+    },
+    {
+        label: 'Reload',
+        role: 'reload'
+    },
+    { type: 'separator' },
+    {
+        label: 'Inspect Element',
+        click: () => {
+            tab.view.webContents.inspectElement(params.x, params.y);
+        }
+    }
+);
+
+const menu = Menu.buildFromTemplate(template);
+menu.popup();
     }
 }
