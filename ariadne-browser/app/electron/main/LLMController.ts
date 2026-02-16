@@ -129,11 +129,29 @@ export class LLMController {
                     checks++;
                 }
                 
-                // 5. Scrape Last Message
-                const messages = document.querySelectorAll('div[data-message-author-role="assistant"]');
-                if (messages.length > 0) {
-                    const lastMsg = messages[messages.length - 1];
-                    return lastMsg.innerText;
+                // 5. Scrape Last Message (Robust Multi-Part Handling)
+                // ChatGPT sometimes splits responses into multiple chunks.
+                // We find the last 'user' message, and take everything after it.
+                
+                const allMessages = Array.from(document.querySelectorAll('[data-message-author-role]'));
+                let lastUserIndex = -1;
+                
+                for (let i = allMessages.length - 1; i >= 0; i--) {
+                    if (allMessages[i].getAttribute('data-message-author-role') === 'user') {
+                        lastUserIndex = i;
+                        break;
+                    }
+                }
+                
+                if (lastUserIndex !== -1) {
+                    const assistantMessages = allMessages.slice(lastUserIndex + 1);
+                    return assistantMessages.map(m => m.innerText).join('\n\n');
+                }
+                
+                // Fallback: just return the last assistant message if we can't find user
+                const assistantMessages = document.querySelectorAll('[data-message-author-role="assistant"]');
+                if (assistantMessages.length > 0) {
+                     return assistantMessages[assistantMessages.length - 1].innerText;
                 }
                 
                 return "Failed to scrape response";
@@ -150,50 +168,114 @@ export class LLMController {
         const script = `
             (async () => {
                 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-                
-                // 1. Find Input (Rich textarea)
-                const input = document.querySelector('div[contenteditable="true"]');
-                if (!input) throw new Error('Gemini input not found');
+                console.log('[LLM] Starting Gemini Injection');
 
-                // 2. Type
-                input.focus();
-                document.execCommand('insertText', false, \`${safePrompt}\`);
-                await sleep(500);
-
-                // 3. Send (Button is usually an icon, finding by aria-label "Send message")
-                const sendBtn = document.querySelector('button[aria-label="Send message"]');
-                if (sendBtn) sendBtn.click();
-
-                // 4. Wait
-                await sleep(2000);
+                // 1. Find Input (try multiple selectors)
+                const inputSelectors = [
+                    'div.ql-editor[contenteditable="true"]',
+                    'rich-textarea div[contenteditable="true"]',
+                    'div[contenteditable="true"]'
+                ];
                 
-                // Main loading indicator usually: .generating-indicator or specific button states
-                // Gemini is tricky. Let's wait for the input to be empty? No.
-                // Look for 'stop' button or similar.
-                
-                let checks = 0;
-                while (checks < 120) {
-                    // Simple heuristic: check if the "Send" button is present and enabled
-                    const sendBtn = document.querySelector('button[aria-label="Send message"]');
-                     // If send button is back, we are likely done.
-                     // Does Gemini hide send button? Yes, replaces with Stop.
-                     if (sendBtn && !sendBtn.disabled) {
-                         break;
-                     }
-                     await sleep(1000);
-                     checks++;
+                let input = null;
+                for (const sel of inputSelectors) {
+                    input = document.querySelector(sel);
+                    if (input) { console.log('[LLM] Found input:', sel); break; }
                 }
 
-                // 5. Scrape
-                const messages = document.querySelectorAll('.model-response-text'); // This selector is a guess, needs verification
-                // Or 'message-content'
-                // Gemini classes are obfusctated often.
-                // Fallback: helper-line-content or similar
+                if (!input) {
+                    console.error('[LLM] No input found. Selectors tried:', inputSelectors);
+                    return 'Error: Gemini input not found. Is the page fully loaded?';
+                }
+
+                // 2. Type with robust event dispatching
+                input.focus();
+                input.textContent = '';
+                document.execCommand('insertText', false, \`${safePrompt}\`);
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
                 
-                // For now, return a placeholder if selector fails
-                return document.body.innerText.slice(-500); 
+                await sleep(800);
+                console.log('[LLM] Text inserted, length:', input.textContent.length);
+
+                // 3. Send - try button, fallback to Enter
+                const sendSelectors = [
+                    'button[aria-label="Send message"]',
+                    'button.send-button',
+                    'button[data-testid="send-button"]'
+                ];
+
+                let sent = false;
+                for (const sel of sendSelectors) {
+                    const btn = document.querySelector(sel);
+                    if (btn && !btn.disabled) {
+                        btn.click();
+                        console.log('[LLM] Clicked send:', sel);
+                        sent = true;
+                        break;
+                    }
+                }
+
+                if (!sent) {
+                    console.log('[LLM] No send button found, pressing Enter');
+                    input.dispatchEvent(new KeyboardEvent('keydown', {
+                        key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true
+                    }));
+                }
+
+                // 4. Wait for response using CONTENT STABILITY detection
+                //    Instead of relying on brittle button selectors, we:
+                //    - Wait a bit for generation to start
+                //    - Then poll for model response content
+                //    - When content stops changing for 3 consecutive checks, we're done
+                
+                await sleep(3000); // Let generation start
+                
+                let lastContent = '';
+                let stableCount = 0;
+                const STABLE_THRESHOLD = 3; // 3 seconds of no change = done
+                
+                for (let i = 0; i < 120; i++) { // Max 2 minutes
+                    // Get the latest model response
+                    const modelEls = document.querySelectorAll('model-response, [data-message-author-role="assistant"], .model-response-text');
+                    
+                    if (modelEls.length > 0) {
+                        const currentContent = modelEls[modelEls.length - 1].innerText || '';
+                        
+                        if (currentContent.length > 0 && currentContent === lastContent) {
+                            stableCount++;
+                            if (stableCount >= STABLE_THRESHOLD) {
+                                console.log('[LLM] Content stable for', STABLE_THRESHOLD, 'seconds. Done.');
+                                break;
+                            }
+                        } else {
+                            stableCount = 0;
+                            lastContent = currentContent;
+                        }
+                    }
+                    
+                    await sleep(1000);
+                }
+
+                // 5. Scrape the final response
+                const modelSelectors = ['model-response', '[data-message-author-role="assistant"]', '.model-response-text'];
+                
+                for (const sel of modelSelectors) {
+                    const els = document.querySelectorAll(sel);
+                    if (els.length > 0) {
+                        const text = els[els.length - 1].innerText;
+                        console.log('[LLM] Scraped response, length:', text.length);
+                        return text;
+                    }
+                }
+                
+                // Deep Fallback
+                console.warn('[LLM] No model response elements found, using fallback');
+                const main = document.querySelector('main');
+                if (main) return main.innerText.slice(-15000);
+                return document.body.innerText.slice(-15000); 
             })();
-         `;
+        `;
         return await tab.view.webContents.executeJavaScript(script);
     }
 }
