@@ -17,16 +17,7 @@ import {
     Bookmark,
     Loader2
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-interface TabInfo {
-    id: string;
-    url: string;
-    title: string;
-    favicon?: string;
-    isActive: boolean;
-    isLoading: boolean;
-}
+import { TabInfo } from '@/types';
 
 interface AddressBarProps {
     activeTab: TabInfo | null;
@@ -157,11 +148,12 @@ export function AddressBar({
                 >
                     {/* Security Icon */}
                     {security && (
-                        <SecurityIcon
-                            size={14}
-                            style={{ color: security.color, flexShrink: 0 }}
-                            title={security.label}
-                        />
+                        <div title={security.label} className="flex flex-shrink-0">
+                            <SecurityIcon
+                                size={14}
+                                style={{ color: security.color }}
+                            />
+                        </div>
                     )}
 
                     <input

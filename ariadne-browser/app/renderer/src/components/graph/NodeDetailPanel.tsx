@@ -9,7 +9,6 @@ import { motion } from 'framer-motion';
 import { X, ExternalLink, RotateCcw, Trash2, Clock, Link2, Hash } from 'lucide-react';
 import { useGraphStore } from '@/store/graphStore';
 import type { GraphNode } from '@/types';
-import { cn } from '@/lib/utils';
 
 interface NodeDetailPanelProps {
   node: GraphNode;

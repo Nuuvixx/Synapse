@@ -22,7 +22,12 @@ export class LLMController {
         }
 
         // 1. Find Tab
-        let tab = this.tabManager.findTabByUrl(targetUrl);
+        const existingTabInfo = this.tabManager.findTabByUrl(targetUrl);
+        let tab: Tab | undefined;
+
+        if (existingTabInfo) {
+            tab = this.tabManager.getTab(existingTabInfo.id);
+        }
 
         // 2. If not found, create (User might need to login)
         if (!tab) {

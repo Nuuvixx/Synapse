@@ -11,7 +11,7 @@ interface SynapseState {
 const RECONNECT_INTERVAL = 5000;
 const PING_INTERVAL = 30000;
 
-export const useSynapseClient = create<SynapseState>((set, get) => {
+export const useSynapseClient = create<SynapseState>((set) => {
     let ws: WebSocket | null = null;
     let reconnectTimer: NodeJS.Timeout | null = null;
     let pingTimer: NodeJS.Timeout | null = null;

@@ -9,7 +9,6 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward, X } from 'lucide-react';
 import { useGraphStore } from '@/store/graphStore';
-import { cn } from '@/lib/utils';
 
 interface TimelineSliderProps {
   onClose: () => void;
