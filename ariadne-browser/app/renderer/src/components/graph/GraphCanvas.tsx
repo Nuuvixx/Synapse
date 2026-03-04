@@ -37,47 +37,50 @@ const edgeTypes = {
   default: CustomEdge,
 };
 
-// Custom node types
-const nodeTypes: NodeTypes = {
-  pageNode: ({ data, selected }) => {
-    const selectNode = useGraphStore(state => state.selectNode);
-    const focusNode = useGraphStore(state => state.focusNode);
-    const reopenNode = useGraphStore(state => state.reopenNode);
+// Extracted as top-level component so hooks can be used (rules-of-hooks)
+function PageNode({ data, selected }: { data: Record<string, unknown>; selected?: boolean }) {
+  const selectNode = useGraphStore(state => state.selectNode);
+  const focusNode = useGraphStore(state => state.focusNode);
+  const reopenNode = useGraphStore(state => state.reopenNode);
 
-    const nodeData = data as unknown as GraphNode;
+  const nodeData = data as unknown as GraphNode;
 
-    const handleClick = () => {
-      selectNode(nodeData.id);
-    };
+  const handleClick = () => {
+    selectNode(nodeData.id);
+  };
 
-    const handleDoubleClick = async () => {
-      if (nodeData.status === 'closed') {
-        reopenNode(nodeData.id);
-      } else {
-        focusNode(nodeData.id);
-        // Switch to associated browser tab if available
-        if (window.api?.tab) {
-          const { getTabNodeAssociations } = await import('@/hooks/useTabNodeSync');
-          const associations = getTabNodeAssociations();
-          for (const [tabId, nodeId] of associations.entries()) {
-            if (nodeId === nodeData.id) {
-              await window.api.tab.switchTab(tabId);
-              break;
-            }
+  const handleDoubleClick = async () => {
+    if (nodeData.status === 'closed') {
+      reopenNode(nodeData.id);
+    } else {
+      focusNode(nodeData.id);
+      // Switch to associated browser tab if available
+      if (window.api?.tab) {
+        const { getTabNodeAssociations } = await import('@/hooks/useTabNodeSync');
+        const associations = getTabNodeAssociations();
+        for (const [tabId, nodeId] of associations.entries()) {
+          if (nodeId === nodeData.id) {
+            await window.api.tab.switchTab(tabId);
+            break;
           }
         }
       }
-    };
+    }
+  };
 
-    return (
-      <NodeCard
-        node={nodeData}
-        selected={selected || false}
-        onClick={handleClick}
-        onDoubleClick={handleDoubleClick}
-      />
-    );
-  }
+  return (
+    <NodeCard
+      node={nodeData}
+      selected={selected || false}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
+    />
+  );
+}
+
+// Custom node types
+const nodeTypes: NodeTypes = {
+  pageNode: PageNode,
 };
 
 

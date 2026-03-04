@@ -147,7 +147,7 @@ export function WelcomePage({ onNavigate }: WelcomePageProps) {
     );
 }
 
-function StatItem({ icon: Icon, value, label, color }: { icon: any, value: string, label: string, color: string }) {
+function StatItem({ icon: Icon, value, label, color }: { icon: React.ElementType, value: string, label: string, color: string }) {
     return (
         <div className="flex flex-col items-center group cursor-default">
             <span className={`text-2xl font-bold ${color} mb-0.5 group-hover:scale-110 transition-transform`}>{value}</span>

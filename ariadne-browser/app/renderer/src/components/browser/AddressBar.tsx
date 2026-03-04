@@ -54,6 +54,7 @@ export function AddressBar({
 
     useEffect(() => {
         if (!isFocused && activeTab?.url) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setInputValue(activeTab.url);
         }
     }, [activeTab?.url, isFocused]);

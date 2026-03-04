@@ -71,7 +71,7 @@ export class FABManager {
         // Hide on scroll/resize
         window.addEventListener('scroll', () => this.hide(), { passive: true });
         window.addEventListener('resize', () => this.hide(), { passive: true });
-        document.addEventListener('mousedown', (_e) => {
+        document.addEventListener('mousedown', () => {
             // If clicking outside button, hide
             // Since button is in shadow dom, e.target is likely in light dom
             this.hide();

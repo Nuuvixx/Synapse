@@ -282,6 +282,6 @@ export function useForceSimulation(options: UseForceSimulationOptions) {
     stop,
     restart,
     getPositions,
-    simulation: simulationRef.current
+    getSimulation: () => simulationRef.current
   };
 }

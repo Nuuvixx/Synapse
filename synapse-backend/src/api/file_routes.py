@@ -10,7 +10,7 @@ from pathlib import Path
 from datetime import datetime
 
 from ..database.connection import get_db
-from ..database.models import File as FileModel, User, Workspace
+from ..database.models import File as FileModel, User, Workspace, WorkspaceMember
 from ..auth.jwt_handler import get_current_user
 from ..storage import LocalStorage, S3Storage, StorageBackend
 from ..processing import (
@@ -291,7 +291,23 @@ async def get_file(
     if not file_:
         raise HTTPException(status_code=404, detail="File not found")
     
-    # TODO: Check workspace access
+    # Check workspace access
+    stmt_workspace = select(Workspace).where(
+        Workspace.id == file_.workspace_id,
+        Workspace.owner_id == current_user["user_id"]
+    )
+    result_workspace = await db.execute(stmt_workspace)
+    workspace = result_workspace.scalar_one_or_none()
+    
+    if not workspace:
+        stmt_member = select(WorkspaceMember).where(
+            WorkspaceMember.workspace_id == file_.workspace_id,
+            WorkspaceMember.user_id == current_user["user_id"]
+        )
+        result_member = await db.execute(stmt_member)
+        is_member = result_member.scalar_one_or_none()
+        if not is_member:
+            raise HTTPException(status_code=403, detail="Not authorized to access this file")
     
     return file_.to_dict()
 

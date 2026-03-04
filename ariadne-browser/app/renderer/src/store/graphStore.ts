@@ -25,6 +25,12 @@ import {
   isExtensionMode
 } from './demoData';
 
+interface GraphData {
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+  sessionId: string;
+}
+
 interface GraphState {
   // Data
   nodes: GraphNode[];
@@ -102,7 +108,7 @@ interface GraphState {
 }
 
 // Send message to extension background script
-const sendMessage = async (message: unknown): Promise<any> => {
+const sendMessage = async (message: unknown): Promise<unknown> => {
   if (!isExtensionMode()) {
     console.warn('[GraphStore] Chrome extension API not available');
     return null;
@@ -157,7 +163,7 @@ export const useGraphStore = create<GraphState>()(
 
         set({ isLoading: true, error: null });
         try {
-          const data = await sendMessage({ action: 'getGraphData' });
+          const data = (await sendMessage({ action: 'getGraphData' })) as GraphData;
           if (data) {
             set({
               nodes: data.nodes || [],
@@ -168,7 +174,7 @@ export const useGraphStore = create<GraphState>()(
           } else {
             set({ isLoading: false });
           }
-        } catch (error) {
+        } catch {
           set({ error: 'Failed to load graph data', isLoading: false });
         }
       },
@@ -181,7 +187,7 @@ export const useGraphStore = create<GraphState>()(
         }
 
         try {
-          const sessions = await sendMessage({ action: 'getSessions' });
+          const sessions = (await sendMessage({ action: 'getSessions' })) as Session[];
           if (sessions) {
             set({ sessions });
           }
@@ -198,7 +204,7 @@ export const useGraphStore = create<GraphState>()(
         }
 
         try {
-          const trees = await sendMessage({ action: 'getSavedTrees' });
+          const trees = (await sendMessage({ action: 'getSavedTrees' })) as SavedTree[];
           if (trees) {
             set({ savedTrees: trees });
           }
@@ -220,7 +226,7 @@ export const useGraphStore = create<GraphState>()(
           await sendMessage({ action: 'switchSession', sessionId });
           await get().loadGraphData();
           await get().loadSessions();
-        } catch (error) {
+        } catch {
           set({ error: 'Failed to switch session', isLoading: false });
         }
       },
@@ -409,7 +415,7 @@ export const useGraphStore = create<GraphState>()(
         }
 
         try {
-          const tree = await sendMessage({ action: 'loadTree', treeId });
+          const tree = (await sendMessage({ action: 'loadTree', treeId })) as SavedTree;
           if (tree) {
             set({
               nodes: tree.nodes,
@@ -446,7 +452,7 @@ export const useGraphStore = create<GraphState>()(
         }
 
         try {
-          const timeline = await sendMessage({ action: 'getTimeline' });
+          const timeline = (await sendMessage({ action: 'getTimeline' })) as TimelineData;
           if (timeline) {
             set({ timeline });
           }

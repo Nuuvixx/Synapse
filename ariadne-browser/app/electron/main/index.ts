@@ -2,7 +2,7 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-// @ts-ignore
+// @ts-expect-error (icon asset import)
 import icon from '../../resources/icon.png?asset'
 import { TabManager } from './TabManager'
 
@@ -35,7 +35,26 @@ function createWindow(): void {
             mainWindow.maximize()
         }
     })
-    ipcMain.on('window-close', () => mainWindow.close())
+
+    // IPC handler for new window from renderer
+    ipcMain.handle('open-win', (_, arg: string) => {
+        const messageHandlerPath = join(__dirname, '../preload/index.mjs');
+        const indexHtml = join(__dirname, '../renderer/index.html');
+
+        const childWindow = new BrowserWindow({
+            webPreferences: {
+                preload: messageHandlerPath,
+                nodeIntegration: true,
+                contextIsolation: false,
+            },
+        })
+
+        if (process.env.VITE_DEV_SERVER_URL) {
+            childWindow.loadURL(`${process.env.VITE_DEV_SERVER_URL}#${arg}`)
+        } else {
+            childWindow.loadFile(indexHtml, { hash: arg })
+        }
+    })
 
     mainWindow.on('ready-to-show', () => {
         mainWindow.show()
@@ -54,6 +73,28 @@ function createWindow(): void {
         mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
     }
 }
+
+// Add this before app.whenReady()
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+    app.quit()
+} else {
+    app.on('second-instance', () => {
+        // Someone tried to run a second instance, we should focus our window.
+        const allWindows = BrowserWindow.getAllWindows();
+        if (allWindows.length > 0) {
+            const mainWindow = allWindows[0];
+            if (mainWindow.isMinimized()) mainWindow.restore()
+            mainWindow.focus()
+        }
+    })
+}
+
+// Global exception handler
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error)
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

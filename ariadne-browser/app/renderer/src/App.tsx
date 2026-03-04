@@ -13,11 +13,7 @@ import { cn } from '@/lib/utils';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
-  const [isExtension, setIsExtension] = useState(false);
-
-  useEffect(() => {
-    setIsExtension(isExtensionMode());
-  }, []);
+  const [isExtension] = useState(() => isExtensionMode());
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

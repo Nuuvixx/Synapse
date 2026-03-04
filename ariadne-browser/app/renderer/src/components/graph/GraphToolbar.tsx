@@ -155,7 +155,7 @@ export function GraphToolbar({
                       const data = JSON.parse(text);
                       const importSession = useGraphStore.getState().importSession;
                       await importSession(data);
-                    } catch (err) {
+                    } catch {
                       alert('Invalid import file');
                     }
                   }

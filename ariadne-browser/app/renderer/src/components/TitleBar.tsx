@@ -1,13 +1,9 @@
 
 import { Minus, Square, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function TitleBar() {
-    const [isMac, setIsMac] = useState(false);
-
-    useEffect(() => {
-        setIsMac(window.navigator.userAgent.includes("Mac"));
-    }, []);
+    const [isMac] = useState(() => window.navigator.userAgent.includes("Mac"));
 
     const handleMinimize = () => window.electron.ipcRenderer.send("window-minimize");
     const handleMaximize = () => window.electron.ipcRenderer.send("window-maximize");

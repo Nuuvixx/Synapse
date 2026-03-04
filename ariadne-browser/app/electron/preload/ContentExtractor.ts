@@ -1,6 +1,5 @@
 import { Readability } from '@mozilla/readability';
 import TurndownService from 'turndown';
-// @ts-ignore
 import { gfm } from 'turndown-plugin-gfm';
 
 interface ExtractedContent {

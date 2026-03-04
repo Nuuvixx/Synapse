@@ -31,7 +31,7 @@ type TabType = 'sessions' | 'trees' | 'settings';
 
 import { v4 as uuidv4 } from 'uuid';
 
-export function Sidebar({ isOpen, onClose: _onClose }: SidebarProps) {
+export function Sidebar({ isOpen }: SidebarProps) {
   const sidebarOpen = useGraphStore(state => state.sidebarOpen);
   const [activeTab, setActiveTab] = useState<TabType>('sessions');
   const [searchQuery, setSearchQuery] = useState('');

@@ -97,15 +97,25 @@ export class TabManager {
         });
     }
 
+    private synapseReconnectDelay = 1000;
+    private synapseReconnectTimer: ReturnType<typeof setTimeout> | null = null;
+
     /**
      * Connect to NeuralNotes Synapse server
      */
     private connectToSynapse(): void {
+        // Clear any pending reconnect timer
+        if (this.synapseReconnectTimer) {
+            clearTimeout(this.synapseReconnectTimer);
+            this.synapseReconnectTimer = null;
+        }
+
         try {
             this.synapseConnection = new WebSocket('ws://localhost:9847');
 
             this.synapseConnection.on('open', () => {
                 console.log('[TabManager] Connected to Synapse');
+                this.synapseReconnectDelay = 1000; // Reset backoff on success
             });
 
             this.synapseConnection.on('message', (message: string) => {
@@ -121,20 +131,22 @@ export class TabManager {
             });
 
             this.synapseConnection.on('close', () => {
-                console.log('[TabManager] Synapse connection closed');
-                // Auto-reconnect after 5 seconds
-                setTimeout(() => this.connectToSynapse(), 5000);
+                // Exponential backoff: 1s, 2s, 4s, 8s, 16s, 30s max
+                this.synapseReconnectTimer = setTimeout(() => this.connectToSynapse(), this.synapseReconnectDelay);
+                this.synapseReconnectDelay = Math.min(this.synapseReconnectDelay * 2, 30000);
             });
 
-            this.synapseConnection.on('error', (err) => {
-                console.warn('[TabManager] Synapse connection error:', err.message);
+            this.synapseConnection.on('error', () => {
+                // Suppress — the 'close' event fires after this and handles reconnection
             });
         } catch (error) {
             console.error('[TabManager] Failed to connect to Synapse:', error);
+            this.synapseReconnectTimer = setTimeout(() => this.connectToSynapse(), this.synapseReconnectDelay);
+            this.synapseReconnectDelay = Math.min(this.synapseReconnectDelay * 2, 30000);
         }
     }
 
-    public sendLLMResponse(payload: any): void {
+    public sendLLMResponse(payload: { model: string; content: string }): void {
         if (this.synapseConnection?.readyState === WebSocket.OPEN) {
             this.synapseConnection.send(JSON.stringify({
                 type: 'LLM_RESPONSE',
@@ -195,7 +207,7 @@ export class TabManager {
         });
 
         // Handle capture from FAB
-        ipcMain.handle('capture-selection-from-fab', async (_event, data: any) => {
+        ipcMain.handle('capture-selection-from-fab', async (_event, data: { title: string; content: string; url: string; type: 'text' | 'link' | 'image' }) => {
             // data is { title, content, url, type }
             const smartTitle = this.generateTitleFromText(data.content, data.title);
 
@@ -208,7 +220,7 @@ export class TabManager {
             return { success: true };
         });
 
-        ipcMain.handle('tab:navigate', async (_event, tabId: string, url: string) => {
+        ipcMain.handle('tab:navigate', async (_, tabId: string, url: string) => {
             return this.navigateTab(tabId, url);
         });
 
@@ -221,7 +233,7 @@ export class TabManager {
         });
 
         // Navigation controls
-        ipcMain.handle('tab:goBack', async (_event, tabId: string) => {
+        ipcMain.handle('tab:goBack', async (_, tabId: string) => {
             const tab = this.tabs.get(tabId);
             if (tab?.view.webContents.canGoBack()) {
                 tab.view.webContents.goBack();
@@ -230,7 +242,7 @@ export class TabManager {
             return false;
         });
 
-        ipcMain.handle('tab:goForward', async (_event, tabId: string) => {
+        ipcMain.handle('tab:goForward', async (_, tabId: string) => {
             const tab = this.tabs.get(tabId);
             if (tab?.view.webContents.canGoForward()) {
                 tab.view.webContents.goForward();
@@ -239,7 +251,7 @@ export class TabManager {
             return false;
         });
 
-        ipcMain.handle('tab:reload', async (_event, tabId: string) => {
+        ipcMain.handle('tab:reload', async (_, tabId: string) => {
             const tab = this.tabs.get(tabId);
             if (tab) {
                 tab.view.webContents.reload();

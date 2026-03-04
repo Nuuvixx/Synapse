@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update, delete
 
 from ..database.connection import get_db
-from ..database.models import Cluster, Item, Workspace
+from ..database.models import Cluster, Item, Workspace, WorkspaceMember
 from ..services.clustering_service import ClusteringService, generate_cluster_name_with_llm
 from ..auth.jwt_handler import get_current_user
 
@@ -85,8 +85,15 @@ async def get_workspace_or_403(
     
     # Check if user is owner or member
     if workspace.owner_id != user_id:
-        # TODO: Check membership table
-        pass
+        member_result = await db.execute(
+            select(WorkspaceMember).where(
+                WorkspaceMember.workspace_id == workspace_id,
+                WorkspaceMember.user_id == user_id
+            )
+        )
+        is_member = member_result.scalar_one_or_none()
+        if not is_member:
+            raise HTTPException(status_code=403, detail="Not authorized to access this workspace")
     
     return workspace
 
